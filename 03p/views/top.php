@@ -15,7 +15,7 @@
         <a href="<?= URL. 'sarasas' ?>">Išvalyti</a>
     </fieldset>
     </form>
-    
+
     <form action="<?= URL. 'sarasas' ?>" method="get">
     <fieldset>
         <legend>Filtruoti pagal tipą</legend>
@@ -30,6 +30,4 @@
         </select>
         <button type="submit" name="filter_by_type">Rodyti</button>
     </fieldset>
-    
-
     </form>
