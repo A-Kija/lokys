@@ -5,6 +5,22 @@ use Rubu\Parduotuve\App;
 
 class RubuController {
 
+    public static function outfitsTypes()
+    {
+        // SELECT DISTINCT column1, column2, ...
+        // FROM table_name;
+        $sql = "SELECT DISTINCT rubas
+        FROM rubai
+        ORDER BY rubas
+        ";
+        $stmt = App::$pdo->query($sql);
+        $types = $stmt->fetchAll();
+        return $types;
+    }
+    
+    
+    
+    
     public function list()
     {   
         if (isset($_GET['sort_price_asc'])) {
@@ -13,6 +29,24 @@ class RubuController {
             FROM
             rubai
             ORDER BY kaina
+            ";
+        }
+        elseif (isset($_GET['sort_price_desc'])) {
+            $sql = "SELECT
+            id, rubas, dydis, spalva, kaina, nuolaida
+            FROM
+            rubai
+            ORDER BY kaina DESC
+            ";
+        }
+        elseif (isset($_GET['filter_by_type'])) {
+            $rubas = $_GET['rubas'];
+            
+            $sql = "SELECT
+            id, rubas, dydis, spalva, kaina, nuolaida
+            FROM
+            rubai
+            WHERE rubas = '$rubas'
             ";
         }
         else {
@@ -26,7 +60,13 @@ class RubuController {
 
         $stmt = App::$pdo->query($sql);
         $outfits = $stmt->fetchAll();
-        App::view('list', ['outfits' => $outfits]);
+
+        $types = self::outfitsTypes();
+
+        App::view('list', [
+            'outfits' => $outfits,
+            'types' => $types
+        ]);
     }
 
 }
