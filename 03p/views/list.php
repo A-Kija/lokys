@@ -1,7 +1,8 @@
 <ul>
-<?php foreach($trees as $tree) : ?>
+<?php foreach($outfits as $outfit) : ?>
     <li>
-    ID: <?= $tree['id'] ?> <b><?= $tree['title'] ?></b> <?= $tree['height'] ?> <?= $tree['type'] ?>
+    ID: <?= $outfit['id'] ?> <b><?= $outfit['rubas'] ?></b> <?= $outfit['dydis'] ?> <?= $outfit['spalva'] ?> <?= $outfit['kaina'] ?> EUR
     </li>
 <?php endforeach ?>
 </ul>
+
