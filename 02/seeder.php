@@ -61,7 +61,8 @@ $trees = [
 
 foreach (range(1, 400) as $val) {
 
-    $t = $trees[rand(0, count($trees) -1 )];
+    $index = rand(0, count($trees) -1 );
+    $t = $trees[$index];
     $type = $t[1];
     $tree = $t[0];
     $height = rand(1, 9999) / 100;

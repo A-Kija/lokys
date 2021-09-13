@@ -23,24 +23,24 @@ $pdo = new PDO($dsn, $user, $pass, $options);
 // INSERT INTO table_name (column1, column2, column3, ...)
 // VALUES (value1, value2, value3, ...);
 
-$sql = "INSERT INTO
-trees
-(title, height, `type`)
-VALUES ('Agrastas', 0.7, 2)
-";
+// $sql = "INSERT INTO
+// trees
+// (title, height, `type`)
+// VALUES ('Agrastas', 0.7, 2)
+// ";
 
-$pdo->query($sql);
+// $pdo->query($sql);
 
 
 // D
 // DELETE FROM table_name WHERE condition;
 
-$sql = "DELETE FROM
-trees
-WHERE id > 16 AND id < 32
-";
+// $sql = "DELETE FROM
+// trees
+// WHERE id > 16 AND id < 32
+// ";
 
-$pdo->query($sql);
+// $pdo->query($sql);
 
 
 // U
@@ -48,13 +48,13 @@ $pdo->query($sql);
 // SET column1 = value1, column2 = value2, ...
 // WHERE condition;
 
-$sql = "UPDATE
-trees
-SET title = 'Slyva'
-WHERE id > 40
-";
+// $sql = "UPDATE
+// trees
+// SET title = 'Slyva'
+// WHERE id > 40
+// ";
 
-$pdo->query($sql);
+// $pdo->query($sql);
 
 // R
 // SELECT column_name(s) FROM table_name
@@ -62,7 +62,8 @@ $pdo->query($sql);
 $sql = "SELECT
 id, title, height, `type`
 FROM
-trees;
+trees44
+WHERE `type` = 1
 ";
 
 $stmt = $pdo->query($sql);
