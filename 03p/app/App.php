@@ -19,7 +19,10 @@ class App {
     {
         $userUri = $_SERVER['REQUEST_URI'];
         $userUri = str_replace(self::INSTALL_DIR, '', $userUri);
+        $userUri = preg_replace('/\?.*$/', '', $userUri);
         $userUri = explode('/', $userUri);
+
+        
 
 
         if (
