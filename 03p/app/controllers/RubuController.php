@@ -5,6 +5,8 @@ use Rubu\Parduotuve\App;
 
 class RubuController {
 
+    const IN_PAGE = 10;
+
     public static function outfitsTypes()
     {
         // SELECT DISTINCT column1, column2, ...
@@ -16,6 +18,16 @@ class RubuController {
         $stmt = App::$pdo->query($sql);
         $types = $stmt->fetchAll();
         return $types;
+    }
+
+    public static function countAllProducts()
+    {
+        // SELECT COUNT(ProductID) AS NumberOfProducts FROM Products;
+        $sql = "SELECT COUNT(id) AS number_of_products
+        FROM rubai
+        ";
+        $stmt = App::$pdo->query($sql);
+        return $stmt->fetch()['number_of_products'];
     }
     
     
@@ -49,6 +61,17 @@ class RubuController {
             WHERE rubas = '$rubas'
             ";
         }
+        // Pageris parašyti LIMIT
+        elseif (isset($_GET['page'])) {
+            $page = $_GET['page'];
+            
+            $sql = "SELECT
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
+            FROM
+            rubai
+
+            ";
+        }
         else {
             $sql = "SELECT
             id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
@@ -62,10 +85,13 @@ class RubuController {
         $outfits = $stmt->fetchAll();
 
         $types = self::outfitsTypes();
+        $productsCount = self::countAllProducts();
 
         App::view('list', [
             'outfits' => $outfits,
-            'types' => $types
+            'types' => $types,
+            'count' => $productsCount,
+            'in_one_page' => self::IN_PAGE
         ]);
     }
 
