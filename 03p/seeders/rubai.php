@@ -33,7 +33,7 @@ rubai (
     spalva	 varchar(20),
     kaina    decimal(6,2),
     nuolaida decimal(6,2),
-    kiekis   tinyint
+    kiekis   tinyint NULL
 );
 ";
 $pdo->query($sql);
@@ -64,7 +64,7 @@ foreach (range(1, 100) as $val) {
     $sql = "INSERT INTO
     rubai
     ( id, rubas, dydis, spalva, kaina, nuolaida, kiekis )
-    VALUES ($val, '$rubas', '$dydis', '$spalva', $kaina, $nuolaida, $kiekis)
+    VALUES ($val, '$rubas', '$dydis', '$spalva', $kaina, $nuolaida, ".(($kiekis) ? $kiekis : 'NULL')." )
     ";
     $pdo->query($sql);
 }

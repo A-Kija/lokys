@@ -40,6 +40,7 @@ class RubuController {
             id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
+            WHERE kiekis > 0
             ORDER BY pardavimo_kaina
             ";
         }
@@ -48,6 +49,7 @@ class RubuController {
             id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
+            WHERE kiekis > 0
             ORDER BY kaina DESC
             ";
         }
@@ -58,7 +60,7 @@ class RubuController {
             id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
-            WHERE rubas = '$rubas'
+            WHERE rubas = '$rubas' AND kiekis > 0
             ";
         }
         // Pageris parašyti LIMIT
@@ -71,6 +73,7 @@ class RubuController {
             id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
+            WHERE kiekis > 0
             LIMIT $offset , $inPage
             ";
         }
@@ -79,6 +82,7 @@ class RubuController {
             id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
+            WHERE kiekis > 0
             ";
         }
         
