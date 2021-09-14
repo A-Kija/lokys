@@ -23,7 +23,7 @@ class RubuController {
     public static function countAllProducts()
     {
         // SELECT COUNT(ProductID) AS NumberOfProducts FROM Products;
-        $sql = "SELECT COUNT(id) AS number_of_products
+        $sql = "SELECT COUNT(kiekis) AS number_of_products
         FROM rubai
         ";
         $stmt = App::$pdo->query($sql);
@@ -82,7 +82,7 @@ class RubuController {
             id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
-            WHERE kiekis > 0
+            WHERE kiekis IS NOT NULL
             ";
         }
         
