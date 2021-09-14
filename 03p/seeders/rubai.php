@@ -23,7 +23,7 @@ $pdo->query($sql);
 
 
 // Rūbų parduotuvės lentelę su stulpeliais: 
-// id, rūbas, dydis, spalva, kaina ir nuolaida (gali būti NULL)
+// id, rūbas, dydis, spalva, kaina, nuolaida ir kiekis (0 iki 5)
 
 $sql = "CREATE TABLE 
 rubai (
@@ -32,7 +32,8 @@ rubai (
     dydis	 varchar(6),
     spalva	 varchar(20),
     kaina    decimal(6,2),
-    nuolaida  decimal(6,2) NULL
+    nuolaida decimal(6,2),
+    kiekis   tinyint
 );
 ";
 $pdo->query($sql);
@@ -58,11 +59,12 @@ foreach (range(1, 100) as $val) {
     $skaicius = rand(1, 9999);
     $kaina = $skaicius / 100;
     $nuolaida = rand(0, 8) ? rand(1, $skaicius) / 100 : 0;
+    $kiekis = rand(0, 5);
 
     $sql = "INSERT INTO
     rubai
-    ( id, rubas, dydis, spalva, kaina, nuolaida )
-    VALUES ($val, '$rubas', '$dydis', '$spalva', $kaina, $nuolaida)
+    ( id, rubas, dydis, spalva, kaina, nuolaida, kiekis )
+    VALUES ($val, '$rubas', '$dydis', '$spalva', $kaina, $nuolaida, $kiekis)
     ";
     $pdo->query($sql);
 }

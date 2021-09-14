@@ -9,6 +9,7 @@
                     <h5 class="card-title"><?= $outfit['spalva'] ?> <?= $outfit['rubas'] ?></h5>
                     <p class="card-text">Dydis: <?= $outfit['dydis'] ?></p>
                     <p class="card-text">Kaina: <?= $outfit['pardavimo_kaina'] ?> <del><?= $outfit['kaina'] ?></del></p>
+                    <p class="card-text">Viso yra: <?= $outfit['kiekis'] ?></p>
                     <a href="#" class="btn btn-primary">Pirkti</a>
                 </div>
             </div>

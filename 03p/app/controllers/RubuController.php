@@ -37,7 +37,7 @@ class RubuController {
     {   
         if (isset($_GET['sort_price_asc'])) {
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
             ORDER BY pardavimo_kaina
@@ -45,7 +45,7 @@ class RubuController {
         }
         elseif (isset($_GET['sort_price_desc'])) {
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
             ORDER BY kaina DESC
@@ -55,7 +55,7 @@ class RubuController {
             $rubas = $_GET['rubas'];
             
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
             WHERE rubas = '$rubas'
@@ -64,17 +64,19 @@ class RubuController {
         // Pageris parašyti LIMIT
         elseif (isset($_GET['page'])) {
             $page = $_GET['page'];
+            $inPage = self::IN_PAGE;
+            $offset = ($page - 1) * $inPage;
             
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
-
+            LIMIT $offset , $inPage
             ";
         }
         else {
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
             FROM
             rubai
             ";
