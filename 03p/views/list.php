@@ -1,7 +1,5 @@
 <?php require __DIR__ . '/top.php' ?>
 
-
-
 <div class="container">
     <div class="row">
         <?php foreach($outfits as $outfit) : ?>
@@ -11,7 +9,7 @@
                     <h5 class="card-title"><?= $outfit['spalva'] ?> <?= $outfit['rubas'] ?></h5>
                     <p class="card-text">Dydis: <?= $outfit['dydis'] ?></p>
                     <p class="card-text">Kaina: <?= $outfit['pardavimo_kaina'] ?> <del><?= $outfit['kaina'] ?></del></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a href="#" class="btn btn-primary">Pirkti</a>
                 </div>
             </div>
         </div>
