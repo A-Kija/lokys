@@ -25,15 +25,15 @@ class RubuController {
     {   
         if (isset($_GET['sort_price_asc'])) {
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
             FROM
             rubai
-            ORDER BY kaina
+            ORDER BY pardavimo_kaina
             ";
         }
         elseif (isset($_GET['sort_price_desc'])) {
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
             FROM
             rubai
             ORDER BY kaina DESC
@@ -43,7 +43,7 @@ class RubuController {
             $rubas = $_GET['rubas'];
             
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
             FROM
             rubai
             WHERE rubas = '$rubas'
@@ -51,7 +51,7 @@ class RubuController {
         }
         else {
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina
             FROM
             rubai
             ";
