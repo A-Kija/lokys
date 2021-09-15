@@ -23,7 +23,7 @@ class App {
         $userUri = explode('/', $userUri);
 
         
-
+_d($_GET);
 
         if (
             $_SERVER['REQUEST_METHOD'] == 'GET' &&

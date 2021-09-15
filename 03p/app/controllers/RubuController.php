@@ -20,6 +20,17 @@ class RubuController {
         return $types;
     }
 
+    public static function sizesTypes()
+    {
+        $sql = "SELECT DISTINCT dydis
+        FROM rubai
+        ORDER BY dydis
+        ";
+        $stmt = App::$pdo->query($sql);
+        $sizes = $stmt->fetchAll();
+        return $sizes;
+    }
+
     public static function countAllProducts()
     {
         // SELECT COUNT(ProductID) AS NumberOfProducts FROM Products;
@@ -32,11 +43,16 @@ class RubuController {
     
     public function selectTest()
     {
+        $z1 = 'gelt';
+        $z2 = 'šort';
+        
         $sql = "SELECT
         id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
         FROM
         rubai
-        WHERE kiekis IS NOT NULL
+        WHERE   (spalva LIKE '%$z2%' AND rubas LIKE '%$z1%')
+                OR 
+                (spalva LIKE '%$z1%' AND rubas LIKE '%$z2%')
         ";
 
         $stmt = App::$pdo->query($sql);
@@ -112,12 +128,14 @@ class RubuController {
 
         $types = self::outfitsTypes();
         $productsCount = self::countAllProducts();
+        $sizes = self::sizesTypes();
 
         App::view('list', [
             'outfits' => $outfits,
             'types' => $types,
             'count' => $productsCount,
-            'in_one_page' => self::IN_PAGE
+            'in_one_page' => self::IN_PAGE,
+            'sizes' => $sizes
         ]);
     }
 
