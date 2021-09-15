@@ -30,7 +30,27 @@ class RubuController {
         return $stmt->fetch()['number_of_products'];
     }
     
-    
+    public function selectTest()
+    {
+        $sql = "SELECT
+        id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+        FROM
+        rubai
+        WHERE kiekis IS NOT NULL
+        ";
+
+        $stmt = App::$pdo->query($sql);
+        $outfits = $stmt->fetchAll();
+        $types = self::outfitsTypes();
+        $productsCount = self::countAllProducts();
+
+        App::view('test', [
+            'outfits' => $outfits,
+            'types' => $types,
+            'count' => $productsCount,
+            'in_one_page' => self::IN_PAGE
+        ]);
+    }
     
     
     public function list()

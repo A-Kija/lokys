@@ -32,7 +32,14 @@ class App {
             ) {
                 return (new RubuController)->list();
             }
-
+        elseif (
+            $_SERVER['REQUEST_METHOD'] == 'GET' &&
+            'test' == $userUri[0] &&
+            count($userUri) == 1
+            ) {
+                return (new RubuController)->selectTest();
+            }
+            
 
         echo '<h1>404 Page Not Found</h1>';
         
