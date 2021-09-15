@@ -54,7 +54,7 @@
                                 <?php foreach ($sizes as $size) : ?>
                                 <div class="col-1">
                                     <input type="checkbox" name="size[]" value="<?= $size['dydis'] ?>"
-                                     <?php if (isset($_GET['size']) && in_array($size['dydis'], $_GET['size'])) echo 'checked' ?>>
+                                        <?php if (isset($_GET['size']) && in_array($size['dydis'], $_GET['size'])) echo 'checked' ?>>
                                     <label>
                                         <?= $size['dydis'] ?>
                                     </label>
@@ -67,6 +67,17 @@
                 </form>
             </div>
 
+            <div class="col-6">
+                <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
+                    <fieldset>
+                        <legend>Paieška</legend>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="s" value="<?= $_GET['s'] ?? '' ?>">
+                        </div>
+                        <button class="btn btn-secondary" type="submit" name="search">Ieškoti</button>
+                    </fieldset>
+                </form>
+            </div>
 
         </div>
     </div>

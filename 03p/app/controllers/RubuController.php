@@ -113,6 +113,47 @@ class RubuController {
             LIMIT $offset , $inPage
             ";
         }
+        elseif (isset($_GET['filter_by_size'])) {
+
+            $sizes = implode(',', array_map(fn($v) => "'$v'", $_GET['size']));
+            
+            $sql = "SELECT
+            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+            FROM
+            rubai
+            WHERE dydis IN ( $sizes )
+            ";
+        }
+        elseif (isset($_GET['search'])) {
+
+            $s = $_GET['s'];
+            $s = explode(' ', $s);
+
+            if (count($s) == 1) {
+                $z = $s[0];
+                $sql = "SELECT
+                id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+                FROM
+                rubai
+                WHERE   spalva LIKE '%$z%' OR rubas LIKE '%$z%'
+                ";
+            }
+            else {
+          
+                $z1 = $s[0];
+                $z2 = $s[1];
+                
+                $sql = "SELECT
+                id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+                FROM
+                rubai
+                WHERE   (spalva LIKE '%$z2%' AND rubas LIKE '%$z1%')
+                        OR 
+                        (spalva LIKE '%$z1%' AND rubas LIKE '%$z2%')
+                ";
+            }
+
+        }
         else {
             $sql = "SELECT
             id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
