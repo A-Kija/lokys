@@ -17,23 +17,29 @@ $pdo = new PDO($dsn, $user, $pass, $options);
 
 
 $sql = "DROP TABLE IF EXISTS
-rubai;
+outfits, sizes;
 ";
 $pdo->query($sql);
 
 
-// Rūbų parduotuvės lentelę su stulpeliais: 
-// id, rūbas, dydis, spalva, kaina, nuolaida ir kiekis (0 iki 5)
 
 $sql = "CREATE TABLE 
-rubai (
+outfits (
     id       smallint,
-    rubas	 varchar(70),
-    dydis	 varchar(6),
-    spalva	 varchar(20),
-    kaina    decimal(6,2),
-    nuolaida decimal(6,2),
-    kiekis   tinyint NULL
+    `type`	 varchar(70),
+    color	 varchar(20),
+    price    decimal(6,2),
+    discount decimal(6,2)
+);
+";
+$pdo->query($sql);
+
+$sql = "CREATE TABLE 
+sizes (
+    id          smallint PRIMARY KEY AUTO_INCREMENT,
+    size	    varchar(6),
+    amount      tinyint NULL,
+    outfit_id   smallint
 );
 ";
 $pdo->query($sql);
@@ -53,18 +59,29 @@ $colors = [
 ];
 
 foreach (range(1, 100) as $val) {
-    $rubas = $outfits[rand(0, count($outfits) -1 )];
-    $dydis = $sizes[rand(0, count($sizes) -1 )];
-    $spalva = $colors[rand(0, count($colors) -1 )];
-    $skaicius = rand(1, 9999);
-    $kaina = $skaicius / 100;
-    $nuolaida = rand(0, 8) ? rand(1, $skaicius) / 100 : 0;
-    $kiekis = rand(0, 5);
+    $type = $outfits[rand(0, count($outfits) -1 )];
+    $color = $colors[rand(0, count($colors) -1 )];
+    $priceTag = rand(1, 9999);
+    $price = $priceTag / 100;
+    $discount = rand(0, 8) ? rand(1, $priceTag) / 100 : 0;
 
     $sql = "INSERT INTO
-    rubai
-    ( id, rubas, dydis, spalva, kaina, nuolaida, kiekis )
-    VALUES ($val, '$rubas', '$dydis', '$spalva', $kaina, $nuolaida, ".(($kiekis) ? $kiekis : 'NULL')." )
+    outfits
+    (id, `type`, color, price, discount)
+    VALUES ( $val, '$type', '$color', $price, $discount )
     ";
     $pdo->query($sql);
+
+    foreach ($sizes as $size) {
+        if (rand(0, 1)) {
+            continue;
+        }
+        $amount = rand(0, 5);
+        $sql = "INSERT INTO
+        sizes
+        (size, amount, outfit_id)
+        VALUES ( '$size', ".($amount ? $amount : 'NULL').", $val)
+        ";
+        $pdo->query($sql);
+    }
 }
