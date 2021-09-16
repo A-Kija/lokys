@@ -68,6 +68,34 @@ class RubuController {
         ]);
     }
     
+    public function buy()
+    {
+        $id = $_POST['id'];
+
+        $sql = "SELECT
+        kiekis
+        FROM
+        rubai
+        WHERE id = $id;
+        ";
+
+        $stmt = App::$pdo->query($sql);
+        $kiekis = $stmt->fetch()['kiekis'];
+
+        $kiekis--;
+
+        $kiekis = $kiekis < 1 ? 'NULL' : $kiekis;
+
+        $sql = "UPDATE
+        rubai
+        SET kiekis = $kiekis
+        WHERE id = $id
+        ";
+
+        App::$pdo->query($sql);
+
+        App::redirect('sarasas');
+    }
     
     public function list()
     {   

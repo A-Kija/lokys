@@ -23,7 +23,7 @@ class App {
         $userUri = explode('/', $userUri);
 
         
-_d($_GET);
+
 
         if (
             $_SERVER['REQUEST_METHOD'] == 'GET' &&
@@ -39,12 +39,24 @@ _d($_GET);
             ) {
                 return (new RubuController)->selectTest();
             }
+        elseif (
+            $_SERVER['REQUEST_METHOD'] == 'POST' &&
+            'pirkti' == $userUri[0] &&
+            count($userUri) == 1
+            ) {
+                return (new RubuController)->buy();
+            }
             
 
         echo '<h1>404 Page Not Found</h1>';
         
     }
 
+    public static function redirect($where)
+    {
+        header('Location: '.URL. $where);
+        die;
+    }
 
     public static function db()
     {

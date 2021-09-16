@@ -10,7 +10,11 @@
                     <p class="card-text">Dydis: <?= $outfit['dydis'] ?></p>
                     <p class="card-text">Kaina: <?= $outfit['pardavimo_kaina'] ?> <del><?= $outfit['kaina'] ?></del></p>
                     <p class="card-text">Viso yra: <?= $outfit['kiekis'] ?></p>
-                    <a href="#" class="btn btn-primary">Pirkti</a>
+
+                    <form action="<?= URL. 'pirkti' ?>" method="post">
+                    <button class="btn btn-primary" name="id" value="<?= $outfit['id'] ?>">Pirkti</button>
+                    </form>
+                    
                 </div>
             </div>
         </div>
