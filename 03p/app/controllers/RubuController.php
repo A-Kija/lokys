@@ -40,6 +40,16 @@ class RubuController {
         $stmt = App::$pdo->query($sql);
         return $stmt->fetch()['number_of_products'];
     }
+
+    public static function countAll()
+    {
+        // SELECT SUM(Quantity) AS TotalItemsOrdered FROM OrderDetails;
+        $sql = "SELECT SUM(kiekis) AS all_products
+        FROM rubai
+        ";
+        $stmt = App::$pdo->query($sql);
+        return $stmt->fetch()['all_products'];
+    }
     
     public function selectTest()
     {
@@ -198,6 +208,7 @@ class RubuController {
 
         $types = self::outfitsTypes();
         $productsCount = self::countAllProducts();
+        $countAll = self::countAll();
         $sizes = self::sizesTypes();
 
         App::view('list', [
@@ -205,7 +216,8 @@ class RubuController {
             'types' => $types,
             'count' => $productsCount,
             'in_one_page' => self::IN_PAGE,
-            'sizes' => $sizes
+            'sizes' => $sizes,
+            'count_all' => $countAll
         ]);
     }
 
