@@ -25,7 +25,7 @@ $pdo->query($sql);
 
 $sql = "CREATE TABLE 
 outfits (
-    id       smallint,
+    id       smallint PRIMARY KEY,
     `type`	 varchar(70),
     color	 varchar(20),
     price    decimal(6,2),
@@ -39,7 +39,8 @@ sizes (
     id          smallint PRIMARY KEY AUTO_INCREMENT,
     size	    varchar(6),
     amount      tinyint NULL,
-    outfit_id   smallint
+    outfit_id   smallint,
+    FOREIGN KEY (outfit_id) REFERENCES outfits(id)
 );
 ";
 $pdo->query($sql);
