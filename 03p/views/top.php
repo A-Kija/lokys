@@ -84,6 +84,9 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                <span class="m-2">Viso skirtingų prekių: <?= $count ?></span>
+            </div>
+            <div class="col-12">
                 <span class="m-2">Viso prekių: <?= $count ?></span>
             </div>
             <?php require __DIR__ . '/pager.php' ?>

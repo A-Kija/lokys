@@ -70,7 +70,8 @@ class RubuController {
     
     public function buy()
     {
-        $id = $_POST['id'];
+        $id = (int) $_POST['id'];
+        $count = (int) $_POST['count'];
 
         $sql = "SELECT
         kiekis
@@ -82,7 +83,7 @@ class RubuController {
         $stmt = App::$pdo->query($sql);
         $kiekis = $stmt->fetch()['kiekis'];
 
-        $kiekis--;
+        $kiekis-= $count;
 
         $kiekis = $kiekis < 1 ? 'NULL' : $kiekis;
 
