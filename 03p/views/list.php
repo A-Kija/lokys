@@ -13,6 +13,7 @@
 
                     <form action="<?= URL. 'pirkti' ?>" method="post">
                     <button class="btn btn-primary" name="id" value="<?= $outfit['id'] ?>">Pirkti</button>
+                    <input type="text" style="width:30px;" name="count">
                     </form>
                     
                 </div>
