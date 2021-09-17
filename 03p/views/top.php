@@ -46,7 +46,6 @@
             </div>
 
             
-
             <div class="col-6">
                 <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
                     <fieldset>
@@ -64,7 +63,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <span class="m-2">Viso skirtingų prekių: </span>
+                <span class="m-2">Viso skirtingų prekių: <?= $count ?></span>
             </div>
             <div class="col-12">
                 <span class="m-2">Viso prekių: </span>

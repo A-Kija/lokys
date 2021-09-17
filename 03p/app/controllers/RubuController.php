@@ -20,16 +20,16 @@ class RubuController {
         return $types;
     }
 
-    public static function sizesTypes()
-    {
-        $sql = "SELECT DISTINCT dydis
-        FROM rubai
-        ORDER BY dydis
-        ";
-        $stmt = App::$pdo->query($sql);
-        $sizes = $stmt->fetchAll();
-        return $sizes;
-    }
+    // public static function sizesTypes()
+    // {
+    //     $sql = "SELECT DISTINCT dydis
+    //     FROM rubai
+    //     ORDER BY dydis
+    //     ";
+    //     $stmt = App::$pdo->query($sql);
+    //     $sizes = $stmt->fetchAll();
+    //     return $sizes;
+    // }
 
     public static function countAllProducts()
     {
@@ -41,15 +41,15 @@ class RubuController {
         return $stmt->fetch()['number_of_products'];
     }
 
-    public static function countAll()
-    {
-        // SELECT SUM(Quantity) AS TotalItemsOrdered FROM OrderDetails;
-        $sql = "SELECT SUM(kiekis) AS all_products
-        FROM rubai
-        ";
-        $stmt = App::$pdo->query($sql);
-        return $stmt->fetch()['all_products'];
-    }
+    // public static function countAll()
+    // {
+    //     // SELECT SUM(Quantity) AS TotalItemsOrdered FROM OrderDetails;
+    //     $sql = "SELECT SUM(kiekis) AS all_products
+    //     FROM rubai
+    //     ";
+    //     $stmt = App::$pdo->query($sql);
+    //     return $stmt->fetch()['all_products'];
+    // }
     
     public function selectTest()
     {
