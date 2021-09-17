@@ -6,7 +6,7 @@ use PDO;
 
 class App {
 
-    const INSTALL_DIR = '/lokys/03p/public/';
+    
     static $pdo;
 
     public static function start()
@@ -18,7 +18,7 @@ class App {
     public static function route()
     {
         $userUri = $_SERVER['REQUEST_URI'];
-        $userUri = str_replace(self::INSTALL_DIR, '', $userUri);
+        $userUri = str_replace(INSTALL_DIR, '', $userUri);
         $userUri = preg_replace('/\?.*$/', '', $userUri);
         $userUri = explode('/', $userUri);
 
@@ -60,10 +60,10 @@ class App {
 
     public static function db()
     {
-        $host = '127.0.0.1';
-        $db   = 'kazkas_jaudas';
-        $user = 'root';
-        $pass = '';
+        $host = getSetting('host');
+        $db   = getSetting('db');
+        $user = getSetting('user');
+        $pass = getSetting('pass');
         $charset = 'utf8mb4';
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
         $options = [

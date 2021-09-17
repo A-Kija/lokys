@@ -1,8 +1,12 @@
 <?php
-$host = '127.0.0.1';
-$db   = 'kazkas_jaudas';
-$user = 'root';
-$pass = '';
+
+require __DIR__.'/../bootstrap.php';
+
+
+$host = getSetting('host');
+$db   = getSetting('db');
+$user = getSetting('user');
+$pass = getSetting('pass');
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
