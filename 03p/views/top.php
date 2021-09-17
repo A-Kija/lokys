@@ -45,27 +45,7 @@
                 </form>
             </div>
 
-            <div class="col-6">
-                <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
-                    <fieldset>
-                        <legend>Filtruoti pagal dydį</legend>
-                        <div class="container">
-                            <div class="row">
-                                <?php foreach ($sizes as $size) : ?>
-                                <div class="col-1">
-                                    <input type="checkbox" name="size[]" value="<?= $size['dydis'] ?>"
-                                        <?php if (isset($_GET['size']) && in_array($size['dydis'], $_GET['size'])) echo 'checked' ?>>
-                                    <label>
-                                        <?= $size['dydis'] ?>
-                                    </label>
-                                </div>
-                                <?php endforeach ?>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary" type="submit" name="filter_by_size">Rodyti</button>
-                    </fieldset>
-                </form>
-            </div>
+            
 
             <div class="col-6">
                 <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
@@ -84,10 +64,10 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <span class="m-2">Viso skirtingų prekių: <?= $count ?></span>
+                <span class="m-2">Viso skirtingų prekių: </span>
             </div>
             <div class="col-12">
-                <span class="m-2">Viso prekių: <?= $count_all ?></span>
+                <span class="m-2">Viso prekių: </span>
             </div>
             <?php require __DIR__ . '/pager.php' ?>
         </div>

@@ -11,9 +11,9 @@ class RubuController {
     {
         // SELECT DISTINCT column1, column2, ...
         // FROM table_name;
-        $sql = "SELECT DISTINCT rubas
-        FROM rubai
-        ORDER BY rubas
+        $sql = "SELECT DISTINCT `type`
+        FROM outfits
+        ORDER BY `type`
         ";
         $stmt = App::$pdo->query($sql);
         $types = $stmt->fetchAll();
@@ -34,8 +34,8 @@ class RubuController {
     public static function countAllProducts()
     {
         // SELECT COUNT(ProductID) AS NumberOfProducts FROM Products;
-        $sql = "SELECT COUNT(kiekis) AS number_of_products
-        FROM rubai
+        $sql = "SELECT COUNT(id) AS number_of_products
+        FROM outfits
         ";
         $stmt = App::$pdo->query($sql);
         return $stmt->fetch()['number_of_products'];
@@ -195,10 +195,9 @@ class RubuController {
         }
         else {
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+            id, `type`, color, price, discount, (price - discount) AS total_price
             FROM
-            rubai
-            WHERE kiekis IS NOT NULL
+            outfits
             ";
         }
         
@@ -208,16 +207,16 @@ class RubuController {
 
         $types = self::outfitsTypes();
         $productsCount = self::countAllProducts();
-        $countAll = self::countAll();
-        $sizes = self::sizesTypes();
+        // $countAll = self::countAll();
+        // $sizes = self::sizesTypes();
 
         App::view('list', [
             'outfits' => $outfits,
             'types' => $types,
             'count' => $productsCount,
             'in_one_page' => self::IN_PAGE,
-            'sizes' => $sizes,
-            'count_all' => $countAll
+            // 'sizes' => $sizes,
+            // 'count_all' => $countAll
         ]);
     }
 
