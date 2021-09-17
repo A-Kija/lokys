@@ -65,6 +65,7 @@ class RubuController {
         outfits
         INNER JOIN sizes
         ON outfits.id = sizes.outfit_id
+        WHERE amount > 0
         ";
         
 
