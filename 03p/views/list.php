@@ -8,6 +8,8 @@
                 <div class="card-body">
                     <h5 class="card-title"><?= $outfit['color'] ?> <?= $outfit['type'] ?></h5>
                     <p class="card-text">Kaina: <?= $outfit['total_price'] ?> <del><?= $outfit['price'] ?></del></p>
+                    <p class="card-text">Dydis: <?= $outfit['size'] ?></p>
+                    <p class="card-text">Kiekis: <?= $outfit['amount'] ?></p>
                     <form action="<?= URL. 'pirkti' ?>" method="post">
                     <button class="btn btn-primary" name="id" value="<?= $outfit['id'] ?>">Pirkti</button>
                     <input type="text" style="width:30px;" name="count">

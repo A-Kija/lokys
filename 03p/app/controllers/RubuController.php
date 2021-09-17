@@ -53,28 +53,36 @@ class RubuController {
     
     public function selectTest()
     {
-        $z1 = 'gelt';
-        $z2 = 'šort';
+        
+        // SELECT column_name(s)
+        // FROM table1
+        // INNER JOIN table2
+        // ON table1.column_name = table2.column_name;
         
         $sql = "SELECT
-        id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+        outfits.id, `type`, color, price, discount, (price - discount) AS total_price, size, amount
         FROM
-        rubai
-        WHERE   (spalva LIKE '%$z2%' AND rubas LIKE '%$z1%')
-                OR 
-                (spalva LIKE '%$z1%' AND rubas LIKE '%$z2%')
+        outfits
+        INNER JOIN sizes
+        ON outfits.id = sizes.outfit_id
         ";
+        
 
         $stmt = App::$pdo->query($sql);
         $outfits = $stmt->fetchAll();
+
         $types = self::outfitsTypes();
         $productsCount = self::countAllProducts();
+        // $countAll = self::countAll();
+        // $sizes = self::sizesTypes();
 
-        App::view('test', [
+        App::view('list', [
             'outfits' => $outfits,
             'types' => $types,
             'count' => $productsCount,
-            'in_one_page' => self::IN_PAGE
+            'in_one_page' => self::IN_PAGE,
+            // 'sizes' => $sizes,
+            // 'count_all' => $countAll
         ]);
     }
     
