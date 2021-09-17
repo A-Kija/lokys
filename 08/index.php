@@ -17,7 +17,44 @@ $options = [
 
 $pdo = new PDO($dsn, $user, $pass, $options);
 
+echo '<h1>Authors:</h1>';
 
+$sql = "SELECT
+authors.id AS aid, `name`
+FROM
+authors
+ORDER BY `name`
+";
+
+$stmt = $pdo->query($sql);
+
+echo '<ul>';
+while ($row = $stmt->fetch())
+{
+    echo '<li>' . $row['aid'] .' '. $row['name'] . '</li>';
+}
+echo '</ul>';
+
+
+echo '<h1>Books:</h1>';
+
+$sql = "SELECT
+books.id AS bid, title
+FROM
+books
+ORDER BY title
+";
+
+$stmt = $pdo->query($sql);
+
+echo '<ul>';
+while ($row = $stmt->fetch())
+{
+    echo '<li>' . $row['bid'] .' '. $row['title'] . '</li>';
+}
+echo '</ul>';
+
+echo '<h1>INNER JOIN:</h1>';
 
 $sql = "SELECT
 authors.id AS aid, `name`, books.id AS bid, title
