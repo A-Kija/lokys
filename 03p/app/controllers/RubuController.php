@@ -112,30 +112,28 @@ class RubuController {
     {   
         if (isset($_GET['sort_price_asc'])) {
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+            id, `type`, color, price, discount, (price - discount) AS total_price
             FROM
-            rubai
-            WHERE kiekis > 0
-            ORDER BY pardavimo_kaina
+            outfits
+            ORDER BY total_price
             ";
         }
         elseif (isset($_GET['sort_price_desc'])) {
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+            id, `type`, color, price, discount, (price - discount) AS total_price
             FROM
-            rubai
-            WHERE kiekis > 0
-            ORDER BY kaina DESC
+            outfits
+            ORDER BY total_price DESC
             ";
         }
         elseif (isset($_GET['filter_by_type'])) {
             $rubas = $_GET['rubas'];
             
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+            id, `type`, color, price, discount, (price - discount) AS total_price
             FROM
-            rubai
-            WHERE rubas = '$rubas' AND kiekis > 0
+            outfits
+            WHERE `type` = '$rubas'
             ";
         }
         // Pageris parašyti LIMIT
@@ -145,10 +143,9 @@ class RubuController {
             $offset = ($page - 1) * $inPage;
             
             $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+            id, `type`, color, price, discount, (price - discount) AS total_price
             FROM
-            rubai
-            WHERE kiekis > 0
+            outfits
             LIMIT $offset , $inPage
             ";
         }
@@ -171,10 +168,10 @@ class RubuController {
             if (count($s) == 1) {
                 $z = $s[0];
                 $sql = "SELECT
-                id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+                id, `type`, color, price, discount, (price - discount) AS total_price
                 FROM
-                rubai
-                WHERE   spalva LIKE '%$z%' OR rubas LIKE '%$z%'
+                outfits
+                WHERE   color LIKE '%$z%' OR `type` LIKE '%$z%'
                 ";
             }
             else {
@@ -183,12 +180,12 @@ class RubuController {
                 $z2 = $s[1];
                 
                 $sql = "SELECT
-                id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
+                id, `type`, color, price, discount, (price - discount) AS total_price
                 FROM
-                rubai
-                WHERE   (spalva LIKE '%$z2%' AND rubas LIKE '%$z1%')
+                outfits
+                WHERE   (color LIKE '%$z2%' AND `type` LIKE '%$z1%')
                         OR 
-                        (spalva LIKE '%$z1%' AND rubas LIKE '%$z2%')
+                        (color LIKE '%$z1%' AND `type` LIKE '%$z2%')
                 ";
             }
 

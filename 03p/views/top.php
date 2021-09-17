@@ -33,9 +33,9 @@
                             <select name="rubas" class="form-control">
                                 <option value=""> Nieko nepasirinkta </option>
                                 <?php foreach ($types as $type) : ?>
-                                <?php $selected = ($_GET['rubas'] ?? '') == $type['rubas'] ? 'selected' : '' ?>
-                                <option value="<?= $type['rubas'] ?>" <?= $selected ?>>
-                                    <?= $type['rubas'] ?>
+                                <?php $selected = ($_GET['rubas'] ?? '') == $type['type'] ? 'selected' : '' ?>
+                                <option value="<?= $type['type'] ?>" <?= $selected ?>>
+                                    <?= $type['type'] ?>
                                 </option>
                                 <?php endforeach ?>
                             </select>
