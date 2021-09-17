@@ -73,3 +73,45 @@ while ($row = $stmt->fetch())
     echo '<li>' . $row['aid'] .' '. $row['name'] .' '.  $row['bid'] .' '. $row['title'] . '</li>';
 }
 echo '</ul>';
+
+
+echo '<h1>LEFT JOIN:</h1>';
+
+$sql = "SELECT
+authors.id AS aid, `name`, books.id AS bid, title
+FROM
+authors
+LEFT JOIN books
+ON authors.id = books.author_id
+ORDER BY `name`, title
+";
+
+$stmt = $pdo->query($sql);
+
+echo '<ul>';
+while ($row = $stmt->fetch())
+{
+    echo '<li>' . $row['aid'] .' '. $row['name'] .' '.  $row['bid'] .' '. $row['title'] . '</li>';
+}
+echo '</ul>';
+
+
+echo '<h1>RIGHT JOIN:</h1>';
+
+$sql = "SELECT
+a.id AS aid, `name`, b.id AS bid, title
+FROM
+authors AS a
+RIGHT JOIN books AS b
+ON a.id = b.author_id
+ORDER BY `name`, title
+";
+
+$stmt = $pdo->query($sql);
+
+echo '<ul>';
+while ($row = $stmt->fetch())
+{
+    echo '<li>' . $row['aid'] .' '. $row['name'] .' '.  $row['bid'] .' '. $row['title'] . '</li>';
+}
+echo '</ul>';
