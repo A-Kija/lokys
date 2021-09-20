@@ -91,16 +91,20 @@ class RubuController {
     {
         $id = (int) $_POST['id'];
         $count = (int) $_POST['count'];
+        $size = $_POST['size'];
+
 
         $sql = "SELECT
-        kiekis
+        amount
         FROM
-        rubai
-        WHERE id = $id;
+        sizes
+        WHERE size = '$size' && outfit_id = $id
         ";
 
         $stmt = App::$pdo->query($sql);
-        $kiekis = $stmt->fetch()['kiekis'];
+        $kiekis = $stmt->fetch()['amount'];
+
+        _dd($kiekis);
 
         $kiekis-= $count;
 

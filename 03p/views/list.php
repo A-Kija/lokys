@@ -13,7 +13,7 @@
                     <p class="card-text">Kaina: <?= $outfit['total_price'] ?> <del><?= $outfit['price'] ?></del></p>
                     <form action="<?= URL. 'pirkti' ?>" method="post">
                     <div class="form-group">
-                        <select name="product" class="form-control">
+                        <select name="size" class="form-control">
                             <?php endif ?>
                             <option value="<?= $outfit['size'] ?>"><?= $outfit['size'] ?> Liko: <?= $outfit['amount'] ?>
                             </option>
