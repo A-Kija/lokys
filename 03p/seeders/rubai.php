@@ -21,7 +21,7 @@ $pdo = new PDO($dsn, $user, $pass, $options);
 
 
 $sql = "DROP TABLE IF EXISTS
-outfits, sizes;
+sizes, outfits;
 ";
 $pdo->query($sql);
 
@@ -63,7 +63,7 @@ $colors = [
     'Mėlyna', 'Raudona', 'Žalia', 'Geltona', 'Ruda', 'Balta', 'Juoda'
 ];
 
-foreach (range(1, 100) as $val) {
+foreach (range(1, 4) as $val) {
     $type = $outfits[rand(0, count($outfits) -1 )];
     $color = $colors[rand(0, count($colors) -1 )];
     $priceTag = rand(1, 9999);

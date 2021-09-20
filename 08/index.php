@@ -54,6 +54,19 @@ while ($row = $stmt->fetch())
 }
 echo '</ul>';
 
+$sql = "SELECT COUNT(id), `type`
+FROM
+books
+GROUP BY `type` 
+-- ORDER BY COUNT(id);
+";
+
+$stmt = $pdo->query($sql);
+
+// _dd($stmt->fetchAll());
+
+
+
 echo '<h1>INNER JOIN:</h1>';
 
 $sql = "SELECT

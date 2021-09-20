@@ -72,6 +72,7 @@ class RubuController {
         $stmt = App::$pdo->query($sql);
         $outfits = $stmt->fetchAll();
 
+
         $types = self::outfitsTypes();
         $productsCount = self::countAllProducts();
         // $countAll = self::countAll();
@@ -101,24 +102,32 @@ class RubuController {
         WHERE size = '$size' && outfit_id = $id
         ";
 
+        $sql = "SELECT
+        amount
+        FROM
+        outfits
+        INNER JOIN sizes
+        ON outfits.id = sizes.outfit_id
+        WHERE size = '$size' AND  outfits.id = $id
+        ";
+
         $stmt = App::$pdo->query($sql);
         $kiekis = $stmt->fetch()['amount'];
 
-        _dd($kiekis);
 
         $kiekis-= $count;
 
         $kiekis = $kiekis < 1 ? 'NULL' : $kiekis;
 
         $sql = "UPDATE
-        rubai
-        SET kiekis = $kiekis
-        WHERE id = $id
+        sizes
+        SET amount = $kiekis
+        WHERE outfit_id = $id AND size = '$size'
         ";
 
         App::$pdo->query($sql);
 
-        App::redirect('sarasas');
+        App::redirect('test');
     }
     
     public function list()
