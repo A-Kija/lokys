@@ -39,6 +39,13 @@
 
                         <button class="btn btn-primary">Redaguoti</button>
                     </form>
+                    <form action="<?= URL.'update/'.$outfit['id'] ?>" method="post" class="mt-5">
+                        <div class="form-group">
+                            <label>Naujas Dydis:</label>
+                            <input type="text" class="form-control" name="new_size">
+                        </div>
+                        <button class="btn btn-primary">Pridėti dydį</button>
+                    </form>
                 </div>
             </div>
         </div>
