@@ -5,7 +5,8 @@
     "autoload": {
         "psr-4": {
             "Trys\\Parsiukai\\": "app/",
-            "Didele\\Ir\\Zalia\\": "app/pieva/"
+            "Didele\\Ir\\Zalia\\": "app/pieva/",
+            "App\\DB\\": "app/"
         }
     },
     "authors": [{
