@@ -89,6 +89,7 @@ class RubuController {
     }
 
 
+
     public function edit()
     {
         
@@ -115,6 +116,23 @@ class RubuController {
             'count' => $productsCount,
             'in_one_page' => self::IN_PAGE,
         ]);
+    }
+
+    public function addSize(int $id)
+    {
+        $size = $_POST['new_size'];
+        // Pradinis kiekis = 0
+        // INSERT SQL
+
+
+
+
+
+
+
+        
+        App::$pdo->query($sql);
+        App::redirect('edit');
     }
 
     public function update(int $id)
