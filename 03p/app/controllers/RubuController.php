@@ -153,8 +153,11 @@ class RubuController {
             foreach ($_POST['delete_size'] as $size) {
 
                 //-------> Trynimo SQL
-
-
+                $sql = "DELETE FROM
+                sizes
+                WHERE size = '$size' AND outfit_id = $id
+                ";
+                App::$pdo->query($sql);
             }
         }
 
