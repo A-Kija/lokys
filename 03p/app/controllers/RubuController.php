@@ -96,7 +96,7 @@ class RubuController {
         outfits.id, `type`, color, price, discount, (price - discount) AS total_price, size, amount
         FROM
         outfits
-        INNER JOIN sizes
+        LEFT JOIN sizes
         ON outfits.id = sizes.outfit_id
         -- WHERE amount > 0
         ";
