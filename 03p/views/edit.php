@@ -23,16 +23,17 @@
                             <input type="text" class="form-control" name="discount" value="<?= $outfit['discount'] ?>">
                         </div>
 
+
+                        <?php endif ?>
+
                         <div class="form-group">
-                            <select name="size" class="form-control">
-                                <?php endif ?>
-                                <option value="<?= $outfit['size'] ?>"><?= $outfit['size'] ?> Liko:
-                                    <?= $outfit['amount'] ?>
-                                </option>
-                                <?php if (!isset($outfits[$index + 1]) || $outfits[$index + 1]['color'].$outfits[$index + 1]['type'] != $outfit['color'].$outfit['type']): ?>
-                            </select>
+                            <label><?= $outfit['size'] ?> kiekis:</label>
+                            <input type="text" class="form-control" name="size[<?= $outfit['size'] ?>]" value="<?= $outfit['amount'] ?>">
                         </div>
-                        <button class="btn btn-primary" name="id" value="<?= $outfit['id'] ?>">Redaguoti</button>
+
+                        <?php if (!isset($outfits[$index + 1]) || $outfits[$index + 1]['color'].$outfits[$index + 1]['type'] != $outfit['color'].$outfit['type']): ?>
+
+                        <button class="btn btn-primary">Redaguoti</button>
                     </form>
                 </div>
             </div>

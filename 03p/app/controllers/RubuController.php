@@ -119,6 +119,8 @@ class RubuController {
 
     public function update(int $id)
     {
+        _d($_POST);
+        
         $price = (float) $_POST['price'];
         $discount = (float) $_POST['discount'];
         //-----> turim tris dalykus
