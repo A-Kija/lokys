@@ -131,9 +131,20 @@ class RubuController {
         SET price = $price, discount = $discount
         WHERE id = $id
         ";
-
-
         App::$pdo->query($sql);
+
+        foreach ($_POST['size'] as $size => $amount) {
+
+            //-------> SQL
+            $sql = "UPDATE
+           
+            ";
+            App::$pdo->query($sql);
+
+        }
+
+
+
         App::redirect('edit');
     }
     
