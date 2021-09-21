@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><?= $outfit['color'] ?> <?= $outfit['type'] ?></h5>
                     <p class="card-text">Galutinė Kaina: <?= $outfit['total_price'] ?></p>
-                    <form action="<?= URL. 'pirkti' ?>" method="post">
+                    <form action="<?= URL.'update/'.$outfit['id'] ?>" method="post">
 
                         <div class="form-group">
                             <label>Kaina:</label>

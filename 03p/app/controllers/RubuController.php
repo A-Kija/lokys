@@ -124,6 +124,11 @@ class RubuController {
         //-----> turim tris dalykus
 
         //-------> SQL
+        $sql = "UPDATE
+        outfits
+        SET price = $price, discount = $discount
+        WHERE id = $id
+        ";
 
 
         App::$pdo->query($sql);
