@@ -147,6 +147,17 @@ class RubuController {
 
         }
 
+        // Delete
+
+        if (isset($_POST['delete_size'])) {
+            foreach ($_POST['delete_size'] as $size) {
+
+                //-------> Trynimo SQL
+
+
+            }
+        }
+
 
 
         App::redirect('edit');

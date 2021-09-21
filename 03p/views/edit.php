@@ -29,6 +29,7 @@
                         <div class="form-group">
                             <label><?= $outfit['size'] ?> kiekis:</label>
                             <input type="text" class="form-control" name="size[<?= $outfit['size'] ?>]" value="<?= $outfit['amount'] ?>">
+                            <input type="checkbox" name="delete_size[]" value="<?= $outfit['size'] ?>"> Trinti
                         </div>
 
                         <?php if (!isset($outfits[$index + 1]) || $outfits[$index + 1]['color'].$outfits[$index + 1]['type'] != $outfit['color'].$outfit['type']): ?>
