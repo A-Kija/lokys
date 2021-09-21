@@ -125,12 +125,13 @@ class RubuController {
         // INSERT SQL
 
 
+        $sql = "INSERT INTO
+        sizes
+        (size, amount, outfit_id)
+        VALUES ('$size', 0, $id)
+        ";
 
 
-
-
-
-        
         App::$pdo->query($sql);
         App::redirect('edit');
     }
