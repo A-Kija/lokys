@@ -98,7 +98,7 @@ class RubuController {
         outfits
         INNER JOIN sizes
         ON outfits.id = sizes.outfit_id
-        WHERE amount > 0
+        -- WHERE amount > 0
         ";
         
 
@@ -133,11 +133,15 @@ class RubuController {
         ";
         App::$pdo->query($sql);
 
-        foreach ($_POST['size'] as $size => $amount) {
+        $sizes = array_map(fn($s) => (int) $s, $_POST['size']);
+
+        foreach ($sizes as $size => $amount) {
 
             //-------> SQL
             $sql = "UPDATE
-           
+            sizes
+            SET amount = $amount
+            WHERE size = '$size' AND outfit_id = $id
             ";
             App::$pdo->query($sql);
 
