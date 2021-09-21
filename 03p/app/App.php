@@ -46,6 +46,13 @@ class App {
             ) {
                 return (new RubuController)->buy();
             }
+        elseif (
+            $_SERVER['REQUEST_METHOD'] == 'GET' &&
+            'edit' == $userUri[0] &&
+            count($userUri) == 1
+            ) {
+                return (new RubuController)->edit();
+            }
             
 
         echo '<h1>404 Page Not Found</h1>';

@@ -87,6 +87,35 @@ class RubuController {
             // 'count_all' => $countAll
         ]);
     }
+
+
+    public function edit()
+    {
+        
+        $sql = "SELECT
+        outfits.id, `type`, color, price, discount, (price - discount) AS total_price, size, amount
+        FROM
+        outfits
+        INNER JOIN sizes
+        ON outfits.id = sizes.outfit_id
+        WHERE amount > 0
+        ";
+        
+
+        $stmt = App::$pdo->query($sql);
+        $outfits = $stmt->fetchAll();
+
+
+        $types = self::outfitsTypes();
+        $productsCount = self::countAllProducts();
+
+        App::view('edit', [
+            'outfits' => $outfits,
+            'types' => $types,
+            'count' => $productsCount,
+            'in_one_page' => self::IN_PAGE,
+        ]);
+    }
     
     public function buy()
     {
