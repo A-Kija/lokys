@@ -116,6 +116,19 @@ class RubuController {
             'in_one_page' => self::IN_PAGE,
         ]);
     }
+
+    public function update(int $id)
+    {
+        $price = (float) $_POST['price'];
+        $discount = (float) $_POST['discount'];
+        //-----> turim tris dalykus
+
+        //-------> SQL
+
+
+        App::$pdo->query($sql);
+        App::redirect('edit');
+    }
     
     public function buy()
     {
