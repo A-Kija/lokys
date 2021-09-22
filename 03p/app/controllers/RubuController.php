@@ -78,11 +78,64 @@ class RubuController {
         // $countAll = self::countAll();
         // $sizes = self::sizesTypes();
 
+        $sql = "SELECT
+        outfits.id, tag_id
+        FROM
+        outfits
+        INNER JOIN outfits_tags
+        ON outfits.id = outfit_id
+        ORDER BY outfits.id
+        ";
+        $stmt = App::$pdo->query($sql);
+        $ot = $stmt->fetchAll();
+        
+        $otList = [];
+        foreach($ot as $entry) {
+            $add = isset($otList[$entry['id']]) ? $otList[$entry['id']] : [];
+            $add[] = $entry['tag_id'];
+            $otList[$entry['id']] = $add;
+        }
+        _d($ot);
+        _d($otList);
+
+        $fullTagsList = [];
+        foreach ($otList as $outfit => $tag_ids) {
+            // dar kažka su php
+
+            $ids = implode(',', $tag_ids);
+
+            $sql = "SELECT
+            title
+            FROM tags
+            WHERE id IN ($ids)
+            ";
+            $stmt = App::$pdo->query($sql);
+            $t = $stmt->fetchAll();
+            $t = array_map(fn($v) => $v['title'], $t);
+            $fullTagsList[$outfit] = $t;
+            
+        }
+
+        _d($fullTagsList);
+        /*
+        p_id1, t_id2,
+        p_id1, t_id3
+        p_id1, t_id6
+        p_id2, t_id2
+        p_id2, t_id4
+
+        [
+            product_id => [tag1_title, tag2_title],
+            product_id => [tag5_title, tag8_title,  tag9_title]
+        ]
+        */
+
         App::view('list', [
             'outfits' => $outfits,
             'types' => $types,
             'count' => $productsCount,
             'in_one_page' => self::IN_PAGE,
+            '$fullTagsList' => $fullTagsList
             // 'sizes' => $sizes,
             // 'count_all' => $countAll
         ]);

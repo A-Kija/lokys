@@ -21,7 +21,7 @@ $pdo = new PDO($dsn, $user, $pass, $options);
 
 
 $sql = "DROP TABLE IF EXISTS
-sizes, outfits;
+sizes, outfits_tags, outfits, tags;
 ";
 $pdo->query($sql);
 
@@ -49,6 +49,25 @@ sizes (
 ";
 $pdo->query($sql);
 
+
+$sql = "CREATE TABLE
+tags (
+    id  smallint PRIMARY KEY AUTO_INCREMENT,
+    title  varchar(30)
+);
+";
+$pdo->query($sql);
+
+$sql = "CREATE TABLE
+outfits_tags (
+    outfit_id   smallint,
+    tag_id      smallint,
+    FOREIGN KEY (outfit_id) REFERENCES outfits(id),
+    FOREIGN KEY (tag_id) REFERENCES tags(id)
+);
+";    
+$pdo->query($sql);
+
 $sizes = [
     'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'
 ];
@@ -62,6 +81,22 @@ $outfits = [
 $colors = [
     'Mėlyna', 'Raudona', 'Žalia', 'Geltona', 'Ruda', 'Balta', 'Juoda'
 ];
+
+$tags = [
+    'Vyriški', 'Moteriški', 'Tinka metalistam', 'Nauja kolekcija',
+    'Išpardavimas', 'Lengvai plaunami', 'Sportinio stiliaus',
+    'Paskutiniai vienetai'
+];
+
+foreach ($tags as $tag) {
+    $sql = "INSERT INTO
+    tags
+    (title)
+    VALUES ( '$tag' )
+    ";
+    $pdo->query($sql);
+}
+
 
 foreach (range(1, 4) as $val) {
     $type = $outfits[rand(0, count($outfits) -1 )];
@@ -89,4 +124,19 @@ foreach (range(1, 4) as $val) {
         ";
         $pdo->query($sql);
     }
+
+    foreach (range(1, count($tags)) as $tagId) {
+        if (rand(0, 4)) {
+            continue;
+        }
+        $sql = "INSERT INTO
+        outfits_tags
+        (outfit_id, tag_id)
+        VALUES ( $val, $tagId )
+        ";
+        $pdo->query($sql);
+    }
+
+
+
 }
