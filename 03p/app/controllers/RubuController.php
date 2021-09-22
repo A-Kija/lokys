@@ -135,7 +135,7 @@ class RubuController {
             'types' => $types,
             'count' => $productsCount,
             'in_one_page' => self::IN_PAGE,
-            '$fullTagsList' => $fullTagsList
+            'fullTagsList' => $fullTagsList
             // 'sizes' => $sizes,
             // 'count_all' => $countAll
         ]);

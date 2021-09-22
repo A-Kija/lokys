@@ -10,6 +10,13 @@
             <div class="card m-2">
                 <div class="card-body">
                     <h5 class="card-title"><?= $outfit['color'] ?> <?= $outfit['type'] ?></h5>
+
+                    <?php if(isset($fullTagsList[$outfit['id']])): ?>
+                        <?php foreach($fullTagsList[$outfit['id']] as $tag) : ?>
+                            <span class="badge badge-pill badge-info"><?= $tag ?></span>
+                        <?php endforeach ?>
+                    <?php endif ?>
+
                     <p class="card-text">Kaina: <?= $outfit['total_price'] ?> <del><?= $outfit['price'] ?></del></p>
                     <form action="<?= URL. 'pirkti' ?>" method="post">
                     <div class="form-group">
