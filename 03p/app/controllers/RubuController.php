@@ -95,8 +95,8 @@ class RubuController {
             $add[] = $entry['tag_id'];
             $otList[$entry['id']] = $add;
         }
-        _d($ot);
-        _d($otList);
+        // _d($ot);
+        // _d($otList);
 
         $fullTagsList = [];
         foreach ($otList as $outfit => $tag_ids) {
@@ -116,7 +116,7 @@ class RubuController {
             
         }
 
-        _d($fullTagsList);
+        // _d($fullTagsList);
         /*
         p_id1, t_id2,
         p_id1, t_id3
@@ -191,7 +191,7 @@ class RubuController {
 
     public function update(int $id)
     {
-        _d($_POST);
+        // _d($_POST);
         
         $price = (float) $_POST['price'];
         $discount = (float) $_POST['discount'];
