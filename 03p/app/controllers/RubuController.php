@@ -60,18 +60,21 @@ class RubuController {
         // ON table1.column_name = table2.column_name;
         
         $sql = "SELECT
-        outfits.id, `type`, color, price, discount, (price - discount) AS total_price, size, amount
+        outfits.id, `type`, color, price, discount, (price - discount) AS total_price
         FROM
         outfits
-        INNER JOIN sizes
-        ON outfits.id = sizes.outfit_id
-        WHERE amount > 0
+        -- INNER JOIN sizes
+        -- ON outfits.id = sizes.outfit_id
+        
         ";
         
 
         $stmt = App::$pdo->query($sql);
         $outfits = $stmt->fetchAll();
 
+        _dd($outfits);
+
+        die();
 
         $types = self::outfitsTypes();
         $productsCount = self::countAllProducts();
@@ -88,6 +91,8 @@ class RubuController {
         ";
         $stmt = App::$pdo->query($sql);
         $ot = $stmt->fetchAll();
+
+        
         
         $otList = [];
         foreach($ot as $entry) {

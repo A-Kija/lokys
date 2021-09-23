@@ -120,7 +120,7 @@ foreach (range(1, 4) as $val) {
         $sql = "INSERT INTO
         sizes
         (size, amount, outfit_id)
-        VALUES ( '$size', ".($amount ? $amount : 'NULL').", $val)
+        VALUES ( '$size', $amount, $val )
         ";
         $pdo->query($sql);
     }
