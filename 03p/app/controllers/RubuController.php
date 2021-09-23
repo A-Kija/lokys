@@ -60,7 +60,7 @@ class RubuController {
         // ON table1.column_name = table2.column_name;
         
         $sql = "SELECT
-        o.id, `type`, color, price, discount, (price - discount) AS total_price, t.title
+        o.id, `type`, color, price, discount, (price - discount) AS total_price, GROUP_CONCAT(t.title) as tags_list
         FROM
         outfits as o
         -- INNER JOIN sizes as s
@@ -69,8 +69,7 @@ class RubuController {
         ON o.id = ot.outfit_id
         INNER JOIN tags as t
         ON ot.tag_id = t.id
-
-        
+        GROUP BY o.id
         ";
         
 
