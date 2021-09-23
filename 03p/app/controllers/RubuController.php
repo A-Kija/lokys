@@ -60,15 +60,19 @@ class RubuController {
         // ON table1.column_name = table2.column_name;
         
         $sql = "SELECT
-        o.id, `type`, color, price, discount, (price - discount) AS total_price, GROUP_CONCAT(t.title) as tags_list
+        o.id, `type`, color, price, discount,
+        (price - discount) AS total_price,
+        GROUP_CONCAT(DISTINCT(t.title)) as tags_list,
+        GROUP_CONCAT(DISTINCT(s.size)) as sizes_list,
+        GROUP_CONCAT(s.amount) as amounts_list
         FROM
         outfits as o
-        -- INNER JOIN sizes as s
-        -- ON o.id = s.outfit_id
         INNER JOIN outfits_tags as ot
         ON o.id = ot.outfit_id
         INNER JOIN tags as t
         ON ot.tag_id = t.id
+        INNER JOIN sizes as s
+        ON o.id = s.outfit_id
         GROUP BY o.id
         ";
         
@@ -76,55 +80,66 @@ class RubuController {
         $stmt = App::$pdo->query($sql);
         $outfits = $stmt->fetchAll();
 
-        echo '<pre>';
-        print_r($outfits);
 
-        die();
 
-        $types = self::outfitsTypes();
-        $productsCount = self::countAllProducts();
-        // $countAll = self::countAll();
-        // $sizes = self::sizesTypes();
-
-        $sql = "SELECT
-        outfits.id, tag_id
-        FROM
-        outfits
-        INNER JOIN outfits_tags
-        ON outfits.id = outfit_id
-        ORDER BY outfits.id
-        ";
-        $stmt = App::$pdo->query($sql);
-        $ot = $stmt->fetchAll();
-
-        
-        
-        $otList = [];
-        foreach($ot as $entry) {
-            $add = isset($otList[$entry['id']]) ? $otList[$entry['id']] : [];
-            $add[] = $entry['tag_id'];
-            $otList[$entry['id']] = $add;
+        foreach ($outfits as &$outfit) {
+            $outfit['tags_list'] = explode(',', $outfit['tags_list']);
+            $outfit['sizes_list'] = explode(',', $outfit['sizes_list']);
+            $outfit['amounts_list'] = explode(',', $outfit['amounts_list']);
+            $outfit['sizes_amounts'] = [];
+            foreach ($outfit['sizes_list'] as $index => $size) {
+                $outfit['sizes_amounts'][$size] = $outfit['amounts_list'][$index];
+            }
+            unset($outfit['sizes_list'], $outfit['amounts_list']);
         }
-        // _d($ot);
-        // _d($otList);
 
-        $fullTagsList = [];
-        foreach ($otList as $outfit => $tag_ids) {
-            // dar kažka su php
+        // print_r($outfits);
+        // die();
 
-            $ids = implode(',', $tag_ids);
+        // $types = self::outfitsTypes();
+        // $productsCount = self::countAllProducts();
+        // // $countAll = self::countAll();
+        // // $sizes = self::sizesTypes();
 
-            $sql = "SELECT
-            title
-            FROM tags
-            WHERE id IN ($ids)
-            ";
-            $stmt = App::$pdo->query($sql);
-            $t = $stmt->fetchAll();
-            $t = array_map(fn($v) => $v['title'], $t);
-            $fullTagsList[$outfit] = $t;
+        // $sql = "SELECT
+        // outfits.id, tag_id
+        // FROM
+        // outfits
+        // INNER JOIN outfits_tags
+        // ON outfits.id = outfit_id
+        // ORDER BY outfits.id
+        // ";
+        // $stmt = App::$pdo->query($sql);
+        // $ot = $stmt->fetchAll();
+
+        
+        
+        // $otList = [];
+        // foreach($ot as $entry) {
+        //     $add = isset($otList[$entry['id']]) ? $otList[$entry['id']] : [];
+        //     $add[] = $entry['tag_id'];
+        //     $otList[$entry['id']] = $add;
+        // }
+        // // _d($ot);
+        // // _d($otList);
+
+        // $fullTagsList = [];
+        // foreach ($otList as $outfit => $tag_ids) {
+        //     // dar kažka su php
+
+        //     $ids = implode(',', $tag_ids);
+
+        //     $sql = "SELECT
+        //     title
+        //     FROM tags
+        //     WHERE id IN ($ids)
+        //     ";
+        //     $stmt = App::$pdo->query($sql);
+        //     $t = $stmt->fetchAll();
+        //     $t = array_map(fn($v) => $v['title'], $t);
+        //     $fullTagsList[$outfit] = $t;
             
-        }
+        // }
 
         // _d($fullTagsList);
         /*
@@ -145,7 +160,7 @@ class RubuController {
             'types' => $types,
             'count' => $productsCount,
             'in_one_page' => self::IN_PAGE,
-            'fullTagsList' => $fullTagsList
+            // 'fullTagsList' => $fullTagsList
             // 'sizes' => $sizes,
             // 'count_all' => $countAll
         ]);
