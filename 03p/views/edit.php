@@ -51,7 +51,7 @@
 
                     <form action="<?= URL.'add-tag/'.$outfit['id'] ?>" method="post" class="mt-5">
                         <div class="form-group">
-                            <select name="tags" class="form-control">
+                            <select name="tag" class="form-control">
                                 <option value="0">Pasirinkite tagą</options>
                                     <?php foreach ($allTags as $tag) : ?>
                                 <option value="<?= $tag['id'] ?>"><?= $tag['title'] ?></option>

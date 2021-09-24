@@ -170,6 +170,18 @@ class RubuController {
         App::redirect('edit');
     }
 
+    public function addTag(int $id)
+    {
+        $tagId = (int) $_POST['tag'];
+        if (0 === $tagId) {
+            // Kurti nauja taga
+        }
+        // INSERT kuris padarytu rysy tarp tago ir prekes
+
+    }
+
+
+
     public function removeTag(int $id)
     {
         $tagsTitle = $_POST['remove_tag'] ?? [];
