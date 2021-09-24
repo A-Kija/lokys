@@ -163,11 +163,30 @@ class RubuController {
 
         // $tagsTitle masyvas su tagų vardais
         // $id prekės id iš kurios reikia trinti
-        
+
+        $tagIds = implode(',', array_map(fn($v) => "'$v'", $tagsTitle));
+            
+        $sql = "SELECT
+        GROUP_CONCAT(id) as tag_ids
+        FROM
+        tags
+        WHERE title IN ( $tagIds )
+        ";
+
+        $stmt = App::$pdo->query($sql);
+        $tagIds = $stmt->fetch()['tag_ids'];
+
+        echo '<pre>';
+        print_r($tagIds);
+        die;
+
         // $sql = "DELETE FROM
         // trees
         // WHERE id > 16 AND id < 32
         // ";
+
+        //1 SELECTAS gražinantis tagu id pagal tagu varda masyve
+        //2 DELETAS pagal tago ir prekės idsus 
 
 
 
