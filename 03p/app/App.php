@@ -93,7 +93,7 @@ class App {
             'tags' == $userUri[0] && 'update' == $userUri[1] &&
             count($userUri) == 3
             ) {
-                return (new RubuController)->updateTag($userUri[3]);
+                return (new RubuController)->updateTag($userUri[2]);
             }
             
 

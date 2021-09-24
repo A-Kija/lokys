@@ -262,9 +262,9 @@ class RubuController {
         $title = $_POST['title'];
         //-------> SQL
         $sql = "UPDATE
-        -- outfits
-        -- SET price = $price, discount = $discount
-        -- WHERE id = $id
+        tags
+        SET title = '$title'
+        WHERE id = $id
         ";
         App::$pdo->query($sql);
         App::redirect('tags');
