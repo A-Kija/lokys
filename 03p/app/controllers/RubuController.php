@@ -175,6 +175,9 @@ class RubuController {
         $tagId = (int) $_POST['tag'];
         if (0 === $tagId) {
             // Kurti nauja taga
+            // Naujo insert
+            $tagTitle = $_POST['new_tag'];
+            
         }
         // INSERT kuris padarytu rysy tarp tago ir prekes
         $sql = "INSERT INTO
