@@ -249,6 +249,26 @@ class RubuController {
 
 
     }
+
+    public function showTags()
+    {
+        App::view('tags', [
+            'tags' => self::allTags()
+        ]);
+    }
+
+    public function updateTag($id)
+    {
+        $title = $_POST['title'];
+        //-------> SQL
+        $sql = "UPDATE
+        -- outfits
+        -- SET price = $price, discount = $discount
+        -- WHERE id = $id
+        ";
+        App::$pdo->query($sql);
+        App::redirect('tags');
+    }
     
 
     public function update(int $id)

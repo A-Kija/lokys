@@ -40,6 +40,13 @@ class App {
                 return (new RubuController)->selectTest();
             }
         elseif (
+                $_SERVER['REQUEST_METHOD'] == 'GET' &&
+                'tags' == $userUri[0] &&
+                count($userUri) == 1
+                ) {
+                    return (new RubuController)->showTags();
+                }
+        elseif (
             $_SERVER['REQUEST_METHOD'] == 'POST' &&
             'pirkti' == $userUri[0] &&
             count($userUri) == 1
@@ -80,6 +87,13 @@ class App {
             count($userUri) == 2
             ) {
                 return (new RubuController)->addTag($userUri[1]);
+            }
+        elseif (
+            $_SERVER['REQUEST_METHOD'] == 'POST' &&
+            'tag' == $userUri[0] && 'update' == $userUri[1] &&
+            count($userUri) == 3
+            ) {
+                return (new RubuController)->updateTag($userUri[3]);
             }
             
 
