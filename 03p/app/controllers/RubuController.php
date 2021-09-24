@@ -177,6 +177,14 @@ class RubuController {
             // Kurti nauja taga
         }
         // INSERT kuris padarytu rysy tarp tago ir prekes
+        $sql = "INSERT INTO
+        outfits_tags
+        (outfit_id, tag_id)
+        VALUES ($id, $tagId)
+        ";
+        $stmt = App::$pdo->query($sql);
+
+        App::redirect('edit');
 
     }
 
