@@ -58,6 +58,11 @@
                                 <?php endforeach ?>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Arba pridėkite naują:</label>
+                            <input type="text" class="form-control" name="new_tag">
+                        </div>
+                        <button class="btn btn-primary">Pridėti tagą</button>
                     </form>
 
 
