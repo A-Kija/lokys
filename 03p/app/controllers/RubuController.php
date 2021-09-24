@@ -182,10 +182,15 @@ class RubuController {
             (title)
             VALUES ('$tagTitle')
             ";
-            $stmt = App::$pdo->query($sql);
+            App::$pdo->query($sql);
 
-            // Priskirti prekei
-            
+            $sql = "SELECT id
+            FROM
+            tags
+            WHERE title = '$tagTitle'
+            ";
+            $stmt = App::$pdo->query($sql);
+            $tagId = $stmt->fetch()['id'];
         }
         // INSERT kuris padarytu rysy tarp tago ir prekes
         $sql = "INSERT INTO
@@ -193,7 +198,7 @@ class RubuController {
         (outfit_id, tag_id)
         VALUES ($id, $tagId)
         ";
-        $stmt = App::$pdo->query($sql);
+        App::$pdo->query($sql);
 
         App::redirect('edit');
 
