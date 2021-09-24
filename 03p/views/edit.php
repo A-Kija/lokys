@@ -18,12 +18,12 @@
                             <label>Nuolaida:</label>
                             <input type="text" class="form-control" name="discount" value="<?= $outfit['discount'] ?>">
                         </div>
-                        <?php foreach($outfit['sizes_amounts'] as $size => $amount) : ?>              
-                            <div class="form-group">
-                                <label><?= $size ?> kiekis:</label>
-                                <input type="text" class="form-control" name="size[<?= $size ?>]" value="<?= $amount ?>">
-                                <input type="checkbox" name="delete_size[]" value="<?= $size ?>"> Trinti
-                            </div>
+                        <?php foreach($outfit['sizes_amounts'] as $size => $amount) : ?>
+                        <div class="form-group">
+                            <label><?= $size ?> kiekis:</label>
+                            <input type="text" class="form-control" name="size[<?= $size ?>]" value="<?= $amount ?>">
+                            <input type="checkbox" name="delete_size[]" value="<?= $size ?>"> Trinti
+                        </div>
                         <?php endforeach ?>
                         <button class="btn btn-primary">Redaguoti</button>
                     </form>
@@ -39,14 +39,27 @@
                     <form action="<?= URL.'remove-tag/'.$outfit['id'] ?>" method="post" class="mt-5">
                         <?php foreach($outfit['tags_list'] as $tag) : ?>
                         <span class="badge badge-pill badge-info"><?= $tag ?>
-                        <input type="checkbox" name="remove_tag[]" value="<?= $tag ?>">
+                            <input type="checkbox" name="remove_tag[]" value="<?= $tag ?>">
                         </span>
                         <?php endforeach ?>
                         <div>
-                        <button class="btn btn-primary mt-2">Trint pažymėtus</button>
+                            <button class="btn btn-primary mt-2">Trint pažymėtus</button>
                         </div>
                     </form>
                     <?php endif ?>
+
+
+                    <form action="<?= URL.'add-tag/'.$outfit['id'] ?>" method="post" class="mt-5">
+                        <div class="form-group">
+                            <select name="tags" class="form-control">
+                                <option value="0">Pasirinkite tagą</options>
+                                    <?php foreach ($allTags as $tag) : ?>
+                                <option value="<?= $tag['id'] ?>"><?= $tag['title'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </form>
+
 
                 </div>
             </div>

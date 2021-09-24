@@ -22,11 +22,13 @@ class RubuController {
 
     public static function allTags()
     {
-        $sql = "
+        $sql = "SELECT *
+        FROM tags
+        ORDER BY title
         ";
         $stmt = App::$pdo->query($sql);
-        $types = $stmt->fetchAll();
-        return $tags;
+        $tags = $stmt->fetchAll();
+        return $tags; // tag title ir tag id
     }
 
     // public static function sizesTypes()
@@ -140,11 +142,13 @@ class RubuController {
         }
         $types = self::outfitsTypes();
         $productsCount = self::countAllProducts();
+        $allTags = self::allTags();
         App::view('edit', [
             'outfits' => $outfits,
             'types' => $types,
             'count' => $productsCount,
             'in_one_page' => self::IN_PAGE,
+            'allTags' => $allTags
         ]);
     }
 
