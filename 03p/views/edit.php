@@ -35,11 +35,9 @@
                         <button class="btn btn-primary">Pridėti dydį</button>
                     </form>
 
-
+                    <?php if($outfit['tags_list'][0]) : ?>
                     <form action="<?= URL.'remove-tag/'.$outfit['id'] ?>" method="post" class="mt-5">
-                        
                         <?php foreach($outfit['tags_list'] as $tag) : ?>
-                        <?php if (!$tag) break ?>
                         <span class="badge badge-pill badge-info"><?= $tag ?>
                         <input type="checkbox" name="remove_tag[]" value="<?= $tag ?>">
                         </span>
@@ -48,7 +46,7 @@
                         <button class="btn btn-primary mt-2">Trint pažymėtus</button>
                         </div>
                     </form>
-
+                    <?php endif ?>
 
                 </div>
             </div>

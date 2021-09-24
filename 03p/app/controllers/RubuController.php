@@ -20,6 +20,15 @@ class RubuController {
         return $types;
     }
 
+    public static function allTags()
+    {
+        $sql = "
+        ";
+        $stmt = App::$pdo->query($sql);
+        $types = $stmt->fetchAll();
+        return $tags;
+    }
+
     // public static function sizesTypes()
     // {
     //     $sql = "SELECT DISTINCT dydis
