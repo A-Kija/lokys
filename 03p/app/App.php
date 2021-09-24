@@ -67,6 +67,13 @@ class App {
             ) {
                 return (new RubuController)->addSize($userUri[1]);
             }
+        elseif (
+            $_SERVER['REQUEST_METHOD'] == 'POST' &&
+            'remove-tag' == $userUri[0] &&
+            count($userUri) == 2
+            ) {
+                return (new RubuController)->removeTag($userUri[1]);
+            }
             
 
         echo '<h1>404 Page Not Found</h1>';
