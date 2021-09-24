@@ -90,7 +90,7 @@ class App {
             }
         elseif (
             $_SERVER['REQUEST_METHOD'] == 'POST' &&
-            'tag' == $userUri[0] && 'update' == $userUri[1] &&
+            'tags' == $userUri[0] && 'update' == $userUri[1] &&
             count($userUri) == 3
             ) {
                 return (new RubuController)->updateTag($userUri[3]);
