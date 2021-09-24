@@ -108,9 +108,9 @@ class RubuController {
         GROUP_CONCAT(s.amount) as amounts_list
         FROM
         outfits as o
-        INNER JOIN outfits_tags as ot
+        LEFT JOIN outfits_tags as ot
         ON o.id = ot.outfit_id
-        INNER JOIN tags as t
+        LEFT JOIN tags as t
         ON ot.tag_id = t.id
         INNER JOIN sizes as s
         ON o.id = s.outfit_id
@@ -161,6 +161,10 @@ class RubuController {
     {
         $tagsTitle = $_POST['remove_tag'] ?? [];
 
+        if (empty($tagsTitle)) {
+            App::redirect('edit');
+        }
+
         // $tagsTitle masyvas su tagų vardais
         // $id prekės id iš kurios reikia trinti
 
@@ -176,14 +180,19 @@ class RubuController {
         $stmt = App::$pdo->query($sql);
         $tagIds = $stmt->fetch()['tag_ids'];
 
-        echo '<pre>';
-        print_r($tagIds);
-        die;
+        $sql = "DELETE FROM
+        outfits_tags
+        WHERE outfit_id = $id AND tag_id IN ( $tagIds )
+        ";
 
-        // $sql = "DELETE FROM
-        // trees
-        // WHERE id > 16 AND id < 32
-        // ";
+        $stmt = App::$pdo->query($sql);
+
+        App::redirect('edit');
+        // echo '<pre>';
+        // print_r($tagIds);
+        // die;
+
+
 
         //1 SELECTAS gražinantis tagu id pagal tagu varda masyve
         //2 DELETAS pagal tago ir prekės idsus 
