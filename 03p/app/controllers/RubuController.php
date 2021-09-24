@@ -177,6 +177,14 @@ class RubuController {
             // Kurti nauja taga
             // Naujo insert
             $tagTitle = $_POST['new_tag'];
+            $sql = "INSERT INTO
+            tags
+            (title)
+            VALUES ('$tagTitle')
+            ";
+            $stmt = App::$pdo->query($sql);
+
+            // Priskirti prekei
             
         }
         // INSERT kuris padarytu rysy tarp tago ir prekes
