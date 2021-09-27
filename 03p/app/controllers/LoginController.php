@@ -46,6 +46,16 @@ class LoginController {
         App::view('register');
     }
 
+    public function doRegister()
+    {
+        $name = $_POST['user'];
+        $pass = md5($_POST['pass']);
+        $sql = "
+        ";
+        App::$pdo->query($sql);
+        App::redirect('login');
+    }
+
     public function doLogin()
     {
         $ok = self::logIn();

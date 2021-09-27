@@ -74,6 +74,16 @@ class App {
                 }
                 return (new LoginController)->register();
             }
+            elseif (
+                $_SERVER['REQUEST_METHOD'] == 'POST' &&
+                'register' == $userUri[0] &&
+                count($userUri) == 1
+                ) {
+                    if (LoginController::isLogged()) {
+                        self::redirect('edit');
+                    }
+                    return (new LoginController)->doRegister();
+                }
             
 
         if (!LoginController::isLogged()) {
