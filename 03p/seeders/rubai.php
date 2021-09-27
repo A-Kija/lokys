@@ -1,5 +1,7 @@
 <?php
 
+
+
 require __DIR__.'/../bootstrap.php';
 
 
@@ -21,9 +23,20 @@ $pdo = new PDO($dsn, $user, $pass, $options);
 
 
 $sql = "DROP TABLE IF EXISTS
-sizes, outfits_tags, outfits, tags;
+sizes, outfits_tags, outfits, tags, users;
 ";
 $pdo->query($sql);
+
+
+$sql = "CREATE TABLE 
+users (
+    id       smallint PRIMARY KEY AUTO_INCREMENT,
+    user	 varchar(70),
+    pass	 char(32)
+);
+";
+$pdo->query($sql);
+
 
 
 
@@ -37,6 +50,7 @@ outfits (
 );
 ";
 $pdo->query($sql);
+
 
 $sql = "CREATE TABLE 
 sizes (
@@ -87,6 +101,24 @@ $tags = [
     'Išpardavimas', 'Lengvai plaunami', 'Sportinio stiliaus',
     'Paskutiniai vienetai'
 ];
+
+$users = [
+    ['Jonas', '123'],
+    ['Kristina', '123'],
+    ['Bebras', '123']
+];
+
+foreach ($users as $user) {
+    $u = $user[0];
+    $p = md5($user[1]);
+    $sql = "INSERT INTO
+    users
+    (user, pass)
+    VALUES ( '$u', '$p' )
+    ";
+    $pdo->query($sql);
+}
+
 
 foreach ($tags as $tag) {
     $sql = "INSERT INTO
