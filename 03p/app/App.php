@@ -41,18 +41,41 @@ class App {
                 return (new RubuController)->selectTest();
             }
         elseif (
-                $_SERVER['REQUEST_METHOD'] == 'GET' &&
-                'tags' == $userUri[0] &&
-                count($userUri) == 1
-                ) {
-                    return (new RubuController)->showTags();
-                }
+            $_SERVER['REQUEST_METHOD'] == 'POST' &&
+            'login' == $userUri[0] &&
+            count($userUri) == 1
+            ) {
+                return (new LoginController)->doLogin();
+            }
+        elseif (
+            $_SERVER['REQUEST_METHOD'] == 'GET' &&
+            'login' == $userUri[0] &&
+            count($userUri) == 1
+            ) {
+                return (new LoginController)->show();
+            }
         elseif (
             $_SERVER['REQUEST_METHOD'] == 'POST' &&
             'pirkti' == $userUri[0] &&
             count($userUri) == 1
             ) {
                 return (new RubuController)->buy();
+            }
+
+
+        if (!LoginController::isLogged()) {
+            self::redirect('login');
+        }
+
+
+
+
+        if (
+            $_SERVER['REQUEST_METHOD'] == 'GET' &&
+            'tags' == $userUri[0] &&
+            count($userUri) == 1
+            ) {
+                return (new RubuController)->showTags();
             }
         elseif (
             $_SERVER['REQUEST_METHOD'] == 'GET' &&
@@ -97,21 +120,9 @@ class App {
                 return (new RubuController)->updateTag($userUri[2]);
             }
 
-        elseif (
-            $_SERVER['REQUEST_METHOD'] == 'GET' &&
-            'login' == $userUri[0] &&
-            count($userUri) == 1
-            ) {
-                return (new LoginController)->show();
-            }
 
-        elseif (
-            $_SERVER['REQUEST_METHOD'] == 'POST' &&
-            'login' == $userUri[0] &&
-            count($userUri) == 1
-            ) {
-                return (new LoginController)->doLogin();
-            }
+
+
             
 
         echo '<h1>404 Page Not Found</h1>';

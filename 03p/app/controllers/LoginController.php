@@ -11,14 +11,28 @@ class LoginController {
     {
         $name = $_POST['user'];
         $pass = md5($_POST['pass']);
-        $sql = "
+        $sql = "SELECT 
+        *
+        FROM
+        users
+        WHERE user = '$name' AND pass = '$pass'
         ";
         $stmt = App::$pdo->query($sql);
         $user = $stmt->fetch();
 
-        print_r($user);
-        die;
+        if (false === $user) {
+            return false;
+        }
 
+        $_SESSION['name'] = $user['user'];
+        $_SESSION['logged'] = 1;
+
+        return true;
+    }
+
+    static public function isLogged()
+    {
+        return isset($_SESSION['logged']) && $_SESSION['logged'] == 1;
     }
     
     
@@ -30,6 +44,13 @@ class LoginController {
     public function doLogin()
     {
         $ok = self::logIn();
+
+        if (!$ok) {
+            App::redirect('login');
+        }
+        else {
+            App::redirect('edit');
+        }
     }
     
 }
