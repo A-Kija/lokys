@@ -64,7 +64,17 @@ class App {
             ) {
                 return (new RubuController)->buy();
             }
-
+            elseif (
+            $_SERVER['REQUEST_METHOD'] == 'GET' &&
+            'register' == $userUri[0] &&
+            count($userUri) == 1
+            ) {
+                if (LoginController::isLogged()) {
+                    self::redirect('edit');
+                }
+                return (new LoginController)->register();
+            }
+            
 
         if (!LoginController::isLogged()) {
             self::redirect('login');

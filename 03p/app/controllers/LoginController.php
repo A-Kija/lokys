@@ -41,6 +41,11 @@ class LoginController {
         App::view('login');
     }
 
+    public function register()
+    {
+        App::view('register');
+    }
+
     public function doLogin()
     {
         $ok = self::logIn();
