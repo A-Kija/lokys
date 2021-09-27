@@ -2,6 +2,7 @@
 namespace Rubu\Parduotuve;
 
 use Rubu\Parduotuve\Controllers\RubuController;
+use Rubu\Parduotuve\Controllers\LoginController;
 use PDO;
 
 class App {
@@ -94,6 +95,14 @@ class App {
             count($userUri) == 3
             ) {
                 return (new RubuController)->updateTag($userUri[2]);
+            }
+
+        elseif (
+            $_SERVER['REQUEST_METHOD'] == 'GET' &&
+            'login' == $userUri[0] &&
+            count($userUri) == 1
+            ) {
+                return (new LoginController)->show();
             }
             
 

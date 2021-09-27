@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 function getSetting($option)
 {
     $settings = require __DIR__ . '/app/settings.php';
