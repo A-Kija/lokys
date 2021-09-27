@@ -52,5 +52,11 @@ class LoginController {
             App::redirect('edit');
         }
     }
+
+    public function doLogOut()
+    {
+        unset($_SESSION['name'], $_SESSION['logged']);
+        App::redirect('login');
+    }
     
 }

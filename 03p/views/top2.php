@@ -12,3 +12,8 @@
 </head>
 
 <body>
+    <?php if($appUser) : ?>
+        <form action="<?= URL. 'logout' ?>" method="post" class="m-3">
+        <button class="btn btn-primary">Atsijungti <?= $appUser ?></button>
+        </form>
+    <?php endif ?>

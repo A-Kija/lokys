@@ -13,7 +13,7 @@
                         </div>
                         <div class="form-group">
                             <label>Slaptažodis:</label>
-                            <input type="pass" class="form-control" name="pass">
+                            <input type="password" class="form-control" name="pass">
                         </div>
                         <button class="btn btn-primary">Prisijungti</button>
                     </form>

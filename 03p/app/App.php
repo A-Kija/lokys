@@ -52,6 +52,9 @@ class App {
             'login' == $userUri[0] &&
             count($userUri) == 1
             ) {
+                if (LoginController::isLogged()) {
+                    self::redirect('edit');
+                }
                 return (new LoginController)->show();
             }
         elseif (
@@ -66,8 +69,6 @@ class App {
         if (!LoginController::isLogged()) {
             self::redirect('login');
         }
-
-
 
 
         if (
@@ -119,6 +120,13 @@ class App {
             ) {
                 return (new RubuController)->updateTag($userUri[2]);
             }
+        elseif (
+            $_SERVER['REQUEST_METHOD'] == 'POST' &&
+            'logout' == $userUri[0] &&
+            count($userUri) == 1
+            ) {
+                return (new LoginController)->doLogOut();
+            }
 
 
 
@@ -155,6 +163,7 @@ class App {
     public static function view($temp, $data = [])
     {
         extract($data);
+        $appUser = $_SESSION['name'] ?? '';
         require DIR . 'views/' . $temp . '.php';
     }
 
