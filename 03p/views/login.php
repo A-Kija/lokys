@@ -1,7 +1,7 @@
 <?php require __DIR__ . '/top2.php' ?>
 
 <div class="container">
-    <div class="row center">
+    <div class="row justify-content-md-center mt-5">
         <div class="col-4">
             <div class="card m-2">
                 <div class="card-body">

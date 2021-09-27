@@ -104,6 +104,14 @@ class App {
             ) {
                 return (new LoginController)->show();
             }
+
+        elseif (
+            $_SERVER['REQUEST_METHOD'] == 'POST' &&
+            'login' == $userUri[0] &&
+            count($userUri) == 1
+            ) {
+                return (new LoginController)->doLogin();
+            }
             
 
         echo '<h1>404 Page Not Found</h1>';
