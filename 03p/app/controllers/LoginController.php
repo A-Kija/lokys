@@ -50,7 +50,10 @@ class LoginController {
     {
         $name = $_POST['user'];
         $pass = md5($_POST['pass']);
-        $sql = "
+        $sql = "INSERT INTO
+        users
+        (user, pass)
+        VALUES ('$name', '$pass')
         ";
         App::$pdo->query($sql);
         App::redirect('login');
