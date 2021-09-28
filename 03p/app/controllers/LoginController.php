@@ -2,7 +2,7 @@
 namespace Rubu\Parduotuve\Controllers;
 
 use Rubu\Parduotuve\App;
-
+use Rubu\Parduotuve\Messages;
 
 
 class LoginController {
@@ -21,12 +21,13 @@ class LoginController {
         $user = $stmt->fetch();
 
         if (false === $user) {
+            Messages::add('danger', 'Blogas slaptažodis arba vardas');
             return false;
         }
 
         $_SESSION['name'] = $user['user'];
         $_SESSION['logged'] = 1;
-
+        Messages::add('success', 'Vartotojas '. $user['user'] . 'sėkmingai pajungas.');
         return true;
     }
 
@@ -56,6 +57,7 @@ class LoginController {
         VALUES ('$name', '$pass')
         ";
         App::$pdo->query($sql);
+        Messages::add('success', 'Vartotojas '. $name . ' sėkmingai užregistruotas.');
         App::redirect('login');
     }
 

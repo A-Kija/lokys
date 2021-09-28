@@ -4,6 +4,7 @@ namespace Rubu\Parduotuve;
 use Rubu\Parduotuve\Controllers\RubuController;
 use Rubu\Parduotuve\Controllers\LoginController;
 use PDO;
+use Rubu\Parduotuve\Messages;
 
 class App {
 
@@ -184,6 +185,7 @@ class App {
     {
         extract($data);
         $appUser = $_SESSION['name'] ?? '';
+        $messages = Messages::get();
         require DIR . 'views/' . $temp . '.php';
     }
 
