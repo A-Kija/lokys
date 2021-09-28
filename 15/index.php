@@ -18,12 +18,37 @@ $options = [
 $pdo = new PDO($dsn, $user, $pass, $options);
 
 
+// $sql = "SELECT
+// m.id as mig, m.name as mname, m.surname as msurname
+// FROM
+// managers as m
+// LEFT JOIN animals as a
+// ON a.manager_id = m.id
+// GROUP BY mig
+// HAVING COUNT(a.id) = 0
+// ";
+
 $sql = "SELECT
-*
+s.name as sn, COUNT(a.id) as amount
+FROM 
+animals AS a
+LEFT JOIN species AS s
+ON a.specie_id = s.id
+WHERE a.specie_id IN (SELECT
+id
 FROM
-animals
-WHERE specie_id = 1
+species
+WHERE `name` IN ('Plėšrūnai', 'Paukščiai', 'Žuvys')
+)
+GROUP BY s.id
 ";
+
+// $sql = "SELECT
+// id
+// FROM
+// species
+// WHERE `name` IN ('Plėšrūnai', 'Paukščiai', 'Žuvys')
+// ";
 
 $stmt = $pdo->query($sql);
 $out = $stmt->fetchAll();
