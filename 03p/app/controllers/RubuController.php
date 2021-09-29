@@ -369,7 +369,7 @@ class RubuController {
     
     public function list()
     {   
-        $sql = "SELECT
+        $sqlList = "SELECT
         o.id, `type`, color, price, discount,
         (price - discount) AS total_price,
         GROUP_CONCAT(DISTINCT(t.title)) as tags_list,
@@ -383,53 +383,60 @@ class RubuController {
         ON ot.tag_id = t.id
         INNER JOIN sizes as s
         ON o.id = s.outfit_id
-        
         ";
 
         //Didysis ifinimas
 
         if (isset($_GET['type']) && $_GET['type'] != 'default') {
+            $type = $_GET['type'];
 
             if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
-                $sql .= "
+                $sql = "
+                WHERE o.type = '$type'
                 GROUP BY o.id
-                ORDER BY o.price
+                ORDER BY total_price
                 ";
             }
             elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
-                $sql .= "
+                $sql = "
+                WHERE o.type = '$type'
                 GROUP BY o.id
-                ORDER BY o.price DESC
+                ORDER BY total_price DESC
                 ";
             }
             else {
-                $sql .= "GROUP BY o.id";
+                $sql = "
+                WHERE o.type = '$type'
+                GROUP BY o.id
+                ";
             }
         }
 
 
         else {
             if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
-                $sql .= "
+                $sql = "
                 GROUP BY o.id
-                ORDER BY o.price
+                ORDER BY total_price
                 ";
             }
             elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
-                $sql .= "
+                $sql = "
                 GROUP BY o.id
-                ORDER BY o.price DESC
+                ORDER BY total_price DESC
                 ";
             }
             else {
-                $sql .= "GROUP BY o.id";
+                $sql = "
+                GROUP BY o.id
+                ";
             }
         }
 
 
 
 
-        $stmt = App::$pdo->query($sql);
+        $stmt = App::$pdo->query($sqlList.$sql);
         $outfits = $stmt->fetchAll();
         foreach ($outfits as &$outfit) {
             $outfit['tags_list'] = explode(',', $outfit['tags_list']);
