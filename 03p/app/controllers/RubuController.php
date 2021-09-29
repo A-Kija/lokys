@@ -383,7 +383,7 @@ class RubuController {
         ON ot.tag_id = t.id
         INNER JOIN sizes as s
         ON o.id = s.outfit_id
-        GROUP BY o.id
+        
         ";
 
         //Didysis ifinimas
@@ -392,16 +392,18 @@ class RubuController {
 
             if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
                 $sql .= "
+                GROUP BY o.id
                 ORDER BY o.price
                 ";
             }
             elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
                 $sql .= "
+                GROUP BY o.id
                 ORDER BY o.price DESC
                 ";
             }
             else {
-                $sql .= "";
+                $sql .= "GROUP BY o.id";
             }
         }
 
@@ -409,16 +411,18 @@ class RubuController {
 
         if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
             $sql .= "
+            GROUP BY o.id
             ORDER BY o.price
             ";
         }
         elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
             $sql .= "
+            GROUP BY o.id
             ORDER BY o.price DESC
             ";
         }
         else {
-            $sql .= "";
+            $sql .= "GROUP BY o.id";
         }
 
 
