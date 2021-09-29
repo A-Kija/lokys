@@ -7,18 +7,7 @@ class RubuController {
 
     const IN_PAGE = 10;
 
-    public static function outfitsTypes()
-    {
-        // SELECT DISTINCT column1, column2, ...
-        // FROM table_name;
-        $sql = "SELECT DISTINCT `type`
-        FROM outfits
-        ORDER BY `type`
-        ";
-        $stmt = App::$pdo->query($sql);
-        $types = $stmt->fetchAll();
-        return $types;
-    }
+
 
     public static function allTags()
     {
@@ -52,15 +41,7 @@ class RubuController {
         return $stmt->fetch()['number_of_products'];
     }
 
-    // public static function countAll()
-    // {
-    //     // SELECT SUM(Quantity) AS TotalItemsOrdered FROM OrderDetails;
-    //     $sql = "SELECT SUM(kiekis) AS all_products
-    //     FROM rubai
-    //     ";
-    //     $stmt = App::$pdo->query($sql);
-    //     return $stmt->fetch()['all_products'];
-    // }
+
     
     public function selectTest()
     {
@@ -366,6 +347,26 @@ class RubuController {
 
         App::redirect('test');
     }
+
+    public static function countAll($sql)
+    {
+        $sqlList = "SELECT
+
+        FROM
+        outfits as o
+        LEFT JOIN outfits_tags as ot
+        ON o.id = ot.outfit_id
+        LEFT JOIN tags as t
+        ON ot.tag_id = t.id
+        INNER JOIN sizes as s
+        ON o.id = s.outfit_id
+        ";
+
+
+        $stmt = App::$pdo->query($sqlList.$sql);
+        return $stmt->fetch()['all_products'];
+    }
+    
     
     public function list()
     {   
@@ -423,7 +424,7 @@ class RubuController {
             elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
                 $sql = "
                 GROUP BY o.id
-                ORDER BY total_price DESC
+                ORDER BY o.total_price DESC
                 ";
             }
             else {
@@ -449,7 +450,7 @@ class RubuController {
             unset($outfit['sizes_list'], $outfit['amounts_list']);
         }
         $types = self::outfitsTypes();
-        $productsCount = self::countAllProducts();
+        $productsCount = self::countAll($sql);
         $allTags = self::allTags();
         App::view('list', [
             'outfits' => $outfits,
