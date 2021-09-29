@@ -5,7 +5,7 @@ use Rubu\Parduotuve\App;
 
 class RubuController {
 
-    const IN_PAGE = 3;
+    const IN_PAGE = 30;
 
     public static function outfitsTypes()
     {

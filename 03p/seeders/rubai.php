@@ -130,7 +130,7 @@ foreach ($tags as $tag) {
 }
 
 
-foreach (range(1, 87) as $val) {
+foreach (range(1, 870) as $val) {
     $type = $outfits[rand(0, count($outfits) -1 )];
     $color = $colors[rand(0, count($colors) -1 )];
     $priceTag = rand(1, 9999);
