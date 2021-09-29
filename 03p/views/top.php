@@ -28,6 +28,19 @@
                                     didžiausios</option>
                             </select>
                     </fieldset>
+                    <fieldset>
+                        <legend>Filtruoti pagal tipą</legend>
+                        <div class="form-group">
+                            <select name="type" class="form-control">
+                                <option value="default"> Nieko nepasirinkta </option>
+                                <?php foreach ($types as $type) : ?>
+                                <option value="<?= $type['type'] ?>" <?= S('type', $type['type']) ?>>
+                                    <?= $type['type'] ?>
+                                </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </fieldset>
 
 
                     <button type="submit" class="btn btn-secondary">Pritaikyti</button>
@@ -38,21 +51,7 @@
 
             <div class="col-4">
                 <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
-                    <fieldset>
-                        <legend>Filtruoti pagal tipą</legend>
-                        <div class="form-group">
-                            <select name="rubas" class="form-control">
-                                <option value=""> Nieko nepasirinkta </option>
-                                <?php foreach ($types as $type) : ?>
-                                <?php $selected = ($_GET['rubas'] ?? '') == $type['type'] ? 'selected' : '' ?>
-                                <option value="<?= $type['type'] ?>" <?= $selected ?>>
-                                    <?= $type['type'] ?>
-                                </option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <button class="btn btn-secondary" type="submit" name="filter_by_type">Rodyti</button>
-                    </fieldset>
+
                 </form>
             </div>
 

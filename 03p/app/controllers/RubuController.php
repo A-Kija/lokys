@@ -388,6 +388,25 @@ class RubuController {
 
         //Didysis ifinimas
 
+        if (isset($_GET['type']) && $_GET['type'] == 'default') {
+
+            if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                $sql .= "
+                ORDER BY o.price
+                ";
+            }
+            elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                $sql .= "
+                ORDER BY o.price DESC
+                ";
+            }
+            else {
+                $sql .= "";
+            }
+        }
+
+
+
         if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
             $sql .= "
             ORDER BY o.price
@@ -397,6 +416,9 @@ class RubuController {
             $sql .= "
             ORDER BY o.price DESC
             ";
+        }
+        else {
+            $sql .= "";
         }
 
 
