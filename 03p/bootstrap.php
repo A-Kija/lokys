@@ -14,6 +14,13 @@ function S($name, $value)
     return '';
 }
 
+function pager($page) 
+{
+    $get = $_GET;
+    $get['page'] = $page;
+    return '?'.http_build_query($get);
+}
+
 require __DIR__ . '/vendor/autoload.php';
 
 define('URL', getSetting('url'));

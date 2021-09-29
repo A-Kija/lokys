@@ -11,7 +11,7 @@
                 </a>
             </li>
             <?php foreach (range(1, $pages) as $page) : ?>
-            <li class="page-item"><a class="page-link" href="<?= URL. 'sarasas' ?>?page=<?= $page ?>"><?= $page ?></a></li>
+            <li class="page-item"><a class="page-link" href="<?= URL. 'sarasas'.pager($page) ?>"><?= $page ?></a></li>
             <?php endforeach ?>
             <li class="page-item">
                 <a class="page-link" href="#" aria-label="Next">

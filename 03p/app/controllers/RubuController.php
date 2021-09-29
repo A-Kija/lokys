@@ -5,7 +5,7 @@ use Rubu\Parduotuve\App;
 
 class RubuController {
 
-    const IN_PAGE = 10;
+    const IN_PAGE = 3;
 
     public static function outfitsTypes()
     {
@@ -362,7 +362,7 @@ class RubuController {
     public static function countAll($sql)
     {
         $sql = str_replace('GROUP BY o.id', '', $sql);
-        $sqlList = "SELECT COUNT(DISTINCT(o.id)) as all_products, (price - discount) AS total_price
+        $sqlList = "SELECT COUNT(DISTINCT(o.id)) AS all_products, (price - discount) AS total_price
         FROM
         outfits as o
         LEFT JOIN outfits_tags as ot
@@ -443,10 +443,14 @@ class RubuController {
             }
         }
 
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $inPage = self::IN_PAGE;
+        $offset = ($page - 1) * $inPage;
+        $limit = "
+        LIMIT $offset , $inPage";
 
 
-
-        $stmt = App::$pdo->query($sqlList.$sql);
+        $stmt = App::$pdo->query($sqlList.$sql.$limit);
         $outfits = $stmt->fetchAll();
         foreach ($outfits as &$outfit) {
             $outfit['tags_list'] = explode(',', $outfit['tags_list']);
