@@ -388,7 +388,7 @@ class RubuController {
 
         //Didysis ifinimas
 
-        if (isset($_GET['type']) && $_GET['type'] == 'default') {
+        if (isset($_GET['type']) && $_GET['type'] != 'default') {
 
             if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
                 $sql .= "
