@@ -408,21 +408,22 @@ class RubuController {
         }
 
 
-
-        if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
-            $sql .= "
-            GROUP BY o.id
-            ORDER BY o.price
-            ";
-        }
-        elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
-            $sql .= "
-            GROUP BY o.id
-            ORDER BY o.price DESC
-            ";
-        }
         else {
-            $sql .= "GROUP BY o.id";
+            if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                $sql .= "
+                GROUP BY o.id
+                ORDER BY o.price
+                ";
+            }
+            elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                $sql .= "
+                GROUP BY o.id
+                ORDER BY o.price DESC
+                ";
+            }
+            else {
+                $sql .= "GROUP BY o.id";
+            }
         }
 
 
