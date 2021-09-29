@@ -7,7 +7,18 @@ class RubuController {
 
     const IN_PAGE = 10;
 
-
+    public static function outfitsTypes()
+    {
+        // SELECT DISTINCT column1, column2, ...
+        // FROM table_name;
+        $sql = "SELECT DISTINCT `type`
+        FROM outfits
+        ORDER BY `type`
+        ";
+        $stmt = App::$pdo->query($sql);
+        $types = $stmt->fetchAll();
+        return $types;
+    }
 
     public static function allTags()
     {
@@ -350,8 +361,8 @@ class RubuController {
 
     public static function countAll($sql)
     {
-        $sqlList = "SELECT
-
+        $sql = str_replace('GROUP BY o.id', '', $sql);
+        $sqlList = "SELECT COUNT(DISTINCT(o.id)) as all_products, (price - discount) AS total_price
         FROM
         outfits as o
         LEFT JOIN outfits_tags as ot
@@ -361,8 +372,6 @@ class RubuController {
         INNER JOIN sizes as s
         ON o.id = s.outfit_id
         ";
-
-
         $stmt = App::$pdo->query($sqlList.$sql);
         return $stmt->fetch()['all_products'];
     }
@@ -424,7 +433,7 @@ class RubuController {
             elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
                 $sql = "
                 GROUP BY o.id
-                ORDER BY o.total_price DESC
+                ORDER BY total_price DESC
                 ";
             }
             else {
