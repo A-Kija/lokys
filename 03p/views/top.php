@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    
+
     <link rel="stylesheet" href="<?= URL ?>css/app.css">
     <title>Rūbai</title>
 </head>
@@ -19,14 +19,23 @@
                 <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
                     <fieldset>
                         <legend>Rūšiuoti</legend>
-                        <button class="btn btn-secondary" type="submit" name="sort_price_asc">Pagal kainą nuo
-                            mažiausios</button>
-                        <button class="btn btn-secondary" type="submit" name="sort_price_desc">Pagal kainą nuo
-                            didžiausios</button>
-                        <a class="btn btn-secondary" href="<?= URL. 'sarasas' ?>">Išvalyti</a>
+                        <div class="form-group">
+                            <select name="sort" class="form-control">
+                                <option value="default">Numatytasis rūšiavimas</option>
+                                <option value="price_asc" <?= S('sort', 'price_asc') ?>>Pagal kainą nuo
+                                    mažiausios</option>
+                                    <option value="price_desc" <?= S('sort', 'price_desc') ?>>Pagal kainą nuo
+                                    didžiausios</option>
+                            </select>
                     </fieldset>
+
+
+                    <button type="submit" class="btn btn-secondary">Pritaikyti</button>
+                    <a class="btn btn-secondary" href="<?= URL. 'sarasas' ?>">Išvalyti</a>
                 </form>
             </div>
+
+
             <div class="col-4">
                 <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
                     <fieldset>
@@ -47,7 +56,7 @@
                 </form>
             </div>
 
-            
+
             <div class="col-6">
                 <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
                     <fieldset>

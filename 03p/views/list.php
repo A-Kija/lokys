@@ -1,7 +1,7 @@
 <?php require __DIR__ . '/top.php' ?>
-
 <div class="container">
     <div class="row">
+        <?php _d($outfits) ?>
         <?php foreach($outfits as $outfit) : ?>
         <!-- prekes pradzia -->
         <div class="col-4">

@@ -219,19 +219,24 @@ class RubuController {
 
         $tagIds = implode(',', array_map(fn($v) => "'$v'", $tagsTitle));
             
-        $sql = "SELECT
-        GROUP_CONCAT(id) as tag_ids
-        FROM
-        tags
-        WHERE title IN ( $tagIds )
-        ";
+        // $sql = "SELECT
+        // GROUP_CONCAT(id) as tag_ids
+        // FROM
+        // tags
+        // WHERE title IN ( $tagIds )
+        // ";
 
-        $stmt = App::$pdo->query($sql);
-        $tagIds = $stmt->fetch()['tag_ids'];
+        // $stmt = App::$pdo->query($sql);
+        // $tagIds = $stmt->fetch()['tag_ids'];
 
         $sql = "DELETE FROM
         outfits_tags
-        WHERE outfit_id = $id AND tag_id IN ( $tagIds )
+        WHERE outfit_id = $id AND tag_id IN ( SELECT
+        id
+        FROM
+        tags
+        WHERE title IN ( $tagIds )
+         )
         ";
 
         $stmt = App::$pdo->query($sql);
@@ -364,6 +369,72 @@ class RubuController {
     
     public function list()
     {   
+        $sql = "SELECT
+        o.id, `type`, color, price, discount,
+        (price - discount) AS total_price,
+        GROUP_CONCAT(DISTINCT(t.title)) as tags_list,
+        GROUP_CONCAT(DISTINCT(s.size)) as sizes_list,
+        GROUP_CONCAT(s.amount) as amounts_list
+        FROM
+        outfits as o
+        LEFT JOIN outfits_tags as ot
+        ON o.id = ot.outfit_id
+        LEFT JOIN tags as t
+        ON ot.tag_id = t.id
+        INNER JOIN sizes as s
+        ON o.id = s.outfit_id
+        GROUP BY o.id
+        ";
+
+        //Didysis ifinimas
+
+        if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+            $sql .= "
+            ORDER BY o.price
+            ";
+        }
+        elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+            $sql .= "
+            ORDER BY o.price DESC
+            ";
+        }
+
+
+
+
+        $stmt = App::$pdo->query($sql);
+        $outfits = $stmt->fetchAll();
+        foreach ($outfits as &$outfit) {
+            $outfit['tags_list'] = explode(',', $outfit['tags_list']);
+            $outfit['sizes_list'] = explode(',', $outfit['sizes_list']);
+            $outfit['amounts_list'] = explode(',', $outfit['amounts_list']);
+            $outfit['sizes_amounts'] = [];
+            foreach ($outfit['sizes_list'] as $index => $size) {
+                $outfit['sizes_amounts'][$size] = $outfit['amounts_list'][$index];
+            }
+            unset($outfit['sizes_list'], $outfit['amounts_list']);
+        }
+        $types = self::outfitsTypes();
+        $productsCount = self::countAllProducts();
+        $allTags = self::allTags();
+        App::view('list', [
+            'outfits' => $outfits,
+            'types' => $types,
+            'count' => $productsCount,
+            'in_one_page' => self::IN_PAGE,
+            'allTags' => $allTags
+        ]);
+
+
+
+        die;
+        
+        
+        
+        
+        
+        
+        
         if (isset($_GET['sort_price_asc'])) {
             $sql = "SELECT
             id, `type`, color, price, discount, (price - discount) AS total_price

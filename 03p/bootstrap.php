@@ -6,6 +6,14 @@ function getSetting($option)
     return $settings[$option] ?? null;
 }
 
+function S($name, $value) 
+{
+    if (isset($_GET[$name]) && $_GET[$name] == $value) {
+        return ' selected';
+    }
+    return '';
+}
+
 require __DIR__ . '/vendor/autoload.php';
 
 define('URL', getSetting('url'));
