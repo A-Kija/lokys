@@ -24,9 +24,10 @@
                                 <option value="default">Numatytasis rūšiavimas</option>
                                 <option value="price_asc" <?= S('sort', 'price_asc') ?>>Pagal kainą nuo
                                     mažiausios</option>
-                                    <option value="price_desc" <?= S('sort', 'price_desc') ?>>Pagal kainą nuo
+                                <option value="price_desc" <?= S('sort', 'price_desc') ?>>Pagal kainą nuo
                                     didžiausios</option>
                             </select>
+                        </div>
                     </fieldset>
                     <fieldset>
                         <legend>Filtruoti pagal tipą</legend>
@@ -41,33 +42,31 @@
                             </select>
                         </div>
                     </fieldset>
-
-
+                    <fieldset>
+                        <legend>Filtruoti pagal tagą</legend>
+                        <div class="form-group">
+                            <select name="tag" class="form-control">
+                                <option value="default"> Nieko nepasirinkta </option>
+                                <?php foreach ($allTags as $tag) : ?>
+                                <option value="<?= $tag['id'] ?>" <?= S('tag', $tag['id']) ?>>
+                                    <?= $tag['title'] ?>
+                                </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </fieldset>
                     <button type="submit" class="btn btn-secondary">Pritaikyti</button>
                     <a class="btn btn-secondary" href="<?= URL. 'sarasas' ?>">Išvalyti</a>
-                </form>
-            </div>
-
-
-            <div class="col-4">
-                <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
-
-                </form>
-            </div>
-
-
-            <div class="col-6">
-                <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
                     <fieldset>
                         <legend>Paieška</legend>
                         <div class="form-group">
                             <input type="text" class="form-control" name="s" value="<?= $_GET['s'] ?? '' ?>">
                         </div>
-                        <button class="btn btn-secondary" type="submit" name="search">Ieškoti</button>
+                        <button class="btn btn-secondary" type="submit">Ieškoti</button>
+                        <a class="btn btn-secondary" href="<?= URL. 'sarasas' ?>">Išvalyti</a>
                     </fieldset>
                 </form>
             </div>
-
         </div>
     </div>
     <div class="container">

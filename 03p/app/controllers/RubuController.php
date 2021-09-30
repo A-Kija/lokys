@@ -397,30 +397,89 @@ class RubuController {
 
         //Didysis ifinimas
 
-        if (isset($_GET['type']) && $_GET['type'] != 'default') {
-            $type = $_GET['type'];
+        // Filtras START
+        if ((isset($_GET['type']) && $_GET['type'] != 'default') ||
+            (isset($_GET['tag']) && $_GET['tag'] != 'default')) {
 
-            if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
-                $sql = "
-                WHERE o.type = '$type'
-                GROUP BY o.id
-                ORDER BY total_price
-                ";
+            // ONLY type
+            if ((isset($_GET['type']) && $_GET['type'] != 'default') &&
+            (!isset($_GET['tag']) || $_GET['tag'] == 'default')) {
+                $type = $_GET['type'];
+                if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                    $sql = "
+                    WHERE o.type = '$type'
+                    GROUP BY o.id
+                    ORDER BY total_price
+                    ";
+                }
+                elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                    $sql = "
+                    WHERE o.type = '$type'
+                    GROUP BY o.id
+                    ORDER BY total_price DESC
+                    ";
+                }
+                else {
+                    $sql = "
+                    WHERE o.type = '$type'
+                    GROUP BY o.id
+                    ";
+                }
             }
-            elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
-                $sql = "
-                WHERE o.type = '$type'
-                GROUP BY o.id
-                ORDER BY total_price DESC
-                ";
+            // Only Tag (keisti)
+            elseif ((!isset($_GET['type']) || $_GET['type'] == 'default') &&
+            (isset($_GET['tag']) && $_GET['tag'] != 'default')) {
+                $tagId = $_GET['tag'];
+                if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                    $sql = "
+                    WHERE o.type = '$type'
+                    GROUP BY o.id
+                    ORDER BY total_price
+                    ";
+                }
+                elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                    $sql = "
+                    WHERE o.type = '$type'
+                    GROUP BY o.id
+                    ORDER BY total_price DESC
+                    ";
+                }
+                else {
+                    $sql = "
+                    WHERE o.type = '$type'
+                    GROUP BY o.id
+                    ";
+                }
             }
+            // Type AND Tag (keisti)
             else {
-                $sql = "
-                WHERE o.type = '$type'
-                GROUP BY o.id
-                ";
+                $tagId = $_GET['tag'];
+                $type = $_GET['type'];
+                if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                    $sql = "
+                    WHERE o.type = '$type'
+                    GROUP BY o.id
+                    ORDER BY total_price
+                    ";
+                }
+                elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                    $sql = "
+                    WHERE o.type = '$type'
+                    GROUP BY o.id
+                    ORDER BY total_price DESC
+                    ";
+                }
+                else {
+                    $sql = "
+                    WHERE o.type = '$type'
+                    GROUP BY o.id
+                    ";
+                }
             }
+
+
         }
+        // Fitras END
 
 
         else {
