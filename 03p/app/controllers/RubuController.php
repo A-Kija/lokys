@@ -398,90 +398,187 @@ class RubuController {
         //Didysis ifinimas
 
         // Filtras START
-        if ((isset($_GET['type']) && $_GET['type'] != 'default') ||
-            (isset($_GET['tag']) && $_GET['tag'] != 'default')) {
+        if ((isset($_GET['s']) && $_GET['s'] !== '') ||
+            (isset($_GET['type']) && $_GET['type'] != 'default') ||
+            (isset($_GET['tag']) && $_GET['tag'] != 'default')
+        ) {
 
-            // ONLY type
-            if ((isset($_GET['type']) && $_GET['type'] != 'default') &&
-            (!isset($_GET['tag']) || $_GET['tag'] == 'default')) {
-                $type = $_GET['type'];
-                if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
-                    $sql = "
-                    WHERE o.type = '$type'
-                    GROUP BY o.id
-                    ORDER BY total_price
-                    ";
+            if (!isset($_GET['s']) || $_GET['s'] === '') {
+                // w/o search
+
+                if ((isset($_GET['type']) && $_GET['type'] != 'default') ||
+                    (isset($_GET['tag']) && $_GET['tag'] != 'default')) {
+
+                    // ONLY type
+                    if ((isset($_GET['type']) && $_GET['type'] != 'default') &&
+                    (!isset($_GET['tag']) || $_GET['tag'] == 'default')) {
+                        $type = $_GET['type'];
+                        if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                            $sql = "
+                            WHERE o.type = '$type'
+                            GROUP BY o.id
+                            ORDER BY total_price
+                            ";
+                        }
+                        elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                            $sql = "
+                            WHERE o.type = '$type'
+                            GROUP BY o.id
+                            ORDER BY total_price DESC
+                            ";
+                        }
+                        else {
+                            $sql = "
+                            WHERE o.type = '$type'
+                            GROUP BY o.id
+                            ";
+                        }
+                    }
+                    // Only Tag (keisti)
+                    elseif ((!isset($_GET['type']) || $_GET['type'] == 'default') &&
+                    (isset($_GET['tag']) && $_GET['tag'] != 'default')) {
+                        $tagId = $_GET['tag'];
+                        if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                            $sql = "
+                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ORDER BY total_price
+                            ";
+                        }
+                        elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                            $sql = "
+                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ORDER BY total_price DESC
+                            ";
+                        }
+                        else {
+                            $sql = "
+                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ";
+                        }
+                    }
+                    // Type AND Tag (keisti)
+                    else {
+                        $tagId = $_GET['tag'];
+                        $type = $_GET['type'];
+                        if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                            $sql = "
+                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ORDER BY total_price
+                            ";
+                        }
+                        elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                            $sql = "
+                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ORDER BY total_price DESC
+                            ";
+                        }
+                        else {
+                            $sql = "
+                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ";
+                        }
+                    }
                 }
-                elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
-                    $sql = "
-                    WHERE o.type = '$type'
-                    GROUP BY o.id
-                    ORDER BY total_price DESC
-                    ";
-                }
-                else {
-                    $sql = "
-                    WHERE o.type = '$type'
-                    GROUP BY o.id
-                    ";
-                }
+
             }
-            // Only Tag (keisti)
-            elseif ((!isset($_GET['type']) || $_GET['type'] == 'default') &&
-            (isset($_GET['tag']) && $_GET['tag'] != 'default')) {
-                $tagId = $_GET['tag'];
-                if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
-                    $sql = "
-                    WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
-                    GROUP BY o.id
-                    ORDER BY total_price
-                    ";
-                }
-                elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
-                    $sql = "
-                    WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
-                    GROUP BY o.id
-                    ORDER BY total_price DESC
-                    ";
-                }
-                else {
-                    $sql = "
-                    WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
-                    GROUP BY o.id
-                    ";
-                }
-            }
-            // Type AND Tag (keisti)
             else {
-                $tagId = $_GET['tag'];
-                $type = $_GET['type'];
-                if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
-                    $sql = "
-                    WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
-                    GROUP BY o.id
-                    ORDER BY total_price
-                    ";
-                }
-                elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
-                    $sql = "
-                    WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
-                    GROUP BY o.id
-                    ORDER BY total_price DESC
-                    ";
-                }
-                else {
-                    $sql = "
-                    WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
-                    GROUP BY o.id
-                    ";
-                }
-            }
+                // w search
+                //
+                //
+                $s = $_GET['s'];
 
+                if ((isset($_GET['type']) && $_GET['type'] != 'default') ||
+                    (isset($_GET['tag']) && $_GET['tag'] != 'default')) {
+
+                    // ONLY type
+                    if ((isset($_GET['type']) && $_GET['type'] != 'default') &&
+                    (!isset($_GET['tag']) || $_GET['tag'] == 'default')) {
+                        $type = $_GET['type'];
+                        if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                            $sql = "
+                            WHERE o.type = '$type'
+                            GROUP BY o.id
+                            ORDER BY total_price
+                            ";
+                        }
+                        elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                            $sql = "
+                            WHERE o.type = '$type'
+                            GROUP BY o.id
+                            ORDER BY total_price DESC
+                            ";
+                        }
+                        else {
+                            $sql = "
+                            WHERE o.type = '$type'
+                            GROUP BY o.id
+                            ";
+                        }
+                    }
+                    // Only Tag
+                    elseif ((!isset($_GET['type']) || $_GET['type'] == 'default') &&
+                    (isset($_GET['tag']) && $_GET['tag'] != 'default')) {
+                        $tagId = $_GET['tag'];
+                        if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                            $sql = "
+                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ORDER BY total_price
+                            ";
+                        }
+                        elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                            $sql = "
+                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ORDER BY total_price DESC
+                            ";
+                        }
+                        else {
+                            $sql = "
+                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ";
+                        }
+                    }
+                    // Type AND Tag
+                    else {
+                        $tagId = $_GET['tag'];
+                        $type = $_GET['type'];
+                        if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
+                            $sql = "
+                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ORDER BY total_price
+                            ";
+                        }
+                        elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
+                            $sql = "
+                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ORDER BY total_price DESC
+                            ";
+                        }
+                        else {
+                            $sql = "
+                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            GROUP BY o.id
+                            ";
+                        }
+                    }
+                }
+                //
+                //
+                //
+            }
 
         }
         // Fitras END
-
-
         else {
             if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
                 $sql = "
@@ -537,62 +634,7 @@ class RubuController {
         die;
         
         
-        
-        
-        
-        
-        
-        if (isset($_GET['sort_price_asc'])) {
-            $sql = "SELECT
-            id, `type`, color, price, discount, (price - discount) AS total_price
-            FROM
-            outfits
-            ORDER BY total_price
-            ";
-        }
-        elseif (isset($_GET['sort_price_desc'])) {
-            $sql = "SELECT
-            id, `type`, color, price, discount, (price - discount) AS total_price
-            FROM
-            outfits
-            ORDER BY total_price DESC
-            ";
-        }
-        elseif (isset($_GET['filter_by_type'])) {
-            $rubas = $_GET['rubas'];
-            
-            $sql = "SELECT
-            id, `type`, color, price, discount, (price - discount) AS total_price
-            FROM
-            outfits
-            WHERE `type` = '$rubas'
-            ";
-        }
-        // Pageris parašyti LIMIT
-        elseif (isset($_GET['page'])) {
-            $page = $_GET['page'];
-            $inPage = self::IN_PAGE;
-            $offset = ($page - 1) * $inPage;
-            
-            $sql = "SELECT
-            id, `type`, color, price, discount, (price - discount) AS total_price
-            FROM
-            outfits
-            LIMIT $offset , $inPage
-            ";
-        }
-        elseif (isset($_GET['filter_by_size'])) {
-
-            $sizes = implode(',', array_map(fn($v) => "'$v'", $_GET['size']));
-            
-            $sql = "SELECT
-            id, rubas, dydis, spalva, kaina, nuolaida, (kaina - nuolaida) AS pardavimo_kaina, kiekis
-            FROM
-            rubai
-            WHERE dydis IN ( $sizes )
-            ";
-        }
-        elseif (isset($_GET['search'])) {
+        if (isset($_GET['search'])) {
 
             $s = $_GET['s'];
             $s = explode(' ', $s);
@@ -603,7 +645,7 @@ class RubuController {
                 id, `type`, color, price, discount, (price - discount) AS total_price
                 FROM
                 outfits
-                WHERE   color LIKE '%$z%' OR `type` LIKE '%$z%'
+                WHERE color LIKE '%$z%' OR `type` LIKE '%$z%'
                 ";
             }
             else {
@@ -622,31 +664,7 @@ class RubuController {
             }
 
         }
-        else {
-            $sql = "SELECT
-            id, `type`, color, price, discount, (price - discount) AS total_price
-            FROM
-            outfits
-            ";
-        }
-        
 
-        $stmt = App::$pdo->query($sql);
-        $outfits = $stmt->fetchAll();
-
-        $types = self::outfitsTypes();
-        $productsCount = self::countAllProducts();
-        // $countAll = self::countAll();
-        // $sizes = self::sizesTypes();
-
-        App::view('list', [
-            'outfits' => $outfits,
-            'types' => $types,
-            'count' => $productsCount,
-            'in_one_page' => self::IN_PAGE,
-            // 'sizes' => $sizes,
-            // 'count_all' => $countAll
-        ]);
     }
 
 }
