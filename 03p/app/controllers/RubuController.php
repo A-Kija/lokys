@@ -492,6 +492,18 @@ class RubuController {
                 //
                 //
                 $s = $_GET['s'];
+                $s = explode(' ', $s);
+                if (count($s) == 1) {
+                    $z = $s[0];
+                    $search = " AND (color LIKE '%$z%' OR `type` LIKE '%$z%')";
+                }
+                else {
+                    $z1 = $s[0];
+                    $z2 = $s[1];
+                    $search = " AND ((color LIKE '%$z2%' AND `type` LIKE '%$z1%')
+                            OR 
+                            (color LIKE '%$z1%' AND `type` LIKE '%$z2%'))";
+                }
 
                 if ((isset($_GET['type']) && $_GET['type'] != 'default') ||
                     (isset($_GET['tag']) && $_GET['tag'] != 'default')) {
@@ -502,21 +514,21 @@ class RubuController {
                         $type = $_GET['type'];
                         if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
                             $sql = "
-                            WHERE o.type = '$type'
+                            WHERE o.type = '$type'$search
                             GROUP BY o.id
                             ORDER BY total_price
                             ";
                         }
                         elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
                             $sql = "
-                            WHERE o.type = '$type'
+                            WHERE o.type = '$type'$search
                             GROUP BY o.id
                             ORDER BY total_price DESC
                             ";
                         }
                         else {
                             $sql = "
-                            WHERE o.type = '$type'
+                            WHERE o.type = '$type'$search
                             GROUP BY o.id
                             ";
                         }
@@ -527,21 +539,21 @@ class RubuController {
                         $tagId = $_GET['tag'];
                         if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
                             $sql = "
-                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)$search
                             GROUP BY o.id
                             ORDER BY total_price
                             ";
                         }
                         elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
                             $sql = "
-                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)$search
                             GROUP BY o.id
                             ORDER BY total_price DESC
                             ";
                         }
                         else {
                             $sql = "
-                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)$search
                             GROUP BY o.id
                             ";
                         }
@@ -552,21 +564,21 @@ class RubuController {
                         $type = $_GET['type'];
                         if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
                             $sql = "
-                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)$search
                             GROUP BY o.id
                             ORDER BY total_price
                             ";
                         }
                         elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
                             $sql = "
-                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)$search
                             GROUP BY o.id
                             ORDER BY total_price DESC
                             ";
                         }
                         else {
                             $sql = "
-                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
+                            WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)$search
                             GROUP BY o.id
                             ";
                         }
