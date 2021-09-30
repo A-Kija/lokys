@@ -432,21 +432,21 @@ class RubuController {
                 $tagId = $_GET['tag'];
                 if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
                     $sql = "
-                    WHERE o.type = '$type'
+                    WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
                     GROUP BY o.id
                     ORDER BY total_price
                     ";
                 }
                 elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
                     $sql = "
-                    WHERE o.type = '$type'
+                    WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
                     GROUP BY o.id
                     ORDER BY total_price DESC
                     ";
                 }
                 else {
                     $sql = "
-                    WHERE o.type = '$type'
+                    WHERE o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
                     GROUP BY o.id
                     ";
                 }
@@ -457,21 +457,21 @@ class RubuController {
                 $type = $_GET['type'];
                 if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') {
                     $sql = "
-                    WHERE o.type = '$type'
+                    WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
                     GROUP BY o.id
                     ORDER BY total_price
                     ";
                 }
                 elseif (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') {
                     $sql = "
-                    WHERE o.type = '$type'
+                    WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
                     GROUP BY o.id
                     ORDER BY total_price DESC
                     ";
                 }
                 else {
                     $sql = "
-                    WHERE o.type = '$type'
+                    WHERE o.type = '$type' AND o.id IN (SELECT outfit_id FROM outfits_tags WHERE tag_id = $tagId)
                     GROUP BY o.id
                     ";
                 }
