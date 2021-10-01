@@ -383,8 +383,16 @@ class RubuController {
         outfits as o
         LEFT JOIN outfits_tags as ot
         ON o.id = ot.outfit_id
+
         LEFT JOIN tags as t
         ON ot.tag_id = t.id
+
+        INNER JOIN outfits_cats as oc
+        ON o.id = oc.outfit_id
+
+        INNER JOIN cats as c
+        ON oc.cat_id = c.id
+
         INNER JOIN sizes as s
         ON o.id = s.outfit_id
         ";
@@ -392,8 +400,13 @@ class RubuController {
         return $stmt->fetch()['all_products'];
     }
     
+    public function catList($catId)
+    { 
+        return $this->list($catId);
+    }
+
     
-    public function list()
+    public function list($cat = 0)
     {   
         $sqlList = "SELECT
         o.id, `type`, color, price, discount,
@@ -665,6 +678,19 @@ class RubuController {
         $limit = "
         LIMIT $offset , $inPage";
 
+        
+
+        if ($cat) {
+            if (strpos($sql, 'WHERE') !== false) {
+                $sql = str_replace('WHERE', "WHERE oc.cat_id = $cat AND ", $sql);
+            }
+            else {
+                $sql = " WHERE oc.cat_id = $cat " . $sql;
+            }
+        }
+
+        // die($sqlList.$sql.$limit);
+
 
         $stmt = App::$pdo->query($sqlList.$sql.$limit);
         $outfits = $stmt->fetchAll();
@@ -692,44 +718,9 @@ class RubuController {
             'types' => $types,
             'count' => $productsCount,
             'in_one_page' => self::IN_PAGE,
-            'allTags' => $allTags
+            'allTags' => $allTags,
+            'activeUrl' => !$cat ? 'sarasas' : 'cat/'.$cat
         ]);
-
-
-
-        die;
-        
-        
-        if (isset($_GET['search'])) {
-
-            $s = $_GET['s'];
-            $s = explode(' ', $s);
-
-            if (count($s) == 1) {
-                $z = $s[0];
-                $sql = "SELECT
-                id, `type`, color, price, discount, (price - discount) AS total_price
-                FROM
-                outfits
-                WHERE color LIKE '%$z%' OR `type` LIKE '%$z%'
-                ";
-            }
-            else {
-          
-                $z1 = $s[0];
-                $z2 = $s[1];
-                
-                $sql = "SELECT
-                id, `type`, color, price, discount, (price - discount) AS total_price
-                FROM
-                outfits
-                WHERE   (color LIKE '%$z2%' AND `type` LIKE '%$z1%')
-                        OR 
-                        (color LIKE '%$z1%' AND `type` LIKE '%$z2%')
-                ";
-            }
-
-        }
 
     }
 

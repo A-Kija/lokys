@@ -11,7 +11,7 @@
                     
                     <div class="mb-3">
                     <?php foreach($outfit['cats_list'] as $i => $cat) : ?>
-                    <span class="badge badge-pill badge-light"><a class="nav-link" href=""><?= $cat ?></a></span>
+                    <span class="badge badge-pill badge-light"><a class="nav-link" href="<?= URL ?>cat/<?= $outfit['cats_id_list'][$i] ?>"><?= $cat ?></a></span>
                     <?php endforeach ?>
                     </div>
                     

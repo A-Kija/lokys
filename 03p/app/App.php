@@ -42,6 +42,13 @@ class App {
                 return (new RubuController)->selectTest();
             }
         elseif (
+            $_SERVER['REQUEST_METHOD'] == 'GET' &&
+            'cat' == $userUri[0] &&
+            count($userUri) == 2
+            ) {
+                return (new RubuController)->catList($userUri[1]);
+            }
+        elseif (
             $_SERVER['REQUEST_METHOD'] == 'POST' &&
             'login' == $userUri[0] &&
             count($userUri) == 1

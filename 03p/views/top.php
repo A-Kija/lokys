@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row">
             <div class="col-8">
-                <form action="<?= URL. 'sarasas' ?>" method="get" class="m-3">
+                <form action="<?= URL. $activeUrl ?>" method="get" class="m-3">
                     <fieldset>
                         <legend>Rūšiuoti</legend>
                         <div class="form-group">
@@ -56,14 +56,14 @@
                         </div>
                     </fieldset>
                     <button type="submit" class="btn btn-secondary">Pritaikyti</button>
-                    <a class="btn btn-secondary" href="<?= URL. 'sarasas' ?>">Išvalyti</a>
+                    <a class="btn btn-secondary" href="<?= URL. $activeUrl ?>">Išvalyti</a>
                     <fieldset>
                         <legend>Paieška</legend>
                         <div class="form-group">
                             <input type="text" class="form-control" name="s" value="<?= $_GET['s'] ?? '' ?>">
                         </div>
                         <button class="btn btn-secondary" type="submit">Ieškoti</button>
-                        <a class="btn btn-secondary" href="<?= URL. 'sarasas' ?>">Išvalyti</a>
+                        <a class="btn btn-secondary" href="<?= URL. $activeUrl ?>">Išvalyti</a>
                     </fieldset>
                 </form>
             </div>
