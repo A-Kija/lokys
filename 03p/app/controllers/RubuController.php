@@ -400,13 +400,23 @@ class RubuController {
         (price - discount) AS total_price,
         GROUP_CONCAT(DISTINCT(t.title)) as tags_list,
         GROUP_CONCAT(DISTINCT(s.size)) as sizes_list,
-        GROUP_CONCAT(s.amount) as amounts_list
+        GROUP_CONCAT(s.amount) as amounts_list,
+        GROUP_CONCAT(DISTINCT(c.id)) as cats_id_list,
+        GROUP_CONCAT(DISTINCT(c.title)) as cats_list
         FROM
         outfits as o
         LEFT JOIN outfits_tags as ot
         ON o.id = ot.outfit_id
+
         LEFT JOIN tags as t
         ON ot.tag_id = t.id
+
+        INNER JOIN outfits_cats as oc
+        ON o.id = oc.outfit_id
+
+        INNER JOIN cats as c
+        ON oc.cat_id = c.id
+
         INNER JOIN sizes as s
         ON o.id = s.outfit_id
         ";

@@ -8,9 +8,19 @@
             <div class="card m-2">
                 <div class="card-body">
                     <h5 class="card-title"><?= $outfit['color'] ?> <?= $outfit['type'] ?></h5>
+                    
+                    <div class="mb-3">
+                    <?php foreach($outfit['cats_list'] as $i => $cat) : ?>
+                    <span class="badge badge-pill badge-light"><a class="nav-link" href=""><?= $cat ?></a></span>
+                    <?php endforeach ?>
+                    </div>
+                    
+                    <div class="mb-3">
                     <?php foreach($outfit['tags_list'] as $tag) : ?>
                     <span class="badge badge-pill badge-info"><?= $tag ?></span>
                     <?php endforeach ?>
+                    </div>
+
                     <p class="card-text">Kaina: <?= $outfit['total_price'] ?> <del><?= $outfit['price'] ?></del></p>
                     <form action="<?= URL. 'pirkti' ?>" method="post">
                         <div class="form-group">
