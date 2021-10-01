@@ -154,11 +154,27 @@ class RubuController {
         $sql = "INSERT INTO
         sizes
         (size, amount, outfit_id)
-        VALUES ('$size', 0, $id)
+        VALUES (?, 0, $id)
         ";
 
 
-        App::$pdo->query($sql);
+        // INSERT INTO
+        // sizes
+        // (size, amount, outfit_id)
+        // VALUES (' labas', 0, 2), ('viso ', 0, $id)
+        // "
+
+
+
+
+
+
+        // App::$pdo->query($sql); // not safe
+        $stmt = App::$pdo->prepare($sql);
+        $stmt->execute([$size]);
+
+
+
         App::redirect('edit');
     }
 
