@@ -10,8 +10,8 @@
                     <h5 class="card-title"><?= $outfit['color'] ?> <?= $outfit['type'] ?></h5>
                     
                     <div class="mb-3">
-                    <?php foreach($outfit['cats_list'] as $i => $cat) : ?>
-                    <span class="badge badge-pill badge-light"><a class="nav-link" href="<?= URL ?>cat/<?= $outfit['cats_id_list'][$i] ?>"><?= $cat ?></a></span>
+                    <?php foreach($outfit['cats'] as $cat) : ?>
+                    <span class="badge badge-pill badge-light"><a class="nav-link" href="<?= URL ?>cat/<?= $cat['id'] ?>"><?= $cat['title'] ?></a></span>
                     <?php endforeach ?>
                     </div>
                     

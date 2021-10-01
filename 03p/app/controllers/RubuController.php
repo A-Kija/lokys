@@ -414,8 +414,8 @@ class RubuController {
         GROUP_CONCAT(DISTINCT(t.title)) as tags_list,
         GROUP_CONCAT(DISTINCT(s.size)) as sizes_list,
         GROUP_CONCAT(s.amount) as amounts_list,
-        GROUP_CONCAT(DISTINCT(c.id)) as cats_id_list,
-        GROUP_CONCAT(DISTINCT(c.title)) as cats_list
+        GROUP_CONCAT(DISTINCT(c.id), c.title) as cats_id_list
+        -- GROUP_CONCAT(DISTINCT(c.title)) as cats_list
         FROM
         outfits as o
         LEFT JOIN outfits_tags as ot
@@ -682,24 +682,32 @@ class RubuController {
 
         if ($cat) {
             if (strpos($sql, 'WHERE') !== false) {
-                $sql = str_replace('WHERE', "WHERE oc.cat_id = $cat AND ", $sql);
+                $sql = str_replace('WHERE', "WHERE o.id IN (SELECT outfit_id FROM outfits_cats WHERE cat_id = $cat) AND ", $sql);
             }
             else {
-                $sql = " WHERE oc.cat_id = $cat " . $sql;
+                $sql = " WHERE o.id IN (SELECT outfit_id FROM outfits_cats WHERE cat_id = $cat) " . $sql;
             }
         }
-
+        
         // die($sqlList.$sql.$limit);
 
 
         $stmt = App::$pdo->query($sqlList.$sql.$limit);
         $outfits = $stmt->fetchAll();
+
+
+
         foreach ($outfits as &$outfit) {
             $outfit['tags_list'] = explode(',', $outfit['tags_list']);
             //
             //
-            $outfit['cats_list'] = explode(',', $outfit['cats_list']);
             $outfit['cats_id_list'] = explode(',', $outfit['cats_id_list']);
+           
+            $outfit['cats'] = array_map(function($o){
+                                $title = preg_replace('/^\d+/', '', $o);
+                                $id = str_replace($title, '', $o);
+                                return ['id' => $id, 'title' => $title];
+                            }, $outfit['cats_id_list']);
             //
             //
             $outfit['sizes_list'] = explode(',', $outfit['sizes_list']);
