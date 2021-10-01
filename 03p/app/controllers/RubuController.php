@@ -660,6 +660,12 @@ class RubuController {
         $outfits = $stmt->fetchAll();
         foreach ($outfits as &$outfit) {
             $outfit['tags_list'] = explode(',', $outfit['tags_list']);
+            //
+            //
+            $outfit['cats_list'] = explode(',', $outfit['cats_list']);
+            $outfit['cats_id_list'] = explode(',', $outfit['cats_id_list']);
+            //
+            //
             $outfit['sizes_list'] = explode(',', $outfit['sizes_list']);
             $outfit['amounts_list'] = explode(',', $outfit['amounts_list']);
             $outfit['sizes_amounts'] = [];
