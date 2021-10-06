@@ -44,6 +44,8 @@ class KaTuController extends Controller
 
     public function squares(...$colors)
     {
+        // dd($request->all());
         return view('miskas.squares', compact('colors'));
+        // return view('miskas.squares', ['colors' => $request->all()]);
     }
 }

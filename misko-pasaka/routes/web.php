@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KaTuController;
+use App\Http\Controllers\CController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,7 @@ Route::get('/color/{c}', [KaTuController::class, 'plusCounter']);
 // });
 
 Route::get('/squares/{c1?}/{c2?}/{c3?}/{c4?}/{c5?}', [KaTuController::class, 'squares']);
+
+Route::get('/c/{action}/{var1}/{var2}', [CController::class, 'calculator']);
+
+Route::get('/color-form-22', [CController::class, 'colorForm'])->name('jonas');
