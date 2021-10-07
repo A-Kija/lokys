@@ -40,5 +40,7 @@ Route::get('/color/{c}', [KaTuController::class, 'plusCounter']);
 Route::get('/squares/{c1?}/{c2?}/{c3?}/{c4?}/{c5?}', [KaTuController::class, 'squares']);
 
 Route::get('/c/{action}/{var1}/{var2}', [CController::class, 'calculator']);
+Route::get('/c2', [CController::class, 'calculator2'])->name('c2');
+Route::get('/circles', [CController::class, 'circles'])->name('circles');
 
-Route::get('/color-form-22', [CController::class, 'colorForm'])->name('jonas');
+Route::get('/color-form', [CController::class, 'colorForm'])->name('jonas');
