@@ -44,3 +44,13 @@ Route::get('/c2', [CController::class, 'calculator2'])->name('c2');
 Route::get('/circles', [CController::class, 'circles'])->name('circles');
 
 Route::get('/color-form', [CController::class, 'colorForm'])->name('jonas');
+
+
+
+Route::get('/cf', [CController::class, 'showColorForm'])->name('show_color_form');
+Route::post('/cf-post', [CController::class, 'doColorForm'])->name('do_color_form');
+
+
+Route::get('/ccc', [CController::class, 'showCalcForm'])->name('show_calc_form');
+Route::post('/ccc', [CController::class, 'doCalcForm'])->name('do_calc_form');
+

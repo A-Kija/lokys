@@ -11,8 +11,13 @@
     <a href="{{route('c2')}}">Reset</a>
 </form>
 
-@if($result)
+@foreach($history ?? [] as $result)
 <h2 style="color:pink; padding: 5px; border:1px solid pink; display:inline-block;">
-    {{$result}}
+    {{implode(' ', $result)}}
 </h2>
-@endif
+@endforeach
+<div>
+<a href="{{route('c2', ['clear' => 1])}}">Reset History</a>
+</div>
+
+
