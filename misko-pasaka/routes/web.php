@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KaTuController;
 use App\Http\Controllers\CController;
+use App\Http\Controllers\ShController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,4 +54,8 @@ Route::post('/cf-post', [CController::class, 'doColorForm'])->name('do_color_for
 
 Route::get('/ccc', [CController::class, 'showCalcForm'])->name('show_calc_form');
 Route::post('/ccc', [CController::class, 'doCalcForm'])->name('do_calc_form');
+
+
+Route::get('/shape', [ShController::class, 'showShapeForm'])->name('show_shape_form');
+Route::post('/shape', [ShController::class, 'doShapeForm'])->name('do_shape_form');
 

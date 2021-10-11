@@ -17,3 +17,37 @@ form {
 .gray {
     background: gray;
 }
+
+.blue-square {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin: 10px;
+    background-color: blue;
+}
+
+.red-square {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin: 10px;
+    background-color: red;
+}
+
+.pink-circle {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin: 10px;
+    background-color: pink;
+    border-radius: 50%;
+}
+
+.yellow-circle {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin: 10px;
+    background-color: yellow;
+    border-radius: 50%;
+}
