@@ -135,8 +135,14 @@ class CController extends Controller
                 default => 'no such action'
             };
         }
-        Session::put('r', $result);
-        return redirect()->route('show_calc_form');
+        // Session::put('r', $result);
+
+        $request->flash();
+
+        return redirect()
+        ->route('show_calc_form')
+        ->with('r', $result)
+        ->with('msg_success', 'All good');
     }
 
     public function showCalcForm()

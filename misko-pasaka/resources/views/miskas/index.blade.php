@@ -8,6 +8,7 @@
     <title>@yield('title')</title>
 </head>
 <body>
+    @include('msg.success')
     @yield('content')
 </body>
 </html>
