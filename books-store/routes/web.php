@@ -26,3 +26,11 @@ Route::post('/books/store', [BookController::class, 'store'])->name('book_store'
 
 // Rodo knygu sarasa
 Route::get('/books', [BookController::class, 'index'])->name('book_index');
+
+
+// Rodo uzpildyta forma, paruosta redagavimui
+Route::get('/books/edit/{book}', [BookController::class, 'edit'])->name('book_edit');
+
+
+// Uzsaugo redaguota knyga duomenu bazeje
+Route::post('/books/update/{book}', [BookController::class, 'update'])->name('book_update');

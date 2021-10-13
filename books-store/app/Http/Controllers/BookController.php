@@ -14,7 +14,17 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        $books = Book::all()->sortByDesc('title');
+
+        // dd($books->contains(function ($book, $key) {
+        //     return $book->title == 'Troba pilna Diedu333';
+        // }));
+
+        // $books = $books->nth(2);
+
+        // $plucked = $books->pluck('title')->all();
+
+        // dd($plucked);
 
         return view('book.index', ['books' => $books]);
 
@@ -71,7 +81,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('book.edit', ['book' => $book]);
     }
 
     /**
@@ -83,7 +93,17 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        
+        
+        
+        $book->title = $request->book_title;
+        $book->isbn = $request->book_isbn;
+        $book->pages = $request->book_pages;
+        $book->about = $request->book_about;
+
+        $book->save();
+
+        return redirect()->route('book_index');
     }
 
     /**
