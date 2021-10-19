@@ -7,6 +7,7 @@ about: <textarea name="book_about">{{$book->about}}</textarea>
 
 <button type="submit"> Edit Book </button>
 
+@method('PUT')
 @csrf
 
 

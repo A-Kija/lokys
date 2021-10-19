@@ -70,7 +70,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('book.show', ['book' => $book]);
     }
 
     /**
@@ -114,6 +114,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect()->route('book_index');
     }
 }
