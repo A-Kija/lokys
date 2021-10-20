@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Author;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -14,7 +15,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all()->sortByDesc('title');
+        $books = Book::all()->sortByDesc('created_at');
 
         // dd($books->contains(function ($book, $key) {
         //     return $book->title == 'Troba pilna Diedu333';
@@ -37,7 +38,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('book.create');
+        $authors = Author::all();
+        return view('book.create', ['authors' => $authors]);
     }
 
     /**
@@ -54,12 +56,13 @@ class BookController extends Controller
         $book->isbn = $request->book_isbn;
         $book->pages = $request->book_pages;
         $book->about = $request->book_about;
+        $book->author_id = $request->author_id;
 
         $book->save();
 
-        return redirect()->route('book_index');
-
-
+        return redirect()
+        ->route('book_index')
+        ->with('success_message', 'OK. New book was created.');
     }
 
     /**
@@ -81,7 +84,9 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('book.edit', ['book' => $book]);
+        $authors = Author::all();
+
+        return view('book.edit', ['book' => $book, 'authors' => $authors]);
     }
 
     /**
@@ -100,10 +105,13 @@ class BookController extends Controller
         $book->isbn = $request->book_isbn;
         $book->pages = $request->book_pages;
         $book->about = $request->book_about;
+        $book->author_id = $request->author_id;
 
         $book->save();
 
-        return redirect()->route('book_index');
+        return redirect()
+        ->route('book_index')
+        ->with('success_message', 'OK. The book was edited.');;
     }
 
     /**
@@ -115,6 +123,8 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-        return redirect()->route('book_index');
+        return redirect()
+        ->route('book_index')
+        ->with('success_message', 'OK. New book was deleted.');;
     }
 }

@@ -45,7 +45,9 @@ class AuthorController extends Controller
 
         $author->save();
 
-        return redirect()->route('author_index');
+        return redirect()
+        ->route('author_index')
+        ->with('success_message', 'OK. New author was created.');;
 
 
     }
@@ -81,15 +83,15 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        
-        
-        
+
         $author->name = $request->author_name;
         $author->surname = $request->author_surname;
 
         $author->save();
 
-        return redirect()->route('author_index');
+        return redirect()
+        ->route('author_index')
+        ->with('success_message', 'OK. The author was edited.');;
     }
 
     /**
@@ -101,9 +103,13 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         if ($author->getBooks->count()) {
-            return 'Can not delete the author, because he has books.';
+            return redirect()
+            ->back()
+            ->with('info_message', 'Can not delete the author, because he has books.');
         }
         $author->delete();
-        return redirect()->route('author_index');
+        return redirect()
+        ->route('author_index')
+        ->with('success_message', 'OK. The author was deleted.');
     }
 }
