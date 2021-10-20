@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Books list</div>
+                <div class="card-header"><h1>Books list</h1></div>
                 <div class="card-body">
                     <div class="container">
                         @foreach ($books->chunk(3) as $chunk)
@@ -28,15 +28,14 @@
                                             </li>
                                         </ul>
                                     </div>
-
                                     <div class="index-list__buttons">
-                                        <a href="{{route('book_edit', $book)}}" class="btn btn-success m-2">REDAGUOTI</a>
+                                        <a href="{{route('book_edit', $book)}}" class="btn btn-success m-2">EDIT</a>
                                         <form action="{{route('book_delete', $book)}}" class="m-2" method="post">
-                                            <button type="submit" class="btn btn-danger">TRINTI</button>
+                                            <button type="submit" class="btn btn-danger">DELETE</button>
                                             @method('DELETE')
                                             @csrf
                                         </form>
-                                        <a href="{{route('book_show', $book)}}" class="btn btn-info m-2">DAUGIAU</a>
+                                        <a href="{{route('book_show', $book)}}" class="btn btn-info m-2">MORE</a>
                                     </div>
                                 </div>
                             </div>

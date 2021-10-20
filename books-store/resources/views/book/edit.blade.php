@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Edit book</div>
+                <div class="card-header"><h1>Edit book</h1></div>
                 <div class="card-body">
                     <form action="{{ route('book_update', $book) }}" method="post">
                         <div class="row justify-content-center">
@@ -32,7 +32,4 @@
         </div>
     </div>
 </div>
-
-
-
 @endsection
