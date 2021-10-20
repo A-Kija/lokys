@@ -20,8 +20,8 @@
                         <div class="col-12 show-content__block">
                             <h4>Books by author</h4>
                             <ul class="list-group">
-                                @foreach ($author->getBooks as $author)
-                                <li class="list-group-item">{{$author->title}}</li>
+                                @foreach ($author->getBooks as $book)
+                                <li class="list-group-item">{{$book->title}}</li>
                                 @endforeach
                             </ul>
                         </div>

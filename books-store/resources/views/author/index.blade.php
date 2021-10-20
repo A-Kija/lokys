@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"><h1>Books list</h1></div>
+                <div class="card-header"><h1>Authors list</h1></div>
                 <div class="card-body">
                     <div class="container">
                         @foreach ($authors->chunk(3) as $chunk)
