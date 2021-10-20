@@ -1,12 +1,29 @@
-<form action="{{ route('author_update', $author) }}" method="post">
-
-name: <input type="text" name="author_name" value="{{$author->name}}">
-surname: <input type="text" name="author_surname" value="{{$author->surname}}">
-
-<button type="submit"> Edit Author </button>
-
-@method('PUT')
-@csrf
-
-
-</form>
+@extends('layouts.app')
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header"><h1>Edit author</h1></div>
+                <div class="card-body">
+                    <form action="{{ route('author_update', $author) }}" method="post">
+                        <div class="row justify-content-center">
+                            <div class="col-6 form-group">
+                                name:<input type="text" class="form-control" name="author_name" value="{{$author->name}}">
+                            </div>
+                            <div class="col-6 form-group">
+                                surname: <input type="text" class="form-control" name="author_surname" value="{{$author->surname}}">
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success mt-2">Edit Author</button>
+                            </div>
+                        </div>
+                        @method('PUT')
+                        @csrf
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
