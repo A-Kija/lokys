@@ -9,10 +9,10 @@
                     <form action="{{ route('author_store') }}" method="post">
                         <div class="row justify-content-center">
                             <div class="col-6 form-group">
-                                name:<input type="text" class="form-control" name="author_name" value="{{''}}">
+                                name:<input type="text" class="form-control" name="author_name" value="{{old('author_name')}}">
                             </div>
                             <div class="col-6 form-group">
-                                surname: <input type="text" class="form-control" name="author_surname" value="{{''}}">
+                                surname: <input type="text" class="form-control" name="author_surname" value="{{old('author_surname')}}">
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-success mt-2">New Author</button>

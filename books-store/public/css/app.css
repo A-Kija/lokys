@@ -10013,3 +10013,22 @@ h3 {
   padding: 10px 0;
   border-bottom: 1px solid #dddddd;
 }
+.index-list__buttons {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.show-content__block {
+  padding: 20px;
+}
+.show-content__block span {
+  font-size: 18px;
+  font-style: italic;
+  color: gray;
+}
+
+textarea {
+  height: 200px !important;
+}
