@@ -28,3 +28,26 @@
 textarea {
     height: 200px!important;
 }
+
+#confirm-modal {
+    min-width: 100vw;
+    min-height: 100vh;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .buttons {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
+
+.body-modal {
+    overflow: hidden;
+}

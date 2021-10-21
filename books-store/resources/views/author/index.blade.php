@@ -4,7 +4,9 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"><h1>Authors list</h1></div>
+                <div class="card-header">
+                    <h1>Authors list</h1>
+                </div>
                 <div class="card-body">
                     <div class="container">
                         @foreach ($authors->chunk(3) as $chunk)
@@ -24,11 +26,7 @@
                                     </div>
                                     <div class="index-list__buttons">
                                         <a href="{{route('author_edit', $author)}}" class="btn btn-success m-2">EDIT</a>
-                                        <form action="{{route('author_delete', $author)}}" class="m-2" method="post">
-                                            <button type="submit" class="btn btn-danger">DELETE</button>
-                                            @method('DELETE')
-                                            @csrf
-                                        </form>
+                                        <button type="submit" class="delete--button btn btn-danger m-2" data-action="{{route('author_delete', $author)}}">DELETE</button>
                                         <a href="{{route('author_show', $author)}}" class="btn btn-info m-2">MORE</a>
                                     </div>
                                 </div>
@@ -38,6 +36,22 @@
                         @endforeach
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirm-modal" style="display:none;">
+    <div class="card">
+        <h5 class="card-header">Confirmation</h5>
+        <div class="card-body">
+            <h5 class="card-title">Confirm author delete</h5>
+            <div class="buttons">
+            <form action="" class="m-1" method="post">
+                <button type="submit" class="btn btn-danger">DELETE</button>
+                @method('DELETE')
+                @csrf
+            </form>
+            <button type="button" class="cancel--confirm--button btn btn-info m-1">Cancel</button>
             </div>
         </div>
     </div>

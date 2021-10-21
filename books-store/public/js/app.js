@@ -2062,6 +2062,29 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+window.addEventListener('DOMContentLoaded', function () {
+  var body = document.querySelector('body');
+
+  if (document.querySelector('.cancel--confirm--button')) {
+    document.querySelector('.cancel--confirm--button').addEventListener('click', function () {
+      body.style.overflow = 'auto';
+      var modal = document.querySelector('#confirm-modal');
+      modal.style.display = 'none';
+    });
+  }
+
+  document.querySelectorAll('.delete--button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var modal = document.querySelector('#confirm-modal');
+      modal.style.display = 'flex';
+      modal.style.top = window.scrollY + 'px';
+      body.style.overflow = 'hidden';
+      var form = modal.querySelector('form');
+      form.setAttribute('action', b.dataset.action);
+    });
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
