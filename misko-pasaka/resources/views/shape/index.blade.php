@@ -13,8 +13,9 @@
     <button type="submit">Show</button>
     @csrf
 </form>
-@include('shape.shapes.blue_square')
-@include('shape.shapes.red_square')
-@include('shape.shapes.yellow_circle')
-@include('shape.shapes.pink_circle')
+
+@foreach ($shapeData as $sh)
+    @include('shape.shapes.'.$sh)
+@endforeach
+
 @endsection
