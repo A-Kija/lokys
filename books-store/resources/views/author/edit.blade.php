@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header"><h1>Edit author</h1></div>
                 <div class="card-body">
-                    <form action="{{ route('author_update', $author) }}" method="post">
+                    <form action="{{ route('author_update', [$author, 'return' => $return]) }}" method="post">
                         <div class="row justify-content-center">
                             <div class="col-6 form-group">
                                 name:<input type="text" class="form-control" name="author_name" value="{{old('author_name', $author->name)}}">

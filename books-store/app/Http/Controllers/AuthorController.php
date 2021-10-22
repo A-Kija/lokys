@@ -88,9 +88,12 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function edit(Author $author)
+    public function edit(Request $request, Author $author)
     {
-        return view('author.edit', ['author' => $author]);
+        return view('author.edit', [
+            'author' => $author,
+            'return' => $request->return ?? ''
+        ]);
     }
 
     /**
@@ -125,9 +128,14 @@ class AuthorController extends Controller
 
         $author->save();
 
+        if ($request->return) {
+            return redirect('authors/'.$request->return)
+            ->with('success_message', 'OK. The author was edited.');
+        }
+
         return redirect()
         ->route('author_index')
-        ->with('success_message', 'OK. The author was edited.');;
+        ->with('success_message', 'OK. The author was edited.');
     }
 
     /**
