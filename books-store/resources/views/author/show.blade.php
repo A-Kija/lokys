@@ -21,12 +21,34 @@
                             <h4>Books by author</h4>
                             <ul class="list-group">
                                 @foreach ($author->getBooks as $book)
-                                <li class="list-group-item">{{$book->title}}</li>
+                                <li class="list-group-item">{{$book->title}}
+                                    <div class="show-content__buttons">
+                                        <a href="{{route('book_edit', $book)}}" class="btn btn-success m-2">EDIT</a>
+                                        <button type="submit" class="delete--button btn btn-danger m-2" data-action="{{route('book_delete', [$book, 'return' => 'back'])}}">DELETE</button>
+                                        <a href="{{route('book_show', $book)}}" class="btn btn-info m-2">MORE</a>
+                                    </div>
+                                </li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirm-modal" style="display:none;">
+    <div class="card">
+        <h5 class="card-header">Confirmation</h5>
+        <div class="card-body">
+            <h5 class="card-title">Confirm book delete</h5>
+            <div class="buttons">
+            <form action="" class="m-1" method="post">
+                <button type="submit" class="btn btn-danger">DELETE</button>
+                @method('DELETE')
+                @csrf
+            </form>
+            <button type="button" class="cancel--confirm--button btn btn-info m-1">Cancel</button>
             </div>
         </div>
     </div>

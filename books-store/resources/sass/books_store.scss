@@ -23,6 +23,11 @@
             color: gray;
         }
     }
+    &__buttons {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
 }
 
 textarea {

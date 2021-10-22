@@ -161,11 +161,16 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy(Request $request, Book $book)
     {
         $book->delete();
+        if ($request->return && $request->return == 'back') {
+            return redirect()
+            ->back()
+            ->with('success_message', 'OK. New book was deleted.');
+        }
         return redirect()
         ->route('book_index')
-        ->with('success_message', 'OK. New book was deleted.');;
+        ->with('success_message', 'OK. New book was deleted.');
     }
 }

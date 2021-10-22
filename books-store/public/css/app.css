@@ -10028,6 +10028,11 @@ h3 {
   font-style: italic;
   color: gray;
 }
+.show-content__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 
 textarea {
   height: 200px !important;
@@ -10050,8 +10055,4 @@ textarea {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-}
-
-.body-modal {
-  overflow: hidden;
 }

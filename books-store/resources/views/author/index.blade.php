@@ -26,7 +26,9 @@
                                     </div>
                                     <div class="index-list__buttons">
                                         <a href="{{route('author_edit', $author)}}" class="btn btn-success m-2">EDIT</a>
-                                        <button type="submit" class="delete--button btn btn-danger m-2" data-action="{{route('author_delete', $author)}}">DELETE</button>
+                                        <button type="submit" class="delete--button btn btn-danger m-2" @if($author->getBooks->count()) disabled @endif
+                                            data-action="{{route('author_delete', $author)}}">
+                                            DELETE</button>
                                         <a href="{{route('author_show', $author)}}" class="btn btn-info m-2">MORE</a>
                                     </div>
                                 </div>
@@ -46,12 +48,12 @@
         <div class="card-body">
             <h5 class="card-title">Confirm author delete</h5>
             <div class="buttons">
-            <form action="" class="m-1" method="post">
-                <button type="submit" class="btn btn-danger">DELETE</button>
-                @method('DELETE')
-                @csrf
-            </form>
-            <button type="button" class="cancel--confirm--button btn btn-info m-1">Cancel</button>
+                <form action="" class="m-1" method="post">
+                    <button type="submit" class="btn btn-danger">DELETE</button>
+                    @method('DELETE')
+                    @csrf
+                </form>
+                <button type="button" class="cancel--confirm--button btn btn-info m-1">Cancel</button>
             </div>
         </div>
     </div>
