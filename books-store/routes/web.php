@@ -33,6 +33,8 @@ Route::put('/books/update/{book}', [BookController::class, 'update'])->name('boo
 Route::delete('/books/delete/{book}', [BookController::class, 'destroy'])->name('book_delete');
 // Rodo pilna vienos knygos informacija
 Route::get('/books/show/{book}', [BookController::class, 'show'])->name('book_show');
+// Generuoja PDF
+Route::get('/books/pdf/{book}', [BookController::class, 'pdf'])->name('book_pdf');
 
 
 Route::prefix('authors')->name('author_')->group(function () {

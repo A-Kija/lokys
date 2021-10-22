@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Validator;
+use PDF;
 
 class BookController extends Controller
 {
@@ -172,5 +173,13 @@ class BookController extends Controller
         return redirect()
         ->route('book_index')
         ->with('success_message', 'OK. New book was deleted.');
+    }
+
+    public function pdf(Book $book)
+    {
+
+        $pdf = PDF::loadView('book.pdf', ['book' => $book]);
+        return $pdf->download('book-'.$book->id.'.pdf');
+
     }
 }

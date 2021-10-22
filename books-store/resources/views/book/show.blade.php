@@ -19,6 +19,7 @@
                         <div class="col-12 show-content__block">
                             <span>about:</span><div>{{$book->about}}</div>
                         </div>
+                         <a href="{{route('book_pdf', $book)}}" class="btn btn-info m-2">DOWNLOAD PDF</a>
                     </div>
                 </div>
             </div>
