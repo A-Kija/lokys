@@ -1,8 +1,6 @@
 require('./bootstrap');
 
-
-
-
+// Delete Comfirmation
 window.addEventListener('DOMContentLoaded', () => {
     const body = document.querySelector('body');
 
@@ -14,7 +12,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 modal.style.display = 'none';
             })
     }
-
     document.querySelectorAll('.delete--button').forEach(b => {
         b.addEventListener('click', () => {
             const modal = document.querySelector('#confirm-modal');
@@ -25,5 +22,4 @@ window.addEventListener('DOMContentLoaded', () => {
             form.setAttribute('action', b.dataset.action);
         })
     });
-
 });
