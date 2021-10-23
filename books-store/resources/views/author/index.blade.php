@@ -5,7 +5,21 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <h1>Authors list</h1>
+                    <div class="card-header__wrap">
+                        <h1>Authors list</h1>
+                        <div class="card-header__wrap__sort">
+                            <form action="{{route('author_index')}}" method="GET">
+                                <div class="form-group">
+                                    <select name="sort" class="form-control">
+                                        <option value="name_asc">Name A->Z</option>
+                                        <option value="name_desc">Name Z->A</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-info m-1">SORT</button>
+                                <a href="{{route('author_index')}}" class="btn btn-warning m-1">RESET</a>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="container">

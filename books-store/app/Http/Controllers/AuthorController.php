@@ -13,9 +13,27 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $authors = Author::all()->sortByDesc('name');
+        
+        // Collection PHP sortBy(a), sortByDesc(a)
+        // MariaDB DB orderBy(a), orderBy(a, 'desc')
+
+        
+        if ($request->sort) {
+            if ('name_asc' == $request->sort) {
+                $authors = Author::orderBy('name')->get();
+            }
+            else if ('name_desc' == $request->sort) {
+                $authors = Author::orderBy('name', 'desc')->get();
+            }
+            else {
+                $authors = Author::all(); // invalid sort input
+            }
+        }
+        else {
+            $authors = Author::all(); // w/o sort
+        }
 
         return view('author.index', ['authors' => $authors]);
 
