@@ -27,6 +27,12 @@ class AuthorController extends Controller
             else if ('name_desc' == $request->sort) {
                 $authors = Author::orderBy('name', 'desc')->get();
             }
+            else if ('new_asc' == $request->sort) {
+                $authors = Author::orderBy('created_at', 'desc')->get();
+            }
+            else if ('new_desc' == $request->sort) {
+                $authors = Author::orderBy('created_at')->get();
+            }
             else {
                 $authors = Author::all(); // invalid sort input
             }
@@ -35,7 +41,11 @@ class AuthorController extends Controller
             $authors = Author::all(); // w/o sort
         }
 
-        return view('author.index', ['authors' => $authors]);
+        return view('author.index', [
+            'authors' => $authors,
+            'sort' => $request->sort ?? ''
+        
+        ]);
 
     }
 
