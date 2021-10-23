@@ -15,9 +15,18 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::all()->sortByDesc('created_at');
+        
+        $authors = Author::orderBy('name')->get(); // select
+
+        if ($request->author) {
+            $books = Book::where('author_id', $request->author)->get();
+        }
+        else {
+            $books = Book::all();
+        }
+        
 
         // dd($books->contains(function ($book, $key) {
         //     return $book->title == 'Troba pilna Diedu333';
@@ -29,7 +38,11 @@ class BookController extends Controller
 
         // dd($plucked);
 
-        return view('book.index', ['books' => $books]);
+        return view('book.index', [
+            'books' => $books,
+            'authors' => $authors,
+            'author_id' => $request->author ?? 0
+        ]);
 
     }
 

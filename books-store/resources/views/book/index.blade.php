@@ -4,10 +4,30 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"><h1>Books list</h1></div>
+                <div class="card-header">
+                    <div class="card-header__wrap">
+                        <h1>Books list</h1>
+                        <div class="card-header__wrap__sort">
+                            <form action="{{route('book_index')}}" method="GET">
+                                <div class="form-group">
+                                    <select name="author" class="form-control">
+                                        <option value="0">Filter By</option>
+                                        @foreach ($authors as $author)
+                                        <option value="{{$author->id}}" @if($author_id==$author->id) selected @endif>
+                                            {{$author->name}} {{$author->surname}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-info m-1">FILTER</button>
+                                <a href="{{route('book_index')}}" class="btn btn-warning m-1">RESET</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="container">
-                        @foreach ($books->chunk(3) as $chunk)
+                        @forelse ($books->chunk(3) as $chunk)
                         <div class="row justify-content-center">
                             @foreach ($chunk as $book)
                             <div class="col-12">
@@ -37,7 +57,17 @@
                             </div>
                             @endforeach
                         </div>
-                        @endforeach
+                        @empty
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <div class="index-list">
+                                    <div class="index-list__extra">
+                                        No books
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -50,12 +80,12 @@
         <div class="card-body">
             <h5 class="card-title">Confirm book delete</h5>
             <div class="buttons">
-            <form action="" class="m-1" method="post">
-                <button type="submit" class="btn btn-danger">DELETE</button>
-                @method('DELETE')
-                @csrf
-            </form>
-            <button type="button" class="cancel--confirm--button btn btn-info m-1">Cancel</button>
+                <form action="" class="m-1" method="post">
+                    <button type="submit" class="btn btn-danger">DELETE</button>
+                    @method('DELETE')
+                    @csrf
+                </form>
+                <button type="button" class="cancel--confirm--button btn btn-info m-1">Cancel</button>
             </div>
         </div>
     </div>
