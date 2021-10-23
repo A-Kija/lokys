@@ -23,6 +23,15 @@
                                 <a href="{{route('book_index')}}" class="btn btn-warning m-1">RESET</a>
                             </form>
                         </div>
+                        <div class="card-header__wrap__sort">
+                            <form action="{{route('book_index')}}" method="GET">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="s" placeholder="search" value="{{$s}}">
+                                </div>
+                                <button type="submit" class="btn btn-info m-1">SEARCH</button>
+                                <a href="{{route('book_index')}}" class="btn btn-warning m-1">RESET</a>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">

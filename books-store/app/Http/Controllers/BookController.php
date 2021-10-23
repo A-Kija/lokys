@@ -23,6 +23,9 @@ class BookController extends Controller
         if ($request->author) {
             $books = Book::where('author_id', $request->author)->get();
         }
+        elseif ($request->s) {
+            $books = Book::where('title', 'like', '%'.$request->s.'%')->get();
+        }
         else {
             $books = Book::all();
         }
@@ -41,7 +44,8 @@ class BookController extends Controller
         return view('book.index', [
             'books' => $books,
             'authors' => $authors,
-            'author_id' => $request->author ?? 0
+            'author_id' => $request->author ?? 0,
+            's' => $request->s ?? ''
         ]);
 
     }
