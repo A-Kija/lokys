@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Hash;
 use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
@@ -18,11 +19,20 @@ class DatabaseSeeder extends Seeder
     {
         
         $faker = Faker::create('lt_LT');
+
+        DB::table('users')->insert([
+            'name' => 'Bebras',
+            'email' => 'bebras@gmail.com',
+            'password' => Hash::make('123'),
+        ]);
         
         foreach(range(1, 20) as $_) {
+            $name = $faker->firstName;
+            $surname = $faker->lastName;
             DB::table('authors')->insert([
-                 'name' => $faker->firstName,
-                 'surname' => $faker->lastName,
+                 'name' => $name,
+                 'surname' => $surname,
+                 'photo' => rand(0, 4) ? $faker->imageUrl(200, 250, $name.' '.$surname, false) : null
             ]);
         }
         

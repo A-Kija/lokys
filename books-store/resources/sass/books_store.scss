@@ -12,6 +12,12 @@
         justify-content: center;
         flex-direction: column;
     }
+    &__extra {
+        img {
+            height: 200px;
+            width: auto;
+        }
+    }
 }
 
 .show-content {
