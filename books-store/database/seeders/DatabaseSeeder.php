@@ -46,6 +46,18 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        foreach(range(1, 100) as $id) {
+            if (!rand(0, 4)) {
+                continue;
+            }
+            foreach(range(1, rand(1, 8)) as $_) {
+                DB::table('book_photos')->insert([
+                    'photo' => rand(0, 4) ? $faker->imageUrl(200, 250, 'ID: '.$id, false) : null,
+                    'book_id' => $id
+                ]);
+            }
+        }
+
 
 
 
