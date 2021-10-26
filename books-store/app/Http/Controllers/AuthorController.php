@@ -8,6 +8,13 @@ use Validator;
 
 class AuthorController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -89,15 +96,7 @@ class AuthorController extends Controller
 
         $author = new Author;
 
-        if ($request->file('author_photo')) {
-            $photo = $request->file('author_photo'); // informacija apie faila
-            $photoName = rand(10000000, 99999999);
-            $photExt = $photo->getClientOriginalExtension();// failo ispletimas
-            $photoName = $photoName.'.'.$photExt;
-            $destinationPath = public_path() . '/img/authors';// serverio kelias (be http)
-            $photo->move($destinationPath, $photoName);
-            $author->photo = asset('img/authors/'.$photoName); // irasoma i DB
-        }
+        $author->addPortret($request);
 
         $author->name = $request->author_name;
         $author->surname = $request->author_surname;
@@ -157,6 +156,9 @@ class AuthorController extends Controller
                 ->back()
                 ->withErrors($validator);
         }
+
+
+        $author->addPortret($request);
         
         
         $author->name = $request->author_name;

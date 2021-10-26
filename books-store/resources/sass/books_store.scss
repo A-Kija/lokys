@@ -20,6 +20,13 @@
     }
 }
 
+.enter-image {
+    img {
+        height: 200px;
+        width: auto;
+    }
+}
+
 .show-content {
     &__block {
         padding: 20px;
