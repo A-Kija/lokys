@@ -96,7 +96,7 @@ class AuthorController extends Controller
 
         $author = new Author;
 
-        $author->addPortret($request);
+        $author->handlePortret($request);
 
         $author->name = $request->author_name;
         $author->surname = $request->author_surname;
@@ -158,7 +158,7 @@ class AuthorController extends Controller
         }
 
 
-        $author->addPortret($request);
+        $author->handlePortret($request, 'edit');
         
         
         $author->name = $request->author_name;
@@ -189,6 +189,7 @@ class AuthorController extends Controller
             ->back()
             ->with('info_message', 'Can not delete the author, because he has books.');
         }
+        $author->deleteOldPortret();
         $author->delete();
         return redirect()
         ->route('author_index')

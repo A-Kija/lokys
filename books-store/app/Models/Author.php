@@ -17,8 +17,14 @@ class Author extends Model
 
 
 
-    public function addPortret(Request $request)
+    public function handlePortret(Request $request, $mode = 'create')
     {
+        if ($request->delete_photo) {
+            $this->deleteOldPortret();
+            $this->photo = null;
+            return;
+        }
+
         if ($request->file('author_photo')) {
             $photo = $request->file('author_photo'); // informacija apie faila
             $photoName = rand(10000000, 99999999);
@@ -26,7 +32,20 @@ class Author extends Model
             $photoName = $photoName.'.'.$photExt;
             $destinationPath = public_path() . '/img/authors';// serverio kelias (be http)
             $photo->move($destinationPath, $photoName);
+            if ('edit' == $mode && $this->photo) {
+                $this->deleteOldPortret();
+            }
             $this->photo = asset('img/authors/'.$photoName); // irasoma i DB
+        }
+    }
+
+    public function deleteOldPortret()
+    {
+        $oldPhoto = $this->photo;
+        $oldPhoto = str_replace(asset(''), '', $oldPhoto);
+        $oldPhoto = public_path() . '/'.$oldPhoto;
+        if (file_exists($oldPhoto)) {
+            unlink($oldPhoto);
         }
     }
 
