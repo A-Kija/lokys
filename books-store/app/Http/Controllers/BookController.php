@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Author;
+use App\Models\BookPhoto;
 use Illuminate\Http\Request;
 use Validator;
 use PDF;
@@ -27,7 +28,7 @@ class BookController extends Controller
             $books = Book::where('title', 'like', '%'.$request->s.'%')->get();
         }
         else {
-            $books = Book::all();
+            $books = Book::orderBy('updated_at', 'desc')->get();
         }
         
 
@@ -91,6 +92,8 @@ class BookController extends Controller
                 ->back()
                 ->withErrors($validator);
         }
+
+        
         
         $book = new Book;
         $book->title = $request->book_title;
@@ -99,6 +102,16 @@ class BookController extends Controller
         $book->about = $request->book_about;
         $book->author_id = $request->author_id;
         $book->save();
+
+        if ($request->file('book_photo')) {
+            foreach ($request->file('book_photo') as $photo) {
+                $bookPhoto = new BookPhoto;
+                $bookPhoto->handleImage($photo);
+                $bookPhoto->book_id = $book->id;
+                $bookPhoto->save();
+            }
+        }
+ 
         return redirect()
         ->route('book_index')
         ->with('success_message', 'OK. New book was created.');

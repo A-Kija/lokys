@@ -30,7 +30,6 @@ const photoInput = `
     <button type="button" class="btn btn-danger">-</button>
     <input type="file" class="form-control mt-2" name="book_photo[]">
 `;
-
 window.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('.add--photo')) {
         const addPhotoButton = document.querySelector('.add--photo');
