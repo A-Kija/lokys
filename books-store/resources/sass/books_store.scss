@@ -58,6 +58,18 @@
         height: 200px!important;
     }
     
+    .book-photo-form {
+        span {
+            button {
+                margin-top: 7px;
+                margin-right: 5px;
+            }
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+    }
+    
     #confirm-modal {
         min-width: 100vw;
         min-height: 100vh;
