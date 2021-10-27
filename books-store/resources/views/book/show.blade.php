@@ -4,22 +4,38 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"><h1>More about book</h1></div>
+                <div class="card-header">
+                    <h1>More about book</h1>
+                </div>
                 <div class="card-body">
                     <div class="row justify-content-center show-content">
                         <div class="col-4 show-content__block">
-                            <span>title:</span><div>{{$book->title}}</div>
+                            <span>title:</span>
+                            <div>{{$book->title}}</div>
                         </div>
                         <div class="col-4 show-content__block">
-                            <span>ISBN:</span><div>{{$book->isbn}}</div>
+                            <span>ISBN:</span>
+                            <div>{{$book->isbn}}</div>
                         </div>
                         <div class="col-4 show-content__block">
-                            <span>pages:</span><div>{{$book->pages}}</div>
+                            <span>pages:</span>
+                            <div>{{$book->pages}}</div>
                         </div>
                         <div class="col-12 show-content__block">
-                            <span>about:</span><div>{{$book->about}}</div>
+                            <span>about:</span>
+                            <div>{{$book->about}}</div>
                         </div>
-                         <a href="{{route('book_pdf', $book)}}" class="btn btn-info m-2">DOWNLOAD PDF</a>
+                        <div class="col-12 show-content__block">
+                            <span>photos:</span>
+                            <div class="images">
+                            @forelse ($book->getPhotos as $photo)
+                                <img src="{{$photo->photo}}">
+                            @empty
+                                <h3>No photos</h3>
+                            @endforelse
+                            </div>
+                        </div>
+                        <a href="{{route('book_pdf', $book)}}" class="btn btn-info m-2">DOWNLOAD PDF</a>
                     </div>
                 </div>
             </div>

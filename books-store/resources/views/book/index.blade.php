@@ -55,6 +55,9 @@
                                             <li class="list-group-item">
                                                 <b>Pages:</b> {{$book->pages}}
                                             </li>
+                                            <li class="list-group-item">
+                                                <b>Photos:</b> {{$book->getPhotos->count()}}
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="index-list__buttons">

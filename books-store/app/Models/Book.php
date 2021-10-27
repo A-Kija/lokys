@@ -13,4 +13,11 @@ class Book extends Model
     {
         return $this->belongsTo(Author::class, 'author_id', 'id');
     }
+
+
+    public function getPhotos()
+    {
+        return $this->hasMany(BookPhoto::class, 'book_id', 'id');
+    }
+
 }

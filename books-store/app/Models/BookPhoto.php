@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class BookPhoto extends Model
 {
     use HasFactory;
+
+    
 }
