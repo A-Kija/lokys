@@ -218,8 +218,15 @@ class BookController extends Controller
      */
     public function destroy(Request $request, Book $book)
     {
+        
+        foreach ($book->getPhotos as $bookPhoto) {
+            $bookPhoto->deleteOldImage();
+            $bookPhoto->delete();
+        }
         $book->delete();
+
         if ($request->return && $request->return == 'back') {
+
             return redirect()
             ->back()
             ->with('success_message', 'OK. New book was deleted.');
