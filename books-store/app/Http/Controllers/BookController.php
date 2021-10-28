@@ -93,7 +93,7 @@ class BookController extends Controller
                 ->withErrors($validator);
         }
 
-        
+
         
         $book = new Book;
         $book->title = $request->book_title;
@@ -103,6 +103,7 @@ class BookController extends Controller
         $book->author_id = $request->author_id;
         $book->save();
 
+
         if ($request->file('book_photo')) {
             foreach ($request->file('book_photo') as $photo) {
                 $bookPhoto = new BookPhoto;
@@ -111,6 +112,9 @@ class BookController extends Controller
                 $bookPhoto->save();
             }
         }
+
+
+
  
         return redirect()
         ->route('book_index')
@@ -172,14 +176,34 @@ class BookController extends Controller
                 ->back()
                 ->withErrors($validator);
         }
+
+        
+
         
         $book->title = $request->book_title;
         $book->isbn = $request->book_isbn;
         $book->pages = $request->book_pages;
         $book->about = $request->book_about;
         $book->author_id = $request->author_id;
-
         $book->save();
+        
+
+        if ($request->file('book_photo')) {
+            foreach ($request->file('book_photo') as $photo) {
+                $bookPhoto = new BookPhoto;
+                $bookPhoto->handleImage($photo);
+                $bookPhoto->book_id = $book->id;
+                $bookPhoto->save();
+            }
+        }
+
+
+        foreach ($request->delete_photo ?? [] as $photoId) {
+            $bookPhoto = BookPhoto::where('id', $photoId)->first();
+            $bookPhoto->deleteOldImage();
+            $bookPhoto->delete();
+        }
+
 
         return redirect()
         ->route('book_index')

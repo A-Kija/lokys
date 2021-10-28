@@ -24,22 +24,19 @@ class BookPhoto extends Model
             $photoName = $photoName.'.'.$photExt;
             $destinationPath = public_path() . '/img/books';// serverio kelias (be http)
             $photo->move($destinationPath, $photoName);
-            // if ('edit' == $mode && $this->photo) {
-            //     $this->deleteOldPortret();
-            // }
             $this->photo = asset('img/books/'.$photoName); // irasoma i DB
         }
     }
 
-    // public function deleteOldPortret()
-    // {
-    //     $oldPhoto = $this->photo;
-    //     $oldPhoto = str_replace(asset(''), '', $oldPhoto);
-    //     $oldPhoto = public_path() . '/'.$oldPhoto;
-    //     if (file_exists($oldPhoto)) {
-    //         unlink($oldPhoto);
-    //     }
-    // }
+    public function deleteOldImage()
+    {
+        $oldPhoto = $this->photo;
+        $oldPhoto = str_replace(asset(''), '', $oldPhoto);
+        $oldPhoto = public_path() . '/'.$oldPhoto;
+        if (file_exists($oldPhoto)) {
+            unlink($oldPhoto);
+        }
+    }
 
     
 }
