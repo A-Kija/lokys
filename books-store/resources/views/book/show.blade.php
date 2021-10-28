@@ -29,7 +29,7 @@
                             <span>photos:</span>
                             <div class="images">
                             @forelse ($book->getPhotos as $photo)
-                                <img src="{{$photo->photo}}">
+                                <a href="{{route('show_authors_name', $photo)}}"><img src="{{$photo->photo}}"></a>
                             @empty
                                 <h3>No photos</h3>
                             @endforelse

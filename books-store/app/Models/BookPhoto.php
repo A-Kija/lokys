@@ -9,6 +9,11 @@ class BookPhoto extends Model
 {
     use HasFactory;
 
+    public function getBook() 
+    {
+        return $this->belongsTo(Book::class, 'book_id', 'id');
+    }
+
     public function handleImage($photo, $mode = 'create')
     {
         // if ($request->delete_photo) {
