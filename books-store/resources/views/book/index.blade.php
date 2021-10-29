@@ -58,6 +58,9 @@
                                             <li class="list-group-item">
                                                 <b>Photos:</b> {{$book->getPhotos->count()}}
                                             </li>
+                                            <li class="list-group-item">
+                                                <b>Taged:</b> {{$book->getTagBooks->count()}}
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="index-list__buttons">

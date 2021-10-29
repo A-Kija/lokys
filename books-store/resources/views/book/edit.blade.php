@@ -32,18 +32,31 @@
                             <div class="col-12 form-group">
                                 about: <textarea name="book_about" class="form-control">{{old('book_about',$book->about)}}</textarea>
                             </div>
+                            <div class="col-12 form-group">
+                                tags:
+                                <div class="tags-list">
+                                    @forelse ($tags as $tag)
+                                    <div class="tags-list__tag">
+                                        <input type="checkbox" id="tag-{{$tag->id}}" name="tag[]" value="{{$tag->id}}">
+                                        <label for="tag-{{$tag->id}}" class="badge rounded-pill">{{$tag->name}}</label>
+                                    </div>
+                                    @empty
+                                    <h3>No tags</h3>
+                                    @endforelse
+                                </div>
+                            </div>
                             <div class="col-12 show-content__block">
                                 <span>photos:</span>
                                 <div class="images">
                                     @forelse ($book->getPhotos as $photo)
                                     <div>
-                                    <img src="{{$photo->photo}}">
-                                    <div class="form-check mt-2">
-                                        <input type="checkbox" class="form-check-input" name="delete_photo[]" value="{{$photo->id}}">
-                                        <label class="form-check-label">
-                                            delete photo
-                                        </label>
-                                    </div>
+                                        <img src="{{$photo->photo}}">
+                                        <div class="form-check mt-2">
+                                            <input type="checkbox" class="form-check-input" name="delete_photo[]" value="{{$photo->id}}">
+                                            <label class="form-check-label">
+                                                delete photo
+                                            </label>
+                                        </div>
                                     </div>
                                     @empty
                                     <h3>No photos</h3>

@@ -20,4 +20,10 @@ class Book extends Model
         return $this->hasMany(BookPhoto::class, 'book_id', 'id');
     }
 
+
+    public function getTagBooks()
+    {
+        return $this->hasMany(TagBook::class, 'book_id', 'id');
+    }
+
 }

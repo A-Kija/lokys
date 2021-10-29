@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Author;
 use App\Models\BookPhoto;
+use App\Models\Tag;
+use App\Models\TagBook;
 use Illuminate\Http\Request;
 use Validator;
 use PDF;
@@ -59,7 +61,11 @@ class BookController extends Controller
     public function create()
     {
         $authors = Author::all();
-        return view('book.create', ['authors' => $authors]);
+        $tags = Tag::orderBy('name')->get();
+        return view('book.create', [
+            'authors' => $authors,
+            'tags' => $tags
+        ]);
     }
 
     /**
@@ -103,6 +109,18 @@ class BookController extends Controller
         $book->author_id = $request->author_id;
         $book->save();
 
+        // Start Tag Manager
+
+        foreach ($request->tag ?? [] as $tagId) {
+            $tagBook = new TagBook;
+            $tagBook->tag_id = $tagId;
+            $tagBook->book_id = $book->id;
+            $tagBook->save();
+        }
+
+
+        // End Tag Manager
+
 
         if ($request->file('book_photo')) {
             foreach ($request->file('book_photo') as $photo) {
@@ -141,8 +159,13 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $authors = Author::all();
+        $tags = Tag::orderBy('name')->get();
 
-        return view('book.edit', ['book' => $book, 'authors' => $authors]);
+        return view('book.edit', [
+            'book' => $book,
+            'authors' => $authors,
+            'tags' => $tags
+        ]);
     }
 
     /**
@@ -178,14 +201,24 @@ class BookController extends Controller
         }
 
         
-
-        
         $book->title = $request->book_title;
         $book->isbn = $request->book_isbn;
         $book->pages = $request->book_pages;
         $book->about = $request->book_about;
         $book->author_id = $request->author_id;
         $book->save();
+
+        // Start Tag Manager
+
+        foreach ($request->tag ?? [] as $tagId) {
+            $tagBook = new TagBook;
+            $tagBook->tag_id = $tagId;
+            $tagBook->book_id = $book->id;
+            $tagBook->save();
+        }
+
+
+        // End Tag Manager
         
 
         if ($request->file('book_photo')) {

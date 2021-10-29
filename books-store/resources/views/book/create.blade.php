@@ -33,6 +33,19 @@
                                 about: <textarea name="book_about" class="form-control">{{old('book_about')}}</textarea>
                             </div>
                             <div class="col-12 form-group">
+                                tags:
+                                <div class="tags-list">
+                                    @forelse ($tags as $tag)
+                                    <div class="tags-list__tag">
+                                        <input type="checkbox" id="tag-{{$tag->id}}" name="tag[]" value="{{$tag->id}}">
+                                        <label for="tag-{{$tag->id}}" class="badge rounded-pill">{{$tag->name}}</label>
+                                    </div>
+                                    @empty
+                                    <h3>No tags</h3>
+                                    @endforelse
+                                </div>
+                            </div>
+                            <div class="col-12 form-group">
                                 photos of book:
                                 <div class="book--photos book-photo-form">
                                 </div>
