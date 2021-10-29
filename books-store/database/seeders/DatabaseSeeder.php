@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
-        $faker = Faker::create('lt_LT');
+        $faker = Faker::create();
 
         DB::table('users')->insert([
             'name' => 'Bebras',
@@ -56,6 +56,12 @@ class DatabaseSeeder extends Seeder
                     'book_id' => $id
                 ]);
             }
+        }
+
+        foreach(range(1, 15) as $_) {
+            DB::table('tags')->insert([
+                'name' => $faker->streetName,
+            ]);
         }
 
 

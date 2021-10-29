@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,9 +48,21 @@ Route::prefix('authors')->name('author_')->group(function () {
     Route::delete('/delete/{author}', [AuthorController::class, 'destroy'])->name('delete');
     Route::get('/show/{author}', [AuthorController::class, 'show'])->name('show');
 });
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 Route::get('/show-author/{id}', [TestController::class, 'showAuthorName'])->name('show_authors_name');
+
+
+Route::prefix('tags')->name('tag_')->group(function () {
+    Route::get('/create', [TagController::class, 'create'])->name('create');
+    Route::post('/store', [TagController::class, 'store'])->name('store');
+    Route::get('/', [TagController::class, 'index'])->name('index');
+    Route::get('/edit/{tag}', [TagController::class, 'edit'])->name('edit');
+    Route::put('/update/{tag}', [TagController::class, 'update'])->name('update');
+    Route::delete('/delete/{tag}', [TagController::class, 'destroy'])->name('delete');
+});
