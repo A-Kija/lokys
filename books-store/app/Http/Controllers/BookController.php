@@ -161,10 +161,15 @@ class BookController extends Controller
         $authors = Author::all();
         $tags = Tag::orderBy('name')->get();
 
+        $bookTags = $book->getTagBooks->pluck('tag_id')->all();
+
+        // dd($bookTags);
+
         return view('book.edit', [
             'book' => $book,
             'authors' => $authors,
-            'tags' => $tags
+            'tags' => $tags,
+            'bookTags' => $bookTags
         ]);
     }
 
@@ -211,6 +216,12 @@ class BookController extends Controller
         // Start Tag Manager
 
         foreach ($request->tag ?? [] as $tagId) {
+            
+            $tagBook = TagBook::where('tag_id', $tagId)
+            ->where('book_id', $book->id)->first();
+            if ($tagBook) {
+                continue;
+            }
             $tagBook = new TagBook;
             $tagBook->tag_id = $tagId;
             $tagBook->book_id = $book->id;

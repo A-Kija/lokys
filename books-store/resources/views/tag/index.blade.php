@@ -36,9 +36,9 @@
                                     </div>
                                     <div class="index-list__content">
                                         <ul class="list-group">
-                                            <li class="list-group-item">
+                                            {{-- <li class="list-group-item">
                                                 <b>Books with tag count:</b>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
                                     <div class="index-list__buttons">

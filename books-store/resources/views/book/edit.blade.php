@@ -37,7 +37,8 @@
                                 <div class="tags-list">
                                     @forelse ($tags as $tag)
                                     <div class="tags-list__tag">
-                                        <input type="checkbox" id="tag-{{$tag->id}}" name="tag[]" value="{{$tag->id}}">
+                                        <input type="checkbox" id="tag-{{$tag->id}}" name="tag[]" value="{{$tag->id}}"
+                                        @if (false !== in_array($tag->id, $bookTags)) checked @endif>
                                         <label for="tag-{{$tag->id}}" class="badge rounded-pill">{{$tag->name}}</label>
                                     </div>
                                     @empty
