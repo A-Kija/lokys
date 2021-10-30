@@ -20,6 +20,7 @@
                         <div class="col-12">
                             @if(session()->has('distance'))
                                 <h2>Distance is: {{session()->get('distance')}} km</h2>
+                                <h4>From {{session()->get('source')}}</h4>
                             @endif
                         </div>
                         <div class="col-12">
