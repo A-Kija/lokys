@@ -18,7 +18,13 @@
                             </div>
                         </div>
                         <div class="col-12">
+                            @if(session()->has('distance'))
+                                <h2>Distance is: {{session()->get('distance')}} km</h2>
+                            @endif
+                        </div>
+                        <div class="col-12">
                             <button type="submit" class="btn btn-success mt-2">Get Distance</button>
+                            <a href="{{route('d24_form')}}" class="btn btn-success mt-2" >New Distance</a>
                         </div>
                         @csrf
                     </form>
