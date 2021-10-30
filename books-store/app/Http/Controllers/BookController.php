@@ -215,8 +215,15 @@ class BookController extends Controller
 
         // Start Tag Manager
 
+        $oldBookTags = $book->getTagBooks->pluck('tag_id')->all();
+        $bookTags = array_map(fn($t) => (int) $t, ($request->tag ?? []));
+        $delBookTags = array_diff($oldBookTags, $bookTags);
+        foreach ($delBookTags as $tagId) {
+            $tagBook = TagBook::where('tag_id', $tagId);
+            $tagBook->delete();
+        }
+
         foreach ($request->tag ?? [] as $tagId) {
-            
             $tagBook = TagBook::where('tag_id', $tagId)
             ->where('book_id', $book->id)->first();
             if ($tagBook) {
