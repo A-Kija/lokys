@@ -10,22 +10,31 @@
                 <div class="card-body">
                     <form action="{{ route('fixer_form_submit') }}" method="post">
                         <div class="row justify-content-center">
-                            <div class="col-6 form-group">
-                                From:<input type="text" class="form-control" name="from" value="{{old('from')}}">
+                            <div class="col-5 form-group">
+                                EUR value:<input type="text" class="form-control" name="eur_value" value="{{session()->get('eur_value', '')}}">
                             </div>
-                            <div class="col-6 form-group">
-                                To:<input type="text" class="form-control" name="to" value="{{old('to')}}">
+                            <div class="col-2 form-group">
+                                Currency:<select name="currency" class="form-control">
+                                @foreach ($data as $name)
+                                    <option value="{{$name}}"
+                                    @if(session()->get('currency', '') == $name) selected @endif
+                                    >{{$name}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="col-5 form-group">
+                                Value:<input type="text" class="form-control" name="value" value="{{session()->get('value', '')}}">
                             </div>
                         </div>
                         <div class="col-12">
                             @if(session()->has('distance'))
-                                <h2>Distance is: {{session()->get('distance')}} km</h2>
-                                <h4>From {{session()->get('source')}}</h4>
+                            <h2>Distance is: {{session()->get('distance')}} km</h2>
+                            <h4>From {{session()->get('source')}}</h4>
                             @endif
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-success mt-2">Get Distance</button>
-                            <a href="{{route('fixer_form')}}" class="btn btn-success mt-2" >New Distance</a>
+                            <button type="submit" class="btn btn-success mt-2">Calculate</button>
+                            <a href="{{route('fixer_form')}}" class="btn btn-success mt-2">New Calculation</a>
                         </div>
                         @csrf
                     </form>
