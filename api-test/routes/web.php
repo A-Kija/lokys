@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\D24Controller;
+use App\Http\Controllers\FixerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,13 @@ Route::get('/', function () {
 
 Route::get('/d24', [D24Controller::class, 'form'])->name('d24_form');
 Route::post('/d24', [D24Controller::class, 'formSubmit'])->name('d24_form_submit');
+
+
+Route::get('/fixer', [FixerController::class, 'form'])->name('fixer_form');
+Route::post('/fixer', [FixerController::class, 'formSubmit'])->name('fixer_form_submit');
+
+
+
 
 Auth::routes();
 
