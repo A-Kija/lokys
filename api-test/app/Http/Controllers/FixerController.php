@@ -8,6 +8,8 @@ use App\Models\Currency;
 
 class FixerController extends Controller
 {
+    const UPDATE_TIME = 60;
+    
     public function form()
     {
         $data = Currency::orderBy('currency')
@@ -20,23 +22,29 @@ class FixerController extends Controller
     public function formSubmit(Request $request)
     {
 
-        // $data = Http::acceptJson()->
-        // get('http://data.fixer.io/api/latest',
-        // ['access_key' => env('FIXER_API')])
-        // ->json();
-
-        // // Currency table update
-        // $time = (int) time();
-        // foreach ($data['rates'] as $currency => $rate) {
-        //     Currency::updateOrCreate(
-        //         ['currency' => $currency],
-        //         ['rate' => (float) $rate, 'time' => $time]
-        //     );
-        // }
-
         $currency = Currency::where('currency', $request->currency)->first();
+        $updated = '';
 
         // Check if need to update
+        if ($currency->time + self::UPDATE_TIME < time()) {
+
+            $data = Http::acceptJson()->
+            get('http://data.fixer.io/api/latest',
+            ['access_key' => env('FIXER_API')])
+            ->json();
+
+            // Currency table update
+            $time = (int) time();
+            foreach ($data['rates'] as $currency => $rate) {
+                Currency::updateOrCreate(
+                    ['currency' => $currency],
+                    ['rate' => (float) $rate, 'time' => $time]
+                );
+            }
+
+            $currency = Currency::where('currency', $request->currency)->first();
+            $updated = 'Currence rates updated.';
+        }
 
         if ($request->eur_value) {
             $eur = (float) $request->eur_value;
@@ -51,6 +59,7 @@ class FixerController extends Controller
         ->back()
         ->with('eur_value', $eur)
         ->with('value', $value)
+        ->with('updated', $updated)
         ->with('currency', $currency->currency);
 
     }
