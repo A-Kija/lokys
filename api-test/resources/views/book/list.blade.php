@@ -13,16 +13,16 @@
                         <div class="col-md-4">
                             <div class="book">
                                 <div class="book__title">
-                                    {{$book['title']}}
+                                    {{$book->title}}
                                 </div>
                                 <div class="book__image">
-                                    <img src="{{$book['img']}}">
+                                    <img src="{{$book->img}}">
                                 </div>
                                 <div class="book__author">
-                                    {{$book['author']}}
+                                    {{$book->author}}
                                 </div>
                                 <div class="book__price">
-                                    <span>{{$book['price']}} EUR</span>
+                                    <span>{{$book->price}} EUR</span>
                                     <button class="btn btn-success">Buy</button>
                                 </div>
                             </div>

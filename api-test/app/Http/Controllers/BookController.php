@@ -12,6 +12,10 @@ class BookController extends Controller
         $data = Http::acceptJson()->
         get('https://in3.dev/knygos/')->
         json();
-        return view('book.list', ['books' => $data]);
+        // Objektu kolekcija
+        $data = array_map(fn($b) => (object) $b, $data);
+        $books = collect($data);
+
+        return view('book.list', ['books' => $books]);
     }
 }
