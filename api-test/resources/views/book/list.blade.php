@@ -6,6 +6,19 @@
             <div class="card">
                 <div class="card-header">
                     <h1>Books</h1>
+                    <div class="front-sort">
+                        <form action="{{route('books')}}" method="GET">
+                            <div class="form-group">
+                                <label>Sort by:</label>
+                                <select class="form-control" name="sort">
+                                    <option value="title">Title</option>
+                                    <option value="price_asc" @if('price_asc' == $select)selected @endif>Price from the lowest</option>
+                                    <option value="price_desc" @if('price_desc' == $select)selected @endif>Price from the highest</option>
+                                </select>
+                                <button type="submit" class="btn btn-secondary mt-2">Sort</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row justify-content-center">

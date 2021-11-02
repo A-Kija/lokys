@@ -7,6 +7,16 @@
     margin-bottom: 0;
     background-color: rgba(5, 49, 144, 0.3);
     border-bottom: 1px solid rgba(5, 49, 144, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .front-sort {
+        select {
+            outline: none;
+            box-shadow: none;
+            max-width: 200px;
+        }
+    }
 }
 
 .book {
