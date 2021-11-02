@@ -1,0 +1,47 @@
+.card {
+    border: none;
+}
+
+.card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(5, 49, 144, 0.3);
+    border-bottom: 1px solid rgba(5, 49, 144, 0.2);
+}
+
+.book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    &__image {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    &__title {
+        font-size: 20px;
+        line-height: 22px;
+        color: brown;
+        margin-bottom: 7px;
+        height: 60px;
+        overflow: hidden;
+        letter-spacing: -.3px;
+    }
+    &__author {
+        padding: 7px 0 10px;
+        color: coral;
+    }
+    &__price {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        span {
+            font-size: 30px;
+            font-weight: bold;
+            color: crimson;
+        }
+    }
+}
