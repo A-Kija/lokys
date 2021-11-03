@@ -9,13 +9,13 @@
                     <div class="front-sort">
                         <form action="{{route('books')}}" method="GET">
                             <div class="form-group">
-                                <label>Sort by:</label>
-                                <select class="form-control" name="sort">
+                                <label class="m-2">Sort by:</label>
+                                <select class="form-control m-2" name="sort">
                                     <option value="title">Title</option>
-                                    <option value="price_asc" @if('price_asc' == $select)selected @endif>Price from the lowest</option>
-                                    <option value="price_desc" @if('price_desc' == $select)selected @endif>Price from the highest</option>
+                                    <option value="price_asc" @if('price_asc'==$select)selected @endif>Price from the lowest</option>
+                                    <option value="price_desc" @if('price_desc'==$select)selected @endif>Price from the highest</option>
                                 </select>
-                                <button type="submit" class="btn btn-secondary mt-2">Sort</button>
+                                <button type="submit" class="btn btn-secondary m-2">Sort</button>
                             </div>
                         </form>
                     </div>
@@ -27,6 +27,9 @@
                             <div class="book">
                                 <div class="book__title">
                                     {{$book->title}}
+                                </div>
+                                <div class="book__cat">
+                                    {{$book->cat}}
                                 </div>
                                 <div class="book__image">
                                     <img src="{{$book->img}}">
