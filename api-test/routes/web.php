@@ -32,8 +32,8 @@ Route::post('/fixer', [FixerController::class, 'formSubmit'])->name('fixer_form_
 
 Route::get('/knygos', [BookController::class, 'showList'])->name('books');
 
-Route::get('/books-store', [BookStoreController::class, 'showList'])->name('books-store');
-
+Route::get('/books-store', [BookStoreController::class, 'showList'])->name('books_store');
+Route::get('/books-store/show-{id}', [BookStoreController::class, 'showBook'])->name('books_store_show_book');
 
 
 

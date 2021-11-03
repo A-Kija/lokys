@@ -38,13 +38,14 @@
         justify-content: center;
         align-items: flex-start;
     }
-    &__title {
+    &__title a {
         font-size: 20px;
         line-height: 22px;
         color: brown;
         height: 60px;
         overflow: hidden;
         letter-spacing: -.3px;
+        text-decoration: none;
     }
     &__cat {
         font-size: 15px;

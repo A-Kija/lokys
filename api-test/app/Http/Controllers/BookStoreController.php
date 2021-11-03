@@ -20,4 +20,14 @@ class BookStoreController extends Controller
         return view('book_store.list', ['books' => $books]);
 
     }
+
+    public function showBook($id)
+    {
+        $data = Http::acceptJson()->
+        get('http://localhost/books-store/public/api/book/'.$id)->
+        json();
+
+        dd($data);
+    }
+
 }

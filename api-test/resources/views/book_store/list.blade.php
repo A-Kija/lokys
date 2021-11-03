@@ -13,7 +13,7 @@
                         <div class="col-md-4">
                             <div class="book">
                                 <div class="book__title">
-                                    {{$book->title}}
+                                    <a href="{{route('books_store_show_book', $book->id)}}">{{$book->title}}</a>
                                 </div>
                                 <div class="book__author">
                                     {{$book->author_id}}

@@ -13,3 +13,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/books', function () {
     return new BookCollection(Book::all());
 });
+
+Route::get('/book/{id}', function ($id) {
+    return new BookCollection(Book::where('id', $id)->get());
+});
