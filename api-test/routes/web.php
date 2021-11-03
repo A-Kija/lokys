@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\D24Controller;
 use App\Http\Controllers\FixerController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookStoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::post('/fixer', [FixerController::class, 'formSubmit'])->name('fixer_form_
 
 
 Route::get('/knygos', [BookController::class, 'showList'])->name('books');
+
+Route::get('/books-store', [BookStoreController::class, 'showList'])->name('books-store');
 
 
 
