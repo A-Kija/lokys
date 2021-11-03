@@ -13,6 +13,11 @@ class BookStoreController extends Controller
         get('http://localhost/books-store/public/api/books')->
         json();
 
-        dd($data);
+        $data = array_map(fn($b) => (object) $b, $data['data']);
+        $books = collect($data)->sortBy('title');
+
+
+        return view('book_store.list', ['books' => $books]);
+
     }
 }

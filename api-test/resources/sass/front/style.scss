@@ -60,6 +60,16 @@
         padding: 7px 0 10px;
         color: coral;
     }
+    &__about {
+        padding: 7px 0 10px;
+        color: gray;
+        font-size: 10px;
+    }
+    &__info {
+        padding: 7px 0 10px;
+        color: orange;
+        font-size: 14px;
+    }
     &__price {
         display: flex;
         justify-content: space-around;
