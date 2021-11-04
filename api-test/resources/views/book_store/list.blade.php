@@ -16,7 +16,7 @@
                                     <a href="{{route('books_store_show_book', $book->id)}}">{{$book->title}}</a>
                                 </div>
                                 <div class="book__author">
-                                    {{$book->author_id}}
+                                    {{$book->author}}
                                 </div>
                                 <div class="book__about">
                                     {{$book->about}}

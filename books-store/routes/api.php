@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Resources\BookCollection;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 
 
@@ -11,9 +11,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/books', function () {
-    return new BookCollection(Book::all());
+    // return new BookCollection(Book::all());
+    return BookResource::collection(Book::all());
 });
 
-Route::get('/book/{id}', function ($id) {
-    return new BookCollection(Book::where('id', $id)->get());
-});
