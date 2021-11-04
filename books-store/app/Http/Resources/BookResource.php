@@ -21,6 +21,7 @@ class BookResource extends JsonResource
             'pages' => $this->pages,
             'about' => $this->about,
             'author' => $this->getAuthor->name.' '.$this->getAuthor->surname,
+            'photo' => $this->getMainPhoto->first()
         ];
     }
 }

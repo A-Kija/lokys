@@ -21,6 +21,12 @@ class Book extends Model
     }
 
 
+    public function getMainPhoto()
+    {
+        return $this->hasMany(BookPhoto::class, 'book_id', 'id')->limit(1);
+    }
+
+
     public function getTagBooks()
     {
         return $this->hasMany(TagBook::class, 'book_id', 'id');
