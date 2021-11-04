@@ -23,7 +23,7 @@ class Book extends Model
 
     public function getMainPhoto()
     {
-        return $this->hasMany(BookPhoto::class, 'book_id', 'id')->limit(1);
+        return $this->hasMany(BookPhoto::class, 'book_id', 'id')->where('main', 1);
     }
 
 

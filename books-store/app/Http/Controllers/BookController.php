@@ -264,7 +264,7 @@ class BookController extends Controller
 
         // SET main photo
         $mainId = (int) $request->main_photo ?? 0;
-        foreach (BookPhoto::all() as $photo) {
+        foreach (BookPhoto::where('book_id', $book->id)->get() as $photo) {
             if ($photo->id == $mainId) {
                 $photo->main = 1;
             }
