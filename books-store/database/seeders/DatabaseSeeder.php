@@ -50,11 +50,14 @@ class DatabaseSeeder extends Seeder
             if (!rand(0, 4)) {
                 continue;
             }
+            $main = true;
             foreach(range(1, rand(1, 8)) as $_) {
                 DB::table('book_photos')->insert([
                     'photo' => $faker->imageUrl(200, 250, 'ID: '.$id, false),
-                    'book_id' => $id
+                    'book_id' => $id,
+                    'main' => $main ? 1 : null
                 ]);
+                $main = false;
             }
         }
 

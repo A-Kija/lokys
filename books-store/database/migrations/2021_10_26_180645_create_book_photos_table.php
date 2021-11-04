@@ -16,6 +16,7 @@ class CreateBookPhotosTable extends Migration
         Schema::create('book_photos', function (Blueprint $table) {
             $table->id();
             $table->string('photo', 255)->nullable();
+            $table->unsignedTinyInteger('main')->nullable();
             $table->unsignedBigInteger('book_id');
             $table->foreign('book_id')->references('id')->on('books');
             $table->timestamps();

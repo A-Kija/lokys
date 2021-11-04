@@ -37,8 +37,7 @@
                                 <div class="tags-list">
                                     @forelse ($tags as $tag)
                                     <div class="tags-list__tag">
-                                        <input type="checkbox" id="tag-{{$tag->id}}" name="tag[]" value="{{$tag->id}}"
-                                        @if (false !== in_array($tag->id, $bookTags)) checked @endif>
+                                        <input type="checkbox" id="tag-{{$tag->id}}" name="tag[]" value="{{$tag->id}}" @if (false !==in_array($tag->id, $bookTags)) checked @endif>
                                         <label for="tag-{{$tag->id}}" class="badge rounded-pill">{{$tag->name}}</label>
                                     </div>
                                     @empty
@@ -56,6 +55,13 @@
                                             <input type="checkbox" class="form-check-input" name="delete_photo[]" value="{{$photo->id}}">
                                             <label class="form-check-label">
                                                 delete photo
+                                            </label>
+                                        </div>
+                                        <div class="form-check mt-2">
+                                            <input type="radio" class="form-check-input" name="main_photo" value="{{$photo->id}}"
+                                            @if($photo->main) checked @endif>
+                                            <label class="form-check-label">
+                                                set as main
                                             </label>
                                         </div>
                                     </div>

@@ -245,6 +245,7 @@ class BookController extends Controller
         // End Tag Manager
         
 
+        // ADD New photos
         if ($request->file('book_photo')) {
             foreach ($request->file('book_photo') as $photo) {
                 $bookPhoto = new BookPhoto;
@@ -254,11 +255,23 @@ class BookController extends Controller
             }
         }
 
-
+        // DELETE photos
         foreach ($request->delete_photo ?? [] as $photoId) {
             $bookPhoto = BookPhoto::where('id', $photoId)->first();
             $bookPhoto->deleteOldImage();
             $bookPhoto->delete();
+        }
+
+        // SET main photo
+        $mainId = (int) $request->main_photo ?? 0;
+        foreach (BookPhoto::all() as $photo) {
+            if ($photo->id == $mainId) {
+                $photo->main = 1;
+            }
+            else {
+                $photo->main = null;
+            }
+            $photo->save();
         }
 
 
