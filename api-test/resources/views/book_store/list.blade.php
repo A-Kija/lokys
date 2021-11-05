@@ -19,7 +19,9 @@
                                     {{$book->author}}
                                 </div>
                                 <div class="book__image">
-                                    <img src="{{$book->photo->photo ?? ''}}">
+                                    <div class="book__image__img">
+                                        <img src="{{$book->photo ?? asset('img/no-image.png')}}">
+                                    </div>
                                 </div>
                                 <div class="book__about">
                                     {{$book->about}}

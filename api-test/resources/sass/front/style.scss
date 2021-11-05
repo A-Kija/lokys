@@ -37,6 +37,16 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
+        &__img {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 250px;
+            overflow: hidden;
+            img {
+                max-width: 200px;
+            }
+        }
     }
     &__title a {
         font-size: 20px;

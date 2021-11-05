@@ -14,18 +14,11 @@ class BookStoreController extends Controller
         json();
 
         $data = array_map(
-            function($b) 
-                {
-                    $b = (object) $b;
-                    $b->photo = (object) $b->photo;
-                    return $b;
-                }
+                fn($b) => (object) $b
                 , 
                 $data['data']
             );
         $books = collect($data)->sortBy('title');
-
-  
 
         return view('book_store.list', ['books' => $books]);
 
