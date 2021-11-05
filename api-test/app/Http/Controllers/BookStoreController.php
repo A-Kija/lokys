@@ -35,6 +35,12 @@ class BookStoreController extends Controller
             $photo = (object) $photo;
         }
 
+        foreach($book->tags as &$tag) {
+            $tag = (object) $tag;
+        }
+
+        // dd($book);
+
         return view('book_store.one', ['book' => $book]);
     }
 

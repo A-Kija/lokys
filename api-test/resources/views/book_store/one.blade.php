@@ -28,6 +28,15 @@
                                 <div class="book__about">
                                     {{$book->about}}
                                 </div>
+                                <div class="book__tags">
+                                    @forelse ($book->tags as $tag)
+                                    <div class="book__tags__tag">
+                                        <span class="badge rounded-pill badge-info">#{{$tag->name}}</span>
+                                    </div>
+                                    @empty
+                                    <h3>No tags</h3>
+                                    @endforelse
+                                </div>
                                 <div class="book__info">
                                     <div><b>Pages:</b> {{$book->pages}}</div>
                                     <div><b>ISBN:</b> {{$book->isbn}}</div>

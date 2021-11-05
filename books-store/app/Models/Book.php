@@ -32,4 +32,10 @@ class Book extends Model
         return $this->hasMany(TagBook::class, 'book_id', 'id');
     }
 
+    public function getTags()
+    {
+        return $this->belongsToMany(Tag::class, 'tag_books', 'book_id', 'tag_id');
+    }
+
+
 }

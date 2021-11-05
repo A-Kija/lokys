@@ -36,7 +36,7 @@ class BookController extends Controller
             $books = Book::where('title', 'like', '%'.$request->s.'%')->get();
         }
         else {
-            $books = Book::orderBy('updated_at', 'desc')->get();
+            $books = Book::all()->sortBy('title');
         }
         
 

@@ -65,6 +65,19 @@
             }
         }
     }
+    &__tags {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        &__tag {
+            margin: 10px;
+            span {
+                padding: 8px 15px;
+                letter-spacing: 1px;
+            }
+        }
+    }
     &__title a {
         font-size: 20px;
         line-height: 22px;
