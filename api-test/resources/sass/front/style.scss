@@ -48,6 +48,23 @@
             }
         }
     }
+    &__images {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        &__img {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 250px;
+            overflow: hidden;
+            img {
+                max-width: 200px;
+                padding: 5px;
+            }
+        }
+    }
     &__title a {
         font-size: 20px;
         line-height: 22px;

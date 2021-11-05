@@ -14,7 +14,19 @@ class BookResource extends JsonResource
      */
     public function toArray($request)
     {
-        
+
+        if (array_key_exists('one', $request->all())) {
+            return [
+                'id' => $this->id,
+                'title' => $this->title,
+                'isbn' => $this->isbn,
+                'pages' => $this->pages,
+                'about' => $this->about,
+                'author' => $this->getAuthor->name.' '.$this->getAuthor->surname,
+                'photos' => $this->getPhotos
+            ];
+        }
+
         return [
             'id' => $this->id,
             'title' => $this->title,

@@ -21,16 +21,21 @@ class BookStoreController extends Controller
         $books = collect($data)->sortBy('title');
 
         return view('book_store.list', ['books' => $books]);
-
     }
 
     public function showBook($id)
     {
         $data = Http::acceptJson()->
-        get('http://localhost/books-store/public/api/book/'.$id)->
+        get('http://localhost/books-store/public/api/book/show'.$id.'?one')->
         json();
 
-        dd($data);
+        $book = (object) $data['data'][0];
+
+        foreach($book->photos as &$photo) {
+            $photo = (object) $photo;
+        }
+
+        return view('book_store.one', ['book' => $book]);
     }
 
 }

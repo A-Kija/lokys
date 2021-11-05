@@ -15,3 +15,8 @@ Route::get('/books', function () {
     return BookResource::collection(Book::all());
 });
 
+
+Route::get('/book/show{id}', function ($id) {
+    return BookResource::collection(Book::where('id', $id)->get());
+});
+
