@@ -12,8 +12,24 @@ class PiController extends Controller
         return view('go');
     }
 
-    public function startPayment(PayseraService $paysera) 
+    public function startPayment(PayseraService $paysera, Request $request) 
     {
-        return redirect($paysera->redirectToPayment());
+        return redirect($paysera->redirectToPayment($request));
+    }
+
+    public function cancel()
+    {
+        return view('paysera.cancel');
+    }
+
+    public function accept(PayseraService $paysera)
+    {
+        $paysera->makePayment();
+        return redirect()->route('thank-you');
+    }
+
+    public function thankYou()
+    {
+        return view('paysera.thank_you');
     }
 }

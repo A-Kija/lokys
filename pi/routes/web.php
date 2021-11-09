@@ -24,8 +24,9 @@ Route::post('go', [PiController::class, 'startPayment'])->name('start-payment');
 
 Route::prefix('paysera')->name('paysera_')->group(function () {
     Route::get('/accept', [PiController::class, 'accept'])->name('accept');
-    Route::post('/cancel', [PiController::class, 'cancel'])->name('cancel');
+    Route::get('/cancel', [PiController::class, 'cancel'])->name('cancel');
     Route::get('/callback', [PiController::class, 'callback'])->name('callback');
+    Route::get('/thank-you', [PiController::class, 'thankYou'])->name('thank-you');
     
 });
 
