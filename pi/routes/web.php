@@ -26,7 +26,7 @@ Route::prefix('paysera')->name('paysera_')->group(function () {
     Route::get('/accept', [PiController::class, 'accept'])->name('accept');
     Route::get('/cancel', [PiController::class, 'cancel'])->name('cancel');
     Route::get('/callback', [PiController::class, 'callback'])->name('callback');
-    Route::get('/thank-you', [PiController::class, 'thankYou'])->name('thank-you');
+    Route::get('/thank-you', [PiController::class, 'thankYou'])->name('thank_you');
     
 });
 

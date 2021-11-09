@@ -55,7 +55,7 @@ class PayseraService {
         
             if ($response['status'] === '1' || $response['status'] === '3') {
                 // apsidoroti pirkimą
-                dd($response);
+                return $response;
             } 
             else {
                 throw new Exception('Payment was not successful');
