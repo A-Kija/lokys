@@ -44,4 +44,11 @@ class PiController extends Controller
     {
         return view('paysera.thank_you');
     }
+
+
+
+
+
+
+
 }

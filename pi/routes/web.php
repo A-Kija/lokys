@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PiController;
+use App\Http\Controllers\DoTenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,7 @@ Route::prefix('paysera')->name('paysera_')->group(function () {
     Route::get('/thank-you', [PiController::class, 'thankYou'])->name('thank_you');
     
 });
+
+
+Route::get('10', [DoTenController::class, 'multi10'])->name('multi10');
 

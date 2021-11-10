@@ -2,20 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <title>Go GO & Buy</title>
+    <title>Do 10</title>
 </head>
 <body>
-    <form action="{{route('start-payment')}}" method="POST">
+    <h1 style="color:green;">{{$digit}}</h1>
+    <form action="{{route('multi10')}}" method="GET">
 
-        <div>Name<input type="text" name="buyer_name"><div>
-        <div>Last Name<input type="text" name="buyer_last_name"><div>
-        <div>Email<input type="text" name="buyer_email"><div>
-        <div>Total<input type="text" name="total"><div>
+        <div>Digit: <input type="text" name="digit"><div>
 
         <button type="submit">
             <h1 style="color:pink;">GO GO</h1>
         </button>
-        @csrf
 
     </form>
 </body>
