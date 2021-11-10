@@ -36,10 +36,10 @@
                 </div>
                 <div class="card-body">
                     <div class="container">
-                        @forelse ($books->chunk(3) as $chunk)
+                        @forelse ($books->chunk(2) as $chunk)
                         <div class="row justify-content-center">
                             @foreach ($chunk as $book)
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="index-list">
                                     <div class="index-list__extra">
                                         {{$book->title}}
@@ -84,6 +84,7 @@
                         </div>
                         @endforelse
                     </div>
+                    {{ $books->links() }}
                 </div>
             </div>
         </div>

@@ -34,6 +34,9 @@ class Book extends Model
 
     public function getTags()
     {
+        
+        // $request->replace(['outfit_price' => 10.55]);
+        
         return $this->belongsToMany(Tag::class, 'tag_books', 'book_id', 'tag_id');
     }
 

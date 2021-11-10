@@ -13,7 +13,8 @@ use PDF;
 
 class BookController extends Controller
 {
-    
+    const PAGES = 20;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -26,7 +27,6 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
-        
         $authors = Author::orderBy('name')->get(); // select
 
         if ($request->author) {
@@ -36,20 +36,8 @@ class BookController extends Controller
             $books = Book::where('title', 'like', '%'.$request->s.'%')->get();
         }
         else {
-            $books = Book::all()->sortBy('title');
+            $books = Book::orderBy('title')->paginate(self::PAGES);
         }
-        
-
-        // dd($books->contains(function ($book, $key) {
-        //     return $book->title == 'Troba pilna Diedu333';
-        // }));
-
-        // $books = $books->nth(2);
-
-        // $plucked = $books->pluck('title')->all();
-
-        // dd($plucked);
-
         return view('book.index', [
             'books' => $books,
             'authors' => $authors,
