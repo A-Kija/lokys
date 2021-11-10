@@ -32,5 +32,7 @@ Route::prefix('paysera')->name('paysera_')->group(function () {
 });
 
 
-Route::get('10', [DoTenController::class, 'multi10'])->name('multi10');
+Route::get('10', [DoTenController::class, 'multi10'])
+->name('multi10')
+->middleware('multi10');
 
