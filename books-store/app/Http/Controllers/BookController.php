@@ -13,7 +13,7 @@ use PDF;
 
 class BookController extends Controller
 {
-    const PAGES = 20;
+    const PAGES = 4;
 
     public function __construct()
     {
@@ -30,13 +30,13 @@ class BookController extends Controller
         $authors = Author::orderBy('name')->get(); // select
 
         if ($request->author) {
-            $books = Book::where('author_id', $request->author)->get();
+            $books = Book::where('author_id', $request->author)->paginate(self::PAGES)->withQueryString();
         }
         elseif ($request->s) {
-            $books = Book::where('title', 'like', '%'.$request->s.'%')->get();
+            $books = Book::where('title', 'like', '%'.$request->s.'%')->paginate(self::PAGES)->withQueryString();
         }
         else {
-            $books = Book::orderBy('title')->paginate(self::PAGES);
+            $books = Book::orderBy('title')->paginate(self::PAGES)->withQueryString();
         }
         return view('book.index', [
             'books' => $books,
