@@ -44,3 +44,18 @@ window.addEventListener('DOMContentLoaded', () => {
         })
     }
 });
+
+// Authors List
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (document.querySelector('#authors--list')) {
+        const url = document.querySelector('#authors--list').dataset.url;
+        axios.get(url)
+            .then(response => {
+                // handle success
+                console.log(response);
+                document.querySelector('#authors--list').innerHTML = response.data
+            })
+
+    }
+});

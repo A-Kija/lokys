@@ -26,6 +26,7 @@ class AuthorController extends Controller
         // Collection PHP sortBy(a), sortByDesc(a)
         // MariaDB DB orderBy(a), orderBy(a, 'desc')
 
+
         
         if ($request->sort) {
             if ('name_asc' == $request->sort) {
@@ -54,6 +55,12 @@ class AuthorController extends Controller
         
         ]);
 
+    }
+
+    public function list() 
+    {
+        sleep(4);
+        return 'Hello';
     }
 
     /**
