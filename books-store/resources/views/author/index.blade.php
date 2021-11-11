@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="card-body" id="authors--list" data-url="{{route('author_list')}}">
-                    LISTAS
+                    <div class="loader">Loading...</div>
                 </div>
             </div>
         </div>
