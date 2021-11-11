@@ -59,11 +59,28 @@ class AuthorController extends Controller
 
     }
 
-    public function list() 
+    public function list(Request $request) 
     {
-        // sleep(4);
-
-        $authors = Author::all();
+        if ($request->sort) {
+            if ('name_asc' == $request->sort) {
+                $authors = Author::orderBy('name')->get();
+            }
+            else if ('name_desc' == $request->sort) {
+                $authors = Author::orderBy('name', 'desc')->get();
+            }
+            else if ('new_asc' == $request->sort) {
+                $authors = Author::orderBy('created_at', 'desc')->get();
+            }
+            else if ('new_desc' == $request->sort) {
+                $authors = Author::orderBy('created_at')->get();
+            }
+            else {
+                $authors = Author::all(); // invalid sort input
+            }
+        }
+        else {
+            $authors = Author::all(); // w/o sort
+        }
 
         $html = View::make('author.list')
         ->with('authors', $authors)
