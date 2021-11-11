@@ -54,7 +54,7 @@ window.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 // handle success
                 console.log(response);
-                document.querySelector('#authors--list').innerHTML = response.data
+                document.querySelector('#authors--list').innerHTML = response.data.html;
             })
 
     }

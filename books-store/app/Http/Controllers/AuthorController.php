@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Validator;
+use View;
+use Response;
 
 class AuthorController extends Controller
 {
@@ -59,8 +61,18 @@ class AuthorController extends Controller
 
     public function list() 
     {
-        sleep(4);
-        return 'Hello';
+        // sleep(4);
+
+        $authors = Author::all();
+
+        $html = View::make('author.list')
+        ->with('authors', $authors)
+        ->render();
+
+        return Response::json([
+            'html' => $html,
+            'status' => 'OK' // tiesiog kaip pvz
+        ]);
     }
 
     /**
