@@ -12,8 +12,8 @@
                                 <div class="form-group">
                                     <select name="sort" class="form-control" id="sort-select">
                                         <option value="">Sort By</option>
-                                        <option value="name_asc">Name A->Z</option>
-                                        <option value="name_desc">Name Z->A</option>
+                                        <option value="asc">Name A->Z</option>
+                                        <option value="desc">Name Z->A</option>
                                         <option value="new_asc">New A->Z</option>
                                         <option value="new_desc">New Z->A</option>
                                     </select>

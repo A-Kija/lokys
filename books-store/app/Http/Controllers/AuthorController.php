@@ -61,6 +61,8 @@ class AuthorController extends Controller
 
     public function list(Request $request) 
     {
+        // sleep(5);
+        
         if ($request->sort) {
             if ('name_asc' == $request->sort) {
                 $authors = Author::orderBy('name')->get();

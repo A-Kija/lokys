@@ -3,7 +3,6 @@ require('./bootstrap');
 // Delete Comfirmation
 window.addEventListener('DOMContentLoaded', () => {
     const body = document.querySelector('body');
-
     if (document.querySelector('.cancel--confirm--button')) {
         document.querySelector('.cancel--confirm--button')
             .addEventListener('click', () => {
@@ -12,9 +11,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 modal.style.display = 'none';
             })
     }
+});
+
+const handleDeleteButtons = () => {
     document.querySelectorAll('.delete--button').forEach(b => {
         b.addEventListener('click', () => {
             const modal = document.querySelector('#confirm-modal');
+            const body = document.querySelector('body');
             modal.style.display = 'flex';
             modal.style.top = window.scrollY + 'px';
             body.style.overflow = 'hidden';
@@ -22,7 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
             form.setAttribute('action', b.dataset.action);
         })
     });
-});
+}
 
 
 // Manage photos
@@ -55,10 +58,10 @@ window.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#authors--list').innerHTML = '<div class="loader"></div>';
             let sort;
             switch (e.target.value) {
-                case 'name_asc':
+                case 'asc':
                     sort = '?sort=name_asc';
                     break;
-                case 'name_desc':
+                case 'desc':
                     sort = '?sort=name_desc';
                     break;
                 case 'new_asc':
@@ -73,6 +76,8 @@ window.addEventListener('DOMContentLoaded', () => {
             axios.get(url + sort)
                 .then(response => {
                     document.querySelector('#authors--list').innerHTML = response.data.html;
+                    console.log('ziureti butonus')
+                    handleDeleteButtons();
                 })
         })
 
@@ -83,9 +88,9 @@ window.addEventListener('DOMContentLoaded', () => {
         const url = document.querySelector('#authors--list').dataset.url;
         axios.get(url + '?sort=name_desc')
             .then(response => {
-                // handle success
-                console.log(response);
                 document.querySelector('#authors--list').innerHTML = response.data.html;
+                console.log('ziureti butonus')
+                handleDeleteButtons();
             })
 
     }

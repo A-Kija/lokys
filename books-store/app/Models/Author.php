@@ -42,6 +42,9 @@ class Author extends Model
     public function deleteOldPortret()
     {
         $oldPhoto = $this->photo;
+        if (null === $oldPhoto) {
+            return;
+        }
         $oldPhoto = str_replace(asset(''), '', $oldPhoto);
         $oldPhoto = public_path() . '/'.$oldPhoto;
         if (file_exists($oldPhoto)) {
