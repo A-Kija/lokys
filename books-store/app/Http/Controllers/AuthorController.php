@@ -10,7 +10,7 @@ use Response;
 
 class AuthorController extends Controller
 {
-    
+    const PAGES = 4;
     public function __construct()
     {
         $this->middleware('auth');
@@ -27,28 +27,26 @@ class AuthorController extends Controller
         
         // Collection PHP sortBy(a), sortByDesc(a)
         // MariaDB DB orderBy(a), orderBy(a, 'desc')
-
-
         
         if ($request->sort) {
             if ('name_asc' == $request->sort) {
-                $authors = Author::orderBy('name')->get();
+                $authors = Author::orderBy('name')->paginate(self::PAGES)->withQueryString();
             }
             else if ('name_desc' == $request->sort) {
-                $authors = Author::orderBy('name', 'desc')->get();
+                $authors = Author::orderBy('name', 'desc')->paginate(self::PAGES)->withQueryString();
             }
             else if ('new_asc' == $request->sort) {
-                $authors = Author::orderBy('created_at', 'desc')->get();
+                $authors = Author::orderBy('created_at', 'desc')->paginate(self::PAGES)->withQueryString();
             }
             else if ('new_desc' == $request->sort) {
-                $authors = Author::orderBy('created_at')->get();
+                $authors = Author::orderBy('created_at')->paginate(self::PAGES)->withQueryString();
             }
             else {
-                $authors = Author::all(); // invalid sort input
+                $authors = Author::paginate(self::PAGES)->withQueryString(); // invalid sort input
             }
         }
         else {
-            $authors = Author::all(); // w/o sort
+            $authors = Author::paginate(self::PAGES)->withQueryString(); // w/o sort
         }
 
         return view('author.index', [
@@ -65,24 +63,26 @@ class AuthorController extends Controller
         
         if ($request->sort) {
             if ('name_asc' == $request->sort) {
-                $authors = Author::orderBy('name')->get();
+                $authors = Author::orderBy('name')->paginate(self::PAGES)->withQueryString();
             }
             else if ('name_desc' == $request->sort) {
-                $authors = Author::orderBy('name', 'desc')->get();
+                $authors = Author::orderBy('name', 'desc')->paginate(self::PAGES)->withQueryString();
             }
             else if ('new_asc' == $request->sort) {
-                $authors = Author::orderBy('created_at', 'desc')->get();
+                $authors = Author::orderBy('created_at', 'desc')->paginate(self::PAGES)->withQueryString();
             }
             else if ('new_desc' == $request->sort) {
-                $authors = Author::orderBy('created_at')->get();
+                $authors = Author::orderBy('created_at')->paginate(self::PAGES)->withQueryString();
             }
             else {
-                $authors = Author::all(); // invalid sort input
+                $authors = Author::paginate(self::PAGES)->withQueryString(); // invalid sort input
             }
         }
         else {
-            $authors = Author::all(); // w/o sort
+            $authors = Author::paginate(self::PAGES)->withQueryString(); // w/o sort
         }
+
+        $authors->withPath('');
 
         $html = View::make('author.list')
         ->with('authors', $authors)
@@ -93,6 +93,7 @@ class AuthorController extends Controller
             'status' => 'OK' // tiesiog kaip pvz
         ]);
     }
+   
 
     /**
      * Show the form for creating a new resource.

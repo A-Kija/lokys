@@ -11,8 +11,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 modal.style.display = 'none';
             })
     }
+    handleDeleteButtons();
 });
 
+
+// Handlers
 const handleDeleteButtons = () => {
     document.querySelectorAll('.delete--button').forEach(b => {
         b.addEventListener('click', () => {
@@ -25,6 +28,16 @@ const handleDeleteButtons = () => {
             form.setAttribute('action', b.dataset.action);
         })
     });
+}
+
+const pageSelector = () => {
+    document.querySelector('#authors--pages')
+        .querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                getAuthorsList();
+            })
+        })
 }
 
 
@@ -49,11 +62,10 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // Authors List
-
 window.addEventListener('DOMContentLoaded', () => {
 
+    // Sort Selector
     if (document.querySelector('#sort-select')) {
-        const url = document.querySelector('#authors--list').dataset.url;
         document.querySelector('#sort-select').addEventListener('change', e => {
             document.querySelector('#authors--list').innerHTML = '<div class="loader"></div>';
             let sort;
@@ -73,25 +85,46 @@ window.addEventListener('DOMContentLoaded', () => {
                 default:
                     sort = '';
             }
-            axios.get(url + sort)
-                .then(response => {
-                    document.querySelector('#authors--list').innerHTML = response.data.html;
-                    console.log('ziureti butonus')
-                    handleDeleteButtons();
-                })
+            getAuthorsList(sort);
         })
-
     }
 
+    // Page Selector
+    const pageSelector = () => {
+        document.querySelector('#authors--pages')
+            .querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', e => {
+                    e.preventDefault();
+                    console.log(a.getAttribute('href'))
+                    getAuthorsList(a.getAttribute('href'));
+                })
+            })
+    }
 
-    if (document.querySelector('#authors--list')) {
+    const getAuthorsList = (query = '') => {
         const url = document.querySelector('#authors--list').dataset.url;
-        axios.get(url + '?sort=name_desc')
+        axios.get(url + query)
             .then(response => {
                 document.querySelector('#authors--list').innerHTML = response.data.html;
-                console.log('ziureti butonus')
+                pageSelector();
                 handleDeleteButtons();
             })
-
     }
+
+    // Handlers
+    const handleDeleteButtons = () => {
+        document.querySelectorAll('.delete--button').forEach(b => {
+            b.addEventListener('click', () => {
+                const modal = document.querySelector('#confirm-modal');
+                const body = document.querySelector('body');
+                modal.style.display = 'flex';
+                modal.style.top = window.scrollY + 'px';
+                body.style.overflow = 'hidden';
+                const form = modal.querySelector('form');
+                form.setAttribute('action', b.dataset.action);
+            })
+        });
+    }
+
+    getAuthorsList();
 });

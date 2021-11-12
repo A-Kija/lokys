@@ -1,3 +1,6 @@
+<div class="m-4" id="authors--pages">
+    {{$authors->links()}}
+</div>
 <div class="container">
     @foreach ($authors->chunk(3) as $chunk)
     <div class="row justify-content-center">
